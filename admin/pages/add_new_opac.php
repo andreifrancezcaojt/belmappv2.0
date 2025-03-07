@@ -15,21 +15,6 @@ function getOpacData($conn) {
 
 $result = getOpacData($conn); // Call the function to get data
 
-// if(isset($_POST['opac_link'])){
-
-//     $id = mysqli_real_escape_string($conn, $_POST['id']);
-//     $opac_link = mysqli_real_escape_string($conn, $_POST['opac_link']);
-
-//     // Update query
-//     $query = "UPDATE opac SET opac_link = '$opac_link' WHERE id = '$id'";
-
-//     if (mysqli_query($conn, $query)) {
-//         // echo "Update successful"; // Respond with a success message
-//     } else {
-//         // echo "Error updating record: " . mysqli_error($conn); // Display error message
-//     }
-// }
-
 if(isset($_POST['opac_link'])){
     $link = $_POST['opac_link'];
 
