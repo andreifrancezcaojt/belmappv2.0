@@ -103,7 +103,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
 <body>
     <div class="container">
         <!-- First Table: Most Frequent User -->
-        <!-- <div class="table-responsive bg-white shadow">
+        <div class="table-responsive bg-white shadow">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
@@ -113,19 +113,20 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                     </div>
                 </div>
                 <table class="table table-striped table-hover" id="myTable">
-                    <thead>
+                    <thead class="text-center">
                         <tr>
-                            <th>ID</th>
+                            <th>User ID</th>
                             <th>Username</th>
-                            <th>Login Count</th>
+                            <th>Login Frequency</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         <?php
                         $q1 = "SELECT a.id, a.username, COUNT(b.user_id) AS login_count
                                FROM users a
                                JOIN login_history b ON a.id = b.user_id
                                GROUP BY a.id, a.username
+                               ORDER BY login_count DESC
                                LIMIT $start_from1, $num_per_page";
                         $rs1 = mysqli_query($conn, $q1);
 
@@ -160,74 +161,6 @@ $start_from2 = ($page2 - 1) * $num_per_page;
 
                 if ($page1 < $total_pages1) {
                     echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . ($page1 + 1) . '&page2=' . $page2 . '\',\'maincontent\')">Next</a>';
-                }
-                echo '</div>';
-                ?>
-            </div>
-        </div> -->
-
-        <!-- Second Table: Login History -->
-        <div class="table-responsive bg-white shadow">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <h2><b>User Login History</b></h2>
-                        </div>
-                        <!-- <div class="col-xs-6 text-end">
-                            <button type="button" onclick="deleteLoginHistory()" class="btn btn-danger btn-sm">Delete Login History</button>
-                        </div> -->
-                    </div>
-                </div>
-
-                <table class="table table-striped table-hover">
-                    <thead class="text-center">
-                        <tr>
-                            <th>User ID</th>
-                            <th>Username</th>
-                            <th>Login Time</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <?php
-                        $q2 = "SELECT b.user_id, a.username, b.login_time
-                               FROM users a
-                               JOIN login_history b ON a.id = b.user_id
-                               ORDER BY b.login_time DESC
-                               LIMIT $start_from2, $num_per_page";
-                        $rs2 = mysqli_query($conn, $q2);
-
-                        while ($row2 = mysqli_fetch_array($rs2)) {
-                            echo '<tr>
-                                <td>' . $row2['user_id'] . '</td>
-                                <td>' . $row2['username'] . '</td>
-                                <td>' . $row2['login_time'] . '</td>
-                            </tr>';
-                        }
-                        ?>
-                    </tbody>
-                </table>
-
-                <?php
-                $qr2 = "SELECT COUNT(*) AS total_logins 
-                        FROM login_history b
-                        JOIN users a ON a.id = b.user_id";
-                $rs_result2 = mysqli_query($conn, $qr2);
-                $row2 = mysqli_fetch_assoc($rs_result2);
-                $total_records2 = $row2['total_logins'];
-                $total_pages2 = ceil($total_records2 / $num_per_page);
-
-                echo '<div class="pagination">';
-                if ($page2 > 1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 - 1) . '\',\'maincontent\')">Prev</a>';
-                }
-
-                for ($i = 1; $i <= $total_pages2; $i++) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . $i . '\',\'maincontent\')" class="' . ($i == $page2 ? 'active' : '') . '">' . $i . '</a>';
-                }
-
-                if ($page2 < $total_pages2) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 + 1) . '\',\'maincontent\')">Next</a>';
                 }
                 echo '</div>';
                 ?>

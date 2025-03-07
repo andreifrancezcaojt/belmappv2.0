@@ -161,6 +161,9 @@ $email = $_SESSION['email'];
         gap: 20px;
     }
 
+    .list-group-item {
+        text-decoration: none !important;
+    }
 
     #pieChartContainer,
     #barChartContainer {
@@ -1268,7 +1271,7 @@ $email = $_SESSION['email'];
                 <i><img src="assets/images/library.png" width="80px" height="80px" alt=""></i>BELMAppv2.0
             </div>
 
-            <div class="list-group list-group-flush my-3">
+            <!-- <div class="list-group list-group-flush my-3">
 
                 <a href="javascript:void(0);"
                     onclick="window.location.reload(); setActiveLink(this);"
@@ -1300,6 +1303,16 @@ $email = $_SESSION['email'];
                     class="list-group-item list-group-item-action bg-transparent second-text  py-2" style="color:#fff">
                     <i class="fas fa-clock-rotate-left me-3" style="color:#fff"></i>Log History</a>
 
+                <div class="dropdown mx-3">
+                    <button class="btn btn-secondary dropdown-toggle bg-transparent second-text py-2" type="button" id="logHistoryDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="color:#fff; border: none;">
+                        <i class="fas fa-clock-rotate-left me-3" style="color:#fff"></i> Log History
+                    </button>
+                    <ul class="dropdown-menu bg-light" aria-labelledby="logHistoryDropdown">
+                        <li><a class="dropdown-item text-dark" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);">View Log History</a></li>
+                        <li><a class="dropdown-item text-dark" href="javascript:void(0);" onclick="loadPage('e-resources/add.php','maincontent'); setActiveLink(this);">Trial</a></li>
+                    </ul>
+                </div>
+
                 <a href="javascript:void(0);"
                     onclick="loadPage('admin/pages/Feedback.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text  py-2" style="color:#fff">
@@ -1325,7 +1338,120 @@ $email = $_SESSION['email'];
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
                     <i class="fas fa-download me-3" style="color:#fff"></i>Export Data</a>
 
+            </div> -->
+
+            <div class="list-group list-group-flush my-3">
+
+                <a href="javascript:void(0);"
+                    onclick="window.location.reload(); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2 fw-bold active" style="color:#fff">
+                    <i class="fas fa-gauge me-2" style="color:#fff"></i>Dashboard
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/users.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-user-check me-3" style="color:#fff"></i>Registered Users
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('pages/imported_data.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-users me-3" style="color:#fff"></i>Imported Users
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/e_book.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff; font-size: 15px;">
+                    <i class="fas fa-book me-3" style="color:#fff"></i>Openaccess Database
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('e-resources/add.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-newspaper me-3" style="color:#fff"></i>E-Resources
+                </a>
+
+                <div class="mx-3">
+                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button" onclick="toggleAccordion('logHistoryCollapse')" style="color:#fff; border: none;">
+                        <i class="fas fa-clock-rotate-left me-1" style="color:#fff"></i> Log History
+                        <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
+                    </button>
+                    <div id="logHistoryCollapse" class="collapse">
+                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">Most Frequent</a>
+                            </li>
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">User Login</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/Feedback.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-comment me-3" style="color:#fff"></i>Feedback Form
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/add_new_opac.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-book me-3" style="color:#fff"></i>OPAC Link
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/Forum.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-comments me-3" style="color:#fff"></i>Forum
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-file-import me-3" style="color:#fff"></i>Import Data
+                </a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-download me-3" style="color:#fff"></i>Export Data
+                </a>
+
             </div>
+
+            <!-- JavaScript Function for Toggle -->
+            <script>
+                function toggleAccordion(id) {
+                    var element = document.getElementById(id);
+                    if (element.classList.contains('show')) {
+                        element.classList.remove('show'); // Close if already open
+                    } else {
+                        element.classList.add('show'); // Open if closed
+                    }
+                }
+
+                function toggleAccordion(elementId) {
+                    var collapseElement = document.getElementById(elementId);
+                    var icon = document.getElementById('logHistoryIcon');
+
+                    if (collapseElement.classList.contains('show')) {
+                        // If the collapse is open, remove 'show' and change icon to chevron-down
+                        collapseElement.classList.remove('show');
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    } else {
+                        // If the collapse is closed, add 'show' and change icon to chevron-up
+                        collapseElement.classList.add('show');
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                }
+            </script>
+
+
         </div>
 
         <!--sa page content to -->

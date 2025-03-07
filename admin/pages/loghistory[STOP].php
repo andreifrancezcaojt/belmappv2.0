@@ -135,7 +135,7 @@ include_once('../../includes/dbcon.php');
                 <div class="table-title">
                     <div class="row">
                         <div class="col-xs-6">
-                            <h2><b>Most Frequent User</b></h2>
+                            <h2><b>Most Frequent User </b></h2>
                         </div>
                     </div>
                 </div>
