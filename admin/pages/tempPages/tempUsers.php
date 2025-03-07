@@ -18,9 +18,10 @@ if (file_exists($dbconPath)) {
                     <th>Sex</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Course / Instructor</th>
+                    <th>Course / Faculty</th>
                 </tr>   
             </thead>
+            
             <tbody>
                 <?php
         

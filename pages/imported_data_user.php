@@ -54,7 +54,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
         table.table tr th,
         table.table tr td {
             border-color: #e9e9e9;
-            padding: 12px 15px;
+            padding: 10px 13px;
             vertical-align: middle;
         }
         table.table-striped tbody tr:nth-of-type(odd) {
@@ -99,7 +99,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                     </div>
                 </div>
                 <table class="table table-striped table-hover" id="studentsTable">
-                    <thead>
+                    <thead class="text-center">
                         <tr>
                             <th>Student ID</th>
                             <th>Full Name</th>
@@ -107,7 +107,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                             <th>Course</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         <?php
                         $q1 = "SELECT student_id, fullname, sex, course 
                                FROM students 
@@ -151,7 +151,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
         </div>
 
         <!-- Second Table: Instructors -->
-        <div class="table-responsive bg-white shadow">
+        <!-- <div class="table-responsive bg-white shadow">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
@@ -206,7 +206,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                 echo '</div>';
                 ?>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script>

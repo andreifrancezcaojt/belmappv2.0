@@ -94,7 +94,7 @@ require_once('../../includes/dbcon.php');
     
         <select id="type" onchange="<?php echo $script; ?>">
             <option value="-1">All</option>
-            <option value="0">Instructor</option>
+            <option value="0">Faculty</option>
             <option value="1">Student</option>
         </select>
     </div>
