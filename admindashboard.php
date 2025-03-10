@@ -1370,7 +1370,7 @@ $email = $_SESSION['email'];
                         <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
-                                    onclick="loadPage('pages/imported_data_user.php','maincontent'); setActiveLink(this);"
+                                    onclick="loadPage('admin/pages/imported_student_data.php','maincontent'); setActiveLink(this);"
                                     style="color:#fff; text-decoration: none;">
                                     Students
                                 </a>

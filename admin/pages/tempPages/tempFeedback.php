@@ -86,7 +86,7 @@ $total_pages = ceil($total_records / $num_per_page);
         <ul class="pagination">
             <li class="page-item" ><a id="ac" class="page-link
             <?php echo ($page <= 1) ? ' disabled' : ''; ?> " 
-            <?php echo ($page > 1) ? 'href="javascript:void(0);" onclick="loadPage(\'e-resources/add.php?page='.$previous_page.'\',\'maincontent\')"' : ''; ?>>Previous</a></li>
+            <?php echo ($page > 1) ? 'href="javascript:void(0);" onclick="loadPage(\'admin/pages/Feedback.php?page='.$previous_page.'\',\'maincontent\')"' : ''; ?>>Previous</a></li>
 
             <?php
                 $range = 3;
@@ -97,13 +97,13 @@ $total_pages = ceil($total_records / $num_per_page);
                 
                 for ($counter = $start; $counter <= $end; $counter++) {
                     echo '<li class="page-item' . ($counter == $page ? ' active' : '') . '">
-                            <a id="ac" class="page-link" href="javascript:void(0);" onclick="loadPage(\'e-resources/add.php?page=' . $counter . '\',\'maincontent\')">' . $counter . '</a>
+                            <a id="ac" class="page-link" href="javascript:void(0);" onclick="loadPage(\'admin/pages/Feedback.php?page=' . $counter . '\',\'maincontent\')">' . $counter . '</a>
                         </li>';
                 }
             ?>
             <li class="page-item"><a class="page-link 
             <?php echo ($page >= $total_pages) ? ' disabled' : ''; ?>" 
-            <?php echo ($page < $total_pages) ? 'href="javascript:void(0);" id="ac" onclick="loadPage(\'e-resources/add.php?page='.$next_page.'\',\'maincontent\')"' : ''; ?>>Next</a></li>
+            <?php echo ($page < $total_pages) ? 'href="javascript:void(0);" id="ac" onclick="loadPage(\'admin/pages/Feedback.php?page='.$next_page.'\',\'maincontent\')"' : ''; ?>>Next</a></li>
             </li>
         </ul>
     </nav>
