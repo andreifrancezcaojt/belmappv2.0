@@ -160,6 +160,7 @@
                 <textarea class="form-control" name="reply_content" rows="3" placeholder="Write your comment here..."></textarea>
             </div>
             <button type="submit" class="btn btn-success">Comment</button>
+            <button type="button" class="btn btn-danger" onclick="window.location.href='view_thread.php?id=<?php echo $thread_id; ?>'">Back</button>
         </form>
     </div>
 
@@ -178,29 +179,47 @@ function deleteReply(replyId, element) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.isConfirmed) {
-            fetch(`delete_reply.php?id=${replyId}`, { method: 'GET' })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const replyElement = element.closest('.reply');
+            fetch(`delete_reply.php`, {
+                method: 'POST', // Using POST for security
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${replyId}`
+            })
+            .then(response => {
+                console.log("Response status:", response.status);
+                return response.text(); // Get raw response for debugging
+            })
+            .then(text => {
+                console.log("Raw response:", text);
+                try {
+                    return JSON.parse(text); // Try parsing as JSON
+                } catch (error) {
+                    throw new Error("Invalid JSON response");
+                }
+            })
+            .then(data => {
+                console.log("Parsed JSON:", data);
+                if (data.success) {
+                    const replyElement = element.closest('.reply');
+                    if (replyElement) {
                         replyElement.remove();
-                        Swal.fire('Deleted!', 'Your comment has been deleted.', 'success');
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: data.message || 'Failed to delete comment.',
-                        });
                     }
-                })
-                .catch(error => {
-                    console.error('Error deleting reply:', error);
+                    Swal.fire('Deleted!', 'Your comment has been deleted.', 'success');
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'An unexpected error occurred.',
+                        text: data.message || 'Failed to delete comment.',
                     });
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting reply:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An unexpected error occurred. Check the console for details.',
                 });
+            });
         }
     });
 }

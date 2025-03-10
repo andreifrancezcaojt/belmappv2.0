@@ -91,6 +91,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
             border: 1px solid lightseagreen;
         }
 
+
         /* New glow effect for clicked button */
         .pagination a.glow {
             background-color: green !important;
@@ -217,19 +218,22 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                 $total_records2 = $row2['total_logins'];
                 $total_pages2 = ceil($total_records2 / $num_per_page);
 
-                echo '<div class="pagination">';
+                echo '<ul class="pagination">';
                 if ($page2 > 1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 - 1) . '\',\'maincontent\')">Prev</a>';
+                    echo '<li><a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 - 1) . '\',\'maincontent\')">Prev</a></li>';
                 }
 
                 for ($i = 1; $i <= $total_pages2; $i++) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . $i . '\',\'maincontent\')" class="' . ($i == $page2 ? 'active' : '') . '">' . $i . '</a>';
+                    echo '<li class="' . ($i == $page2 ? 'active' : '') . '">
+            <a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . $i . '\',\'maincontent\')">' . $i . '</a>
+          </li>';
                 }
 
                 if ($page2 < $total_pages2) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 + 1) . '\',\'maincontent\')">Next</a>';
+                    echo '<li><a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 + 1) . '\',\'maincontent\')">Next</a></li>';
                 }
-                echo '</div>';
+                echo '</ul>';
+
                 ?>
             </div>
         </div>
@@ -246,6 +250,30 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                     paginationLinks.forEach(link => link.classList.remove("glow"));
                     // Add the glow class to the clicked link
                     this.classList.add("glow");
+                });
+            });
+        });
+
+
+        function loadPage(url, target) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(target).innerHTML = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const paginationLinks = document.querySelectorAll(".pagination a");
+
+            paginationLinks.forEach(link => {
+                link.addEventListener("click", function() {
+                    // Remove "active" class from all pagination items
+                    document.querySelectorAll(".pagination li").forEach(li => li.classList.remove("active"));
+
+                    // Add "active" class to the clicked pagination link's parent <li>
+                    this.parentElement.classList.add("active");
                 });
             });
         });

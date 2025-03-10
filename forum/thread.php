@@ -88,7 +88,7 @@ require_once("../includes/dbcon.php");
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow bg-success">
     <img class="logo" src="../assets/icon/library_logo_nbg.png" alt="Library Logo" style="width: 40px; height: 40px;">
-    <a class="navbar-brand" href="../credentials/home.php">BASC E-Library</a>
+    <a class="navbar-brand" href="thread.php">BASC E-Library</a>
   </nav>
 
   <div class="container mt-4">

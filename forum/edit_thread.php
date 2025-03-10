@@ -100,6 +100,7 @@ session_start();
       </div>
       <input type="hidden" id="editThreadId" name="editThreadId" value="<?php echo $thread_id; ?>">
       <button type="submit" class="btn btn-success">Save Changes</button>
+      <button type="button" class="btn btn-danger" onclick="window.location.href='thread.php?id=<?php echo $thread_id; ?>'">Cancel</button>
     </form>
     <?php
     }

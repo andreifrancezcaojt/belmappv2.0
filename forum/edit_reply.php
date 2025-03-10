@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: view_thread.php?id=$thread_id");
             exit();
         } else {
-            $error_message = "Failed to update the reply. Either it doesn't exist or you don't have permission.";
+            $error_message = "You didnt change anything.";
         }
         $stmt->close();
     } else {
@@ -40,12 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch the reply data if reply_id and thread_id are present
+
 if (isset($_GET['reply_id']) && isset($_GET['thread_id'])) {
     $reply_id = intval($_GET["reply_id"]);
     $thread_id = intval($_GET["thread_id"]);
 
-    // Fetch the reply from the database
     $sql = "SELECT content FROM replies WHERE id = ? AND user_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $reply_id, $user_id);
@@ -55,12 +54,7 @@ if (isset($_GET['reply_id']) && isset($_GET['thread_id'])) {
     if ($result->num_rows > 0) {
         $reply = $result->fetch_assoc();
         $reply_content = $reply['content'];
-    } else {
-        die("Reply not found or access denied.");
     }
-    $stmt->close();
-} else {
-    die("Invalid request. Reply ID and thread ID are required.");
 }
 ?>
 <!DOCTYPE html>
@@ -107,6 +101,7 @@ if (isset($_GET['reply_id']) && isset($_GET['thread_id'])) {
             <button type="submit" class="btn btn-success">Save Changes</button>
             <input type="hidden" name="reply_id" value="<?php echo $reply_id; ?>">
             <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>">
+             <button type="button" class="btn btn-danger" onclick="window.location.href='view_thread.php?id=<?php echo $thread_id; ?>'">Cancel</button>
         </form>
     </div>
 
