@@ -150,6 +150,7 @@ if (isset($_POST['adminloginbtn'])) {
             display: block;
             object-fit: cover;
             margin-bottom: 5px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -176,6 +177,7 @@ if (isset($_POST['adminloginbtn'])) {
             </div>
             <div class="col-md-6 mt-2">
                 <h3 class="text-center mt-3"><i class="fas fa-user-shield mr-2"></i>Administrator Login</h3>
+                <p class="text-center">Login with your email and password.</p>
                 <hr class="my-4">
                 <form action="" method="post">
                     <div class="form-group">
