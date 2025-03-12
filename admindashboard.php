@@ -194,7 +194,7 @@ $email = $_SESSION['email'];
     }
 
     function loadPage(loc, eid) {
-        document.getElementById(eid).innerHTML = "<div align='center'><img src='assets/image/loader.gif' width='35px' /></div>";
+        document.getElementById(eid).innerHTML = "<div align='center'><img src='assets/images/preload.gif' width='35px' /></div>";
         loadSubContent(loc, eid);
     }
 
@@ -992,221 +992,196 @@ $email = $_SESSION['email'];
             });
     }
 
-
-
     function archive_pdf(Aid) {
-
         let form = new FormData();
         form.append('Aid', Aid);
 
         Swal.fire({
-                title: "Archive?",
-                text: "Are you sure to archive this e-book?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Archive?",
+            text: "Are you sure you want to archive this e-book?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Archive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'e-resources/tmpPages/tmpAdd.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'e-resources/tmpPages/tmpAdd.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Archived successfully.",
+                            icon: "success", // Corrected checkmark icon
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed', 'error');
+                    }
+                });
+            }
+        });
     }
 
     function unArchived_pdf(Uid) {
-
         let form = new FormData();
         form.append('Uid', Uid);
 
         Swal.fire({
-                title: "Unarchive?",
-                text: "Are you sure to unarchive this e-book?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Unarchive?",
+            text: "Are you sure you want to unarchive this e-book?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Unarchive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'e-resources/tmpPages/tmpAdd.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'e-resources/tmpPages/tmpAdd.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Unarchived successfully.",
+                            icon: "success", // Corrected checkmark icon
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed', 'error');
+                    }
+                });
+            }
+        });
     }
 
-    // function OnArchive_ebook(id){
-
-    //     // Swal.fire.fire({
-    //     //     title: 'Hello!',
-    //     //     text: 'This is a simple SweetAlert2 alert.',
-    //     //     icon: 'success',
-    //     //     confirmButtonText: 'OK'
-    //     // });
-
-
-
-    // }
-
-
-
     function OnArchive_ebook(Anid) {
-
         let form = new FormData();
         form.append('Anid', Anid);
 
-        // Swal.fire({
-        //         title: "Archive?",
-        //         text: "Are you sure to archive this e-books?",
-        //         icon: "info",
-        //         buttons: true,
-        //         dangerMode: true,
-        //     })
         Swal.fire({
-                // title: 'Hello!',
-                // text: 'This is a simple SweetAlert2 alert.',
-                // icon: 'success',
-                // confirmButtonText: 'OK'
-                title: "Archive?",
-                text: "Are you sure to archive this open access database?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Archive?",
+            text: "Are you sure you want to archive this open access database?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Archive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'admin/pages/tempPages/tempEbooks.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/tempPages/tempEbooks.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Archived successfully.",
+                            icon: "success", // Properly set success icon (checkmark)
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Failed to archive the e-book.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+        });
     }
 
-
     function InArchived_ebook(Unid) {
-
         let form = new FormData();
         form.append('Unid', Unid);
 
         Swal.fire({
-                title: "Unarchive?",
-                text: "Are you sure to unarchive this open access database?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Unarchive?",
+            text: "Are you sure you want to unarchive this open access database?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Unarchive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'admin/pages/tempPages/tempEbooks.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/tempPages/tempEbooks.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Unarchived successfully.",
+                            icon: "success", // Properly set success icon (checkmark)
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Failed to unarchive the e-book.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+        });
     }
 
     function edit_account() {
@@ -1400,7 +1375,8 @@ $email = $_SESSION['email'];
                 </a>
 
                 <div class="mx-3">
-                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button" onclick="toggleAccordion('logHistoryCollapse')" style="color:#fff; border: none;">
+                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
+                        onclick="toggleAccordion('logHistoryCollapse','logHistoryIcon')" style="color:#fff; border: none;">
                         <i class="fas fa-clock-rotate-left me-1" style="color:#fff"></i> Log History
                         <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
                     </button>
@@ -1450,13 +1426,13 @@ $email = $_SESSION['email'];
             </div>
 
             <!-- JavaScript Function for Toggle -->
-            <script>
+            <!-- <script>
                 function toggleAccordion(id) {
                     var element = document.getElementById(id);
                     if (element.classList.contains('show')) {
-                        element.classList.remove('show'); // Close if already open
+                        element.classList.remove('show'); 
                     } else {
-                        element.classList.add('show'); // Open if closed
+                        element.classList.add('show'); 
                     }
                 }
 
@@ -1465,12 +1441,10 @@ $email = $_SESSION['email'];
                     var icon = document.getElementById('logHistoryIcon');
 
                     if (collapseElement.classList.contains('show')) {
-                        // If the collapse is open, remove 'show' and change icon to chevron-down
                         collapseElement.classList.remove('show');
                         icon.classList.remove('fa-chevron-up');
                         icon.classList.add('fa-chevron-down');
                     } else {
-                        // If the collapse is closed, add 'show' and change icon to chevron-up
                         collapseElement.classList.add('show');
                         icon.classList.remove('fa-chevron-down');
                         icon.classList.add('fa-chevron-up');
@@ -1481,6 +1455,23 @@ $email = $_SESSION['email'];
                     var collapseElement = document.getElementById(elementId);
                     var icon = document.getElementById('importedUsersIcon');
 
+                    if (collapseElement.classList.contains('show')) {                 
+                        collapseElement.classList.remove('show');
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                    } else {                       
+                        collapseElement.classList.add('show');
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                    }
+                }
+            </script> -->
+
+            <script>
+                function toggleAccordion(elementId, iconId) {
+                    var collapseElement = document.getElementById(elementId);
+                    var icon = document.getElementById(iconId);
+
                     if (collapseElement.classList.contains('show')) {
                         // If the collapse is open, remove 'show' and change icon to chevron-down
                         collapseElement.classList.remove('show');
@@ -1493,10 +1484,7 @@ $email = $_SESSION['email'];
                         icon.classList.add('fa-chevron-up');
                     }
                 }
-                    
-
             </script>
-
 
         </div>
 

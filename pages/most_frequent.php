@@ -152,15 +152,15 @@ $start_from2 = ($page2 - 1) * $num_per_page;
 
                 echo '<div class="pagination">';
                 if ($page1 > 1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . ($page1 - 1) . '&page2=' . $page2 . '\',\'maincontent\')">Prev</a>';
+                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/most_frequent.php?page1=' . ($page1 - 1) . '&page2=' . $page2 . '\',\'maincontent\')">Prev</a>';
                 }
 
                 for ($i = 1; $i <= $total_pages1; $i++) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $i . '&page2=' . $page2 . '\',\'maincontent\')" class="' . ($i == $page1 ? 'active' : '') . '">' . $i . '</a>';
+                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/most_frequent.php?page1=' . $i . '&page2=' . $page2 . '\',\'maincontent\')" class="' . ($i == $page1 ? 'active' : '') . '">' . $i . '</a>';
                 }
 
                 if ($page1 < $total_pages1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . ($page1 + 1) . '&page2=' . $page2 . '\',\'maincontent\')">Next</a>';
+                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/most_frequent.php?page1=' . ($page1 + 1) . '&page2=' . $page2 . '\',\'maincontent\')">Next</a>';
                 }
                 echo '</div>';
                 ?>

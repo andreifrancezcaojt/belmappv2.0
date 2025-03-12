@@ -1,5 +1,5 @@
 <?php
-echo $_SERVER['REQUEST_URI'];
+ echo $_SERVER['REQUEST_URI'];
 $servername = "localhost:3307";
 $username = "root";
 $password = "";
@@ -69,3 +69,4 @@ function getbooks() {
 
 
 ?>
+
