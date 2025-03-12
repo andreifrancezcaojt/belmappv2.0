@@ -37,6 +37,7 @@ $email = $_SESSION['email'];
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
     <title>Admin Dashboard</title>
 </head>
 
@@ -175,7 +176,7 @@ $email = $_SESSION['email'];
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function loadSubContent(url, elementId) {
         if (window.XMLHttpRequest) {
@@ -260,14 +261,139 @@ $email = $_SESSION['email'];
             });
     }
 
+    // function upload_pdf() {
+    //     var pdf = document.getElementById('pdf');
+    //     var pdf_callnumber = document.getElementById('pdf_callnumber').value;
+    //     var pdf_name = document.getElementById('pdf_name').value;
+    //     var category = document.getElementById('category').value; // Get the category value
+    //     var pdfFile = pdf.files[0];
+
+    //     // Check if file is selected and valid PDF type
+    //     if (!pdfFile) {
+    //         Swal.fire('Error', 'Please select a PDF file to upload.', 'error');
+    //         return;
+    //     }
+
+    //     var fileExtension = pdfFile.name.split('.').pop().toLowerCase();
+    //     if (fileExtension !== 'pdf') {
+    //         Swal.fire('Error', 'Only PDF files are allowed.', 'error');
+    //         return;
+    //     }
+
+    //     // Check if PDF name and category are provided
+    //     if (!pdf_name) {
+    //         Swal.fire('Error', 'Please enter a PDF name.', 'error');
+    //         return;
+    //     }
+
+    //     if (!category) {
+    //         Swal.fire('Error', 'Please select a PDF category.', 'error');
+    //         return;
+    //     }
+
+    //     let form = new FormData();
+    //     form.append('pdf', pdfFile);
+    //     form.append('pdf_callnumber', pdf_callnumber);
+    //     form.append('pdf_name', pdf_name);
+    //     form.append('category', category); // Add category to FormData
+
+    //     // Confirm upload with SweetAlert2
+    //     Swal.fire({
+    //         title: "Upload PDF?",
+    //         text: "Are you sure you want to upload this PDF?",
+    //         icon: "info",
+    //         showCancelButton: true, // Corrected
+    //         confirmButtonText: "Yes, upload it!", // Corrected
+    //         cancelButtonText: "Cancel"
+    //     }).then((result) => {
+    //         if (result.isConfirmed) { // Corrected
+
+    //             // Check if a PDF with the same name already exists in the database
+    //             $.ajax({
+    //                 url: 'e-resources/check_pdf_duplicate_name.php',
+    //                 type: 'POST',
+    //                 data: {
+    //                     pdf_name: pdf_name
+    //                 },
+    //                 success: function(response) {
+    //                     if (response.exists) {
+    //                         Swal.fire('Error', 'A PDF with this name already exists.', 'error');
+    //                     } else {
+    //                         // Check if the same file already exists on the server
+    //                         $.ajax({
+    //                             url: 'e-resources/check_pdf_duplicate_file.php',
+    //                             type: 'POST',
+    //                             data: form,
+    //                             contentType: false,
+    //                             processData: false,
+    //                             success: function(response) {
+    //                                 if (response.exists) {
+    //                                     Swal.fire('Error', 'This file has already been uploaded.', 'error');
+    //                                 } else {
+    //                                     // If no duplicates, upload the file
+    //                                     $.ajax({
+    //                                         url: 'e-resources/upload_pdf.php', // Ensure correct path to PHP handler
+    //                                         type: "POST",
+    //                                         data: form,
+    //                                         beforeSend: function() {
+    //                                             $("#body-overlay").show();
+    //                                         },
+    //                                         contentType: false,
+    //                                         processData: false,
+    //                                         success: function(data) {
+    //                                             let jsonResponse = JSON.parse(data); // Parse the JSON response
+
+    //                                             // Check the response status
+    //                                             if (jsonResponse.status === 'success') {
+
+    //                                                 $("#body-overlay").hide(); // Hide overlay
+    //                                                 Swal.fire({
+    //                                                     title: "Success!",
+    //                                                     icon: "success",
+    //                                                     timer: 2000,
+    //                                                     showConfirmButton: false // Corrected
+    //                                                 });
+
+    //                                                 TINY.box.hide();
+
+    //                                                 // Reload the page after success
+    //                                                 setTimeout(function() {
+    //                                                     location.href = "e-resources/tmpPages/tmpAdd.php"; // Add hash to the URL before reload
+    //                                                     location.reload(); // Reload the page
+    //                                                 }, 2000);
+
+
+    //                                             } else {
+    //                                                 Swal.fire('Error', jsonResponse.message, 'error');
+    //                                             }
+    //                                         },
+    //                                         error: function() {
+    //                                             Swal.fire('Error', 'Failed to upload the file.', 'error');
+    //                                         }
+    //                                     });
+    //                                 }
+    //                             },
+    //                             error: function() {
+    //                                 Swal.fire('Error', 'Failed to check if file exists.', 'error');
+    //                             }
+    //                         });
+    //                     }
+    //                 },
+    //                 error: function() {
+    //                     Swal.fire('Error', 'Failed to check if file name exists.', 'error');
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }
+
     function upload_pdf() {
         var pdf = document.getElementById('pdf');
         var pdf_callnumber = document.getElementById('pdf_callnumber').value;
         var pdf_name = document.getElementById('pdf_name').value;
-        var category = document.getElementById('category').value; // Get the category value
+        var category = document.getElementById('category').value;
         var pdfFile = pdf.files[0];
 
-        // Check if file is selected and valid PDF type
         if (!pdfFile) {
             Swal.fire('Error', 'Please select a PDF file to upload.', 'error');
             return;
@@ -279,7 +405,6 @@ $email = $_SESSION['email'];
             return;
         }
 
-        // Check if PDF name and category are provided
         if (!pdf_name) {
             Swal.fire('Error', 'Please enter a PDF name.', 'error');
             return;
@@ -294,98 +419,101 @@ $email = $_SESSION['email'];
         form.append('pdf', pdfFile);
         form.append('pdf_callnumber', pdf_callnumber);
         form.append('pdf_name', pdf_name);
-        form.append('category', category); // Add category to FormData
+        form.append('category', category);
 
-        // Confirm upload with SweetAlert2
         Swal.fire({
             title: "Upload PDF?",
             text: "Are you sure you want to upload this PDF?",
             icon: "info",
-            showCancelButton: true, // Corrected
-            confirmButtonText: "Yes, upload it!", // Corrected
+            showCancelButton: true,
+            confirmButtonText: "Yes, upload it!",
             cancelButtonText: "Cancel"
         }).then((result) => {
-            if (result.isConfirmed) { // Corrected
+            if (result.isConfirmed) {
+                console.log("No duplicate name found. Checking file...");
 
-                // Check if a PDF with the same name already exists in the database
                 $.ajax({
-                    url: 'e-resources/check_pdf_duplicate_name.php',
+                    url: 'e-resources/check_pdf_duplicate_file.php',
                     type: 'POST',
-                    data: {
-                        pdf_name: pdf_name
-                    },
+                    data: form,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
                     success: function(response) {
+                        console.log("File Check Response:", response);
+
+                        if (response.error) {
+                            Swal.fire('Error', response.error, 'error');
+                            return;
+                        }
+
                         if (response.exists) {
-                            Swal.fire('Error', 'A PDF with this name already exists.', 'error');
+                            Swal.fire('Error', 'This file has already been uploaded.', 'error');
                         } else {
-                            // Check if the same file already exists on the server
+                            console.log("No duplicate file found. Uploading...");
+
                             $.ajax({
-                                url: 'e-resources/check_pdf_duplicate_file.php',
-                                type: 'POST',
+                                url: 'e-resources/upload_pdf.php',
+                                type: "POST",
                                 data: form,
+                                beforeSend: function() {
+                                    $("#body-overlay").show();
+                                },
                                 contentType: false,
                                 processData: false,
-                                success: function(response) {
-                                    if (response.exists) {
-                                        Swal.fire('Error', 'This file has already been uploaded.', 'error');
-                                    } else {
-                                        // If no duplicates, upload the file
-                                        $.ajax({
-                                            url: 'e-resources/upload_pdf.php', // Ensure correct path to PHP handler
-                                            type: "POST",
-                                            data: form,
-                                            beforeSend: function() {
-                                                $("#body-overlay").show();
-                                            },
-                                            contentType: false,
-                                            processData: false,
-                                            success: function(data) {
-                                                let jsonResponse = JSON.parse(data); // Parse the JSON response
+                                dataType: 'json',
+                                success: function(data) {
+                                    console.log("Upload Response:", data);
 
-                                                // Check the response status
-                                                if (jsonResponse.status === 'success') {
+                                    $("#body-overlay").hide();
 
-                                                    $("#body-overlay").hide(); // Hide overlay
-                                                    Swal.fire({
-                                                        title: "Success!",
-                                                        icon: "success",
-                                                        timer: 2000,
-                                                        showConfirmButton: false // Corrected
-                                                    });
+                                    if (data.error) {
+                                        Swal.fire('Error', data.error, 'error');
+                                        return;
+                                    }
 
-                                                    TINY.box.hide();
-
-                                                    // Reload the page after success
-                                                    setTimeout(function() {
-                                                        location.href = "e-resources/tmpPages/tmpAdd"; // Add hash to the URL before reload
-                                                        location.reload(); // Reload the page
-                                                    }, 2000);
-
-
-                                                } else {
-                                                    Swal.fire('Error', jsonResponse.message, 'error');
-                                                }
-                                            },
-                                            error: function() {
-                                                Swal.fire('Error', 'Failed to upload the file.', 'error');
-                                            }
+                                    if (data.status === 'success') {
+                                        Swal.fire({
+                                            title: "Success!",
+                                            icon: "success",
+                                            timer: 2000,
+                                            showConfirmButton: false
                                         });
+
+                                        TINY.box.hide();
+
+                                        // Reload only the table instead of refreshing the whole page
+                                        setTimeout(function() {
+                                            $.ajax({
+                                                url: 'e-resources/add.php', // Your table data source
+                                                type: 'GET',
+                                                success: function(response) {
+                                                    $('#pdfTableContainer').html(response); // Update table content
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error("Table Reload Error:", status, error, xhr.responseText);
+                                                }
+                                            });
+                                        }, 2000);
+                                    } else {
+                                        Swal.fire('Error', data.message, 'error');
                                     }
                                 },
-                                error: function() {
-                                    Swal.fire('Error', 'Failed to check if file exists.', 'error');
+                                error: function(xhr, status, error) {
+                                    console.error("Upload AJAX Error:", status, error, xhr.responseText);
+                                    Swal.fire('Error', 'Failed to upload the file.', 'error');
                                 }
                             });
                         }
                     },
-                    error: function() {
-                        Swal.fire('Error', 'Failed to check if file name exists.', 'error');
+                    error: function(xhr, status, error) {
+                        console.error("File Check AJAX Error:", status, error, xhr.responseText);
+                        Swal.fire('Error', 'Failed to check if file exists.', 'error');
                     }
                 });
             }
         });
     }
-
 
 
     function add_admin() {
@@ -585,98 +713,6 @@ $email = $_SESSION['email'];
     }
 
 
-    // function add_book(){
-    //     var url = object('url').value;
-
-    //     swal({
-    //         title: 'Add Book',
-    //         text: 'Add book url?',
-    //         icon: 'info',
-    //         button: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((willAdd) => {
-    //         if(willAdd){
-    //             x = 'admin/pages/new_ebook.php?url='+url;
-    //             loadPage(x, 'newAdmin');
-    //         }
-    //     });
-    // }
-
-    // function uploadFormData() {
-    //     var formData = new FormData(document.getElementById('uploadForm'));
-
-    //     $.ajax({
-    //         url: 'admin/pages/tmp_ebook.php', // URL to your server-side script
-    //         type: 'POST',
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         success: function(response) {
-    //             Handle successful response from server
-    //             console.log(response);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             Handle error
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-
-    // }
-
-    //     function upload_book() {
-    //     var url = $('#url').val(); // Corrected selector to get value using jQuery
-    //     var picInput = document.getElementById('bookImage');
-    //     var picFile = picInput.files[0];
-
-    //     // Check if both URL and image are provided
-    //     if (!url || !picFile) {
-    //         swal("Error!", "Please provide both URL and image.", "error");
-    //         return;
-    //     }
-
-    //     var formData = new FormData();
-    //     formData.append('url', url);
-    //     formData.append('bookImage', picFile);
-
-    //     swal({
-    //         title: "Upload This Book?",
-    //         text: "Are you sure to upload this picture?",
-    //         icon: "info",
-    //         buttons: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((willUpload) => {
-    //         if (willUpload) {
-    //             $.ajax({
-    //                 url: 'admin/pages/e_book.php',
-    //                 type: "POST",
-    //                 data: formData,
-    //                 beforeSend: function() {
-    //                     $("#body-overlay").show();
-    //                 },
-    //                 contentType: false,
-    //                 processData: false,
-    //                 success: function(data) {
-    //                     var response = JSON.parse(data);
-    //                     $("#maincontent").html(response.html);
-    //                     $("#maincontent").css('opacity', '1');
-    //                     $("#body-overlay").hide();
-
-    //                     swal("Success!", {
-    //                         icon: 'success',
-    //                         buttons: false,
-    //                         timer: 2000,
-    //                     });
-    //                 },
-    //                 error: function() {
-    //                     swal('Error', 'Failed', 'error', 500000);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-
     function edit_oadb() {
         var yyy = object('yyy').value;
         var id = object('id').value;
@@ -787,6 +823,7 @@ $email = $_SESSION['email'];
             });
     }
 
+
     function edit_opac() {
         event.preventDefault(); // Prevent the default form submission
 
@@ -799,48 +836,50 @@ $email = $_SESSION['email'];
         form.append('id', id);
         form.append('new_link', opac_link);
 
-        // SweetAlert confirmation dialog
+        // SweetAlert confirmation dialog with cancel button
         Swal.fire({
-                title: "Update OPAC Link?",
-                text: "Are you sure you want to update the OPAC Link?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/add_new_opac.php', // Ensure this URL is correct
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show(); // Show loading overlay
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#maincontent").html(data);
-                            $("#maincontent").css('opacity', '1');
-                            $("#body-overlay").hide();
+            title: "Update OPAC Link?",
+            text: "Are you sure you want to update the OPAC Link?",
+            icon: "info",
+            showCancelButton: true, // Enable cancel button
+            confirmButtonText: "Yes, update it!", // Custom confirm button text
+            cancelButtonText: "Cancel", // Custom cancel button text
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) { // If user clicks "Yes, update it!"
+                $.ajax({
+                    url: 'admin/pages/add_new_opac.php', // Ensure this URL is correct
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show(); // Show loading overlay
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#maincontent").html(data);
+                        $("#maincontent").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-                            // Show success message
-                            Swal.fire("Success!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
+                        // Show success message
+                        Swal.fire({
+                            title: "Success!",
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
 
-                            TINY.box.hide();
-
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText); // Log the response for debugging
-                            Swal.fire('Error', 'Failed: ' + error, 'error');
-                        }
-                    });
-                }
-            });
+                        TINY.box.hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Log the response for debugging
+                        Swal.fire('Error', 'Failed: ' + error, 'error');
+                    }
+                });
+            } // If "Cancel" is clicked, nothing happens
+        });
     }
+
 
     function add_opac() {
         var opac_link = object('opac_link').value;
@@ -935,62 +974,62 @@ $email = $_SESSION['email'];
 
 
     function edit_qr() {
-
         event.preventDefault(); // Prevent the default form submission
 
         // Get values from the form
         var qr_id = document.getElementById('qr_id').value; // Get the ID
-        var new_qr = document.getElementById('new_qr').value; // Get the OPAC link value
-
-        //console.log(qr_id + new_feedback);
+        var new_qr = document.getElementById('new_qr').value; // Get the Feedback URL value
 
         // Create a FormData object
         let form = new FormData();
         form.append('qr_id', qr_id);
         form.append('new_qr', new_qr);
 
-        // SweetAlert confirmation dialog
+        // SweetAlert confirmation dialog with cancel button
         Swal.fire({
-                title: "Update Feedback URL?",
-                text: "Are you sure you want to update the Feedback URL?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/Feedback.php?new_f', // Ensure this URL is correct
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show(); // Show loading overlay
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#maincontent").html(data);
-                            $("#maincontent").css('opacity', '1');
-                            $("#body-overlay").hide();
+            title: "Update Feedback URL?",
+            text: "Are you sure you want to update the Feedback URL?",
+            icon: "info",
+            showCancelButton: true, // Enable cancel button
+            confirmButtonText: "Yes, update it!", // Custom confirm button text
+            cancelButtonText: "Cancel", // Custom cancel button text
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) { // If user clicks "Yes, update it!"
+                $.ajax({
+                    url: 'admin/pages/Feedback.php?new_f', // Ensure this URL is correct
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show(); // Show loading overlay
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#maincontent").html(data);
+                        $("#maincontent").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-                            // Show success message
-                            Swal.fire("Success!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
+                        // Show success message
+                        Swal.fire({
+                            title: "Success!",
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
 
-                            TINY.box.hide();
-
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText); // Log the response for debugging
-                            Swal.fire('Error', 'Failed: ' + error, 'error');
-                        }
-                    });
-                }
-            });
+                        TINY.box.hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Log the response for debugging
+                        Swal.fire('Error', 'Failed: ' + error, 'error');
+                    }
+                });
+            } // If "Cancel" is clicked, nothing happens
+        });
     }
+
+
 
     function archive_pdf(Aid) {
         let form = new FormData();
@@ -1329,16 +1368,10 @@ $email = $_SESSION['email'];
                     <i class="fas fa-user-check me-3" style="color:#fff"></i>Registered Users
                 </a>
 
-                <!-- <a href="javascript:void(0);"
-                    onclick="loadPage('pages/imported_data.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-users me-3" style="color:#fff"></i>Imported Users
-                </a> -->
-
                 <div class="mx-3">
                     <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
                         onclick="toggleAccordion('importedUsersCollapse', 'importedUsersIcon')" style="color:#fff; border: none;">
-                        <i class="fas fa-users me-1" style="color:#fff"></i> Imported Users
+                        <i class="fas fa-users me-3" style="color:#fff"></i> Imported Users
                         <i class="fa-solid fa-chevron-down float-end" id="importedUsersIcon"></i>
                     </button>
                     <div id="importedUsersCollapse" class="collapse">
@@ -1365,7 +1398,7 @@ $email = $_SESSION['email'];
                 <a href="javascript:void(0);"
                     onclick="loadPage('admin/pages/e_book.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff; font-size: 15px;">
-                    <i class="fas fa-book me-3" style="color:#fff"></i>Openaccess Database
+                    <i class="fas fa-book me-3" style="color:#fff"></i>Open Access Database
                 </a>
 
                 <a href="javascript:void(0);"
@@ -1377,7 +1410,7 @@ $email = $_SESSION['email'];
                 <div class="mx-3">
                     <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
                         onclick="toggleAccordion('logHistoryCollapse','logHistoryIcon')" style="color:#fff; border: none;">
-                        <i class="fas fa-clock-rotate-left me-1" style="color:#fff"></i> Log History
+                        <i class="fas fa-clock-rotate-left me-3" style="color:#fff"></i> Log History
                         <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
                     </button>
                     <div id="logHistoryCollapse" class="collapse">
@@ -1411,7 +1444,7 @@ $email = $_SESSION['email'];
                     <i class="fas fa-comments me-3" style="color:#fff"></i>Forum
                 </a>
 
-                <a href="javascript:void(0);"
+                <!-- <a href="javascript:void(0);"
                     onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
                     <i class="fas fa-file-import me-3" style="color:#fff"></i>Import Data
@@ -1421,7 +1454,44 @@ $email = $_SESSION['email'];
                     onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
                     <i class="fas fa-download me-3" style="color:#fff"></i>Export Data
-                </a>
+                </a> -->
+
+                <div class="mx-3">
+                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
+                        onclick="toggleAccordion('importExportCollapse','importExportIcon')" style="color:#fff; border: none;">
+                        <i class="fas fa-file-alt me-3" style="color:#fff"></i> Import/Export Data
+                        <i class="fa-solid fa-chevron-down float-end" id="importExportIcon"></i>
+                    </button>
+                    <div id="importExportCollapse" class="collapse">
+                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
+                                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
+                                    style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-file-import me-3" style="color:#fff"></i> Import Data
+                                </a>
+                            </li>
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
+                                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
+                                    style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-download me-3" style="color:#fff"></i> Export Data
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-file-import me-3" style="color:#fff"></i>Import Data</a>
+
+                <a href="javascript:void(0);"
+                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
+                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
+                    <i class="fas fa-download me-3" style="color:#fff"></i>Export Data</a> -->
+
 
             </div>
 
@@ -1471,14 +1541,28 @@ $email = $_SESSION['email'];
                 function toggleAccordion(elementId, iconId) {
                     var collapseElement = document.getElementById(elementId);
                     var icon = document.getElementById(iconId);
+                    var allCollapses = document.querySelectorAll('.collapse');
+                    var allIcons = document.querySelectorAll('.fa-chevron-up, .fa-chevron-down');
 
+                    // Close all other collapses
+                    allCollapses.forEach(function(el) {
+                        if (el.id !== elementId) {
+                            el.classList.remove('show');
+                        }
+                    });
+
+                    // Reset all icons to chevron-down
+                    allIcons.forEach(function(el) {
+                        el.classList.remove('fa-chevron-up');
+                        el.classList.add('fa-chevron-down');
+                    });
+
+                    // Toggle the clicked accordion
                     if (collapseElement.classList.contains('show')) {
-                        // If the collapse is open, remove 'show' and change icon to chevron-down
                         collapseElement.classList.remove('show');
                         icon.classList.remove('fa-chevron-up');
                         icon.classList.add('fa-chevron-down');
                     } else {
-                        // If the collapse is closed, add 'show' and change icon to chevron-up
                         collapseElement.classList.add('show');
                         icon.classList.remove('fa-chevron-down');
                         icon.classList.add('fa-chevron-up');

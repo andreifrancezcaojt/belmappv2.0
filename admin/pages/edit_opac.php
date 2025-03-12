@@ -45,25 +45,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
             <form id="form" onsubmit="edit_opac(event);">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
 
-                <h2><center>Change OPAC Link</center></h2>
+                <h3><center>Change OPAC Link</center></h3>
 
-                <div class="form-group">
+                <div class="form-group mt-4">
                     <div class="row">
-                        <label for="opac_link">Change OPAC Link</label>
+                        <label for="opac_link" class="fw-bold">Add a new url:</label>
                         <div class="col">
                             <input id="new_link" class="form-control" name="new_link" required value="<?= htmlspecialchars($opac_link) ?>">
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group text-center">
                     <div class="row">
                         <div class="col">
-                            <button href="javascript:void(0);" class="btn btn-info btn-sm" onclick="edit_opac();">UPDATE</button>
+                            <button href="javascript:void(0);" class="btn btn-success btn-sm" onclick="edit_opac();">UPDATE</button>
                         </div>
                     </div>
                 </div>

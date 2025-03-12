@@ -40,7 +40,7 @@
                                     <!-- Button to trigger the export -->
                                     <form action="admin/pages/import_students.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center">
                                         <input type="file" name="excelFile" accept=".xls,.xlsx" required>
-                                        <button type="submit" class="btn btn-primary btn-md">
+                                        <button type="submit" class="btn btn-success btn-md">
                                             <i class="fa fa-upload"></i> Upload</button>
                                     </form>
                                 </div>
@@ -63,7 +63,7 @@
                                     <!-- Button to trigger the export -->
                                     <form action="admin/pages/import_instructors.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center">
                                         <input type="file" name="excelFile" accept=".xls,.xlsx" required>
-                                        <button type="submit" class="btn btn-primary btn-md">
+                                        <button type="submit" class="btn btn-success btn-md">
                                             <i class="fa fa-upload"></i> Upload</button>
                                     </form>
                                 </div>

@@ -8,16 +8,15 @@ error_reporting(E_ALL);
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-// Database connection
-// $host = 'localhost:3307';   // Change this to your host
-// $username = 'root';     // Change this to your DB username
-// $password = '';         // Change this to your DB password
-// $database = 'cap'; // Change this to your DB name
+$servername = 'localhost:3307';   // Change this to your host
+$username = 'root';     // Change this to your DB username
+$password = '';         // Change this to your DB password
+$dbname = 'cap'; // Change this to your DB name
 
-$servername = "localhost";
-$username = "u607950924_basc_elibrary";
-$password = "B@scElibrary@2024!";
-$dbname = "u607950924_cap";
+// $servername = "localhost";
+// $username = "u607950924_basc_elibrary";
+// $password = "B@scElibrary@2024!";
+// $dbname = "u607950924_cap";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
