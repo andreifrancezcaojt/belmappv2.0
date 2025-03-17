@@ -108,12 +108,13 @@ include_once('../includes/dbcon.php');
                             <th>Full Name</th>
                             <th>Sex</th>
                             <th>Course</th>
+                            <th>Institute</th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
                         <?php
 
-                        $q1 = "SELECT student_id, fullname, sex, course 
+                        $q1 = "SELECT student_id, fullname, sex, course, institute 
                                FROM students ";
                         $rs1 = mysqli_query($conn, $q1);
 
@@ -123,6 +124,7 @@ include_once('../includes/dbcon.php');
                                 <td>' . $row1['fullname'] . '</td>
                                 <td>' . $row1['sex'] . '</td>
                                 <td>' . $row1['course'] . '</td>
+                                <td>' . $row1['institute'] . '</td>
                             </tr>';
                         }
                         ?>

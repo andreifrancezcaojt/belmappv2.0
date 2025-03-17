@@ -28,7 +28,7 @@ if ($conn->connect_error) {
 }
 
 // Query to get data from open_access_database table
-$sql = "SELECT id, oadb_name, oadb_url FROM open_access_db";
+$sql = "SELECT id, oadb_name, oadb_url, category FROM open_access_db WHERE is_archived = 0";
 $result = $conn->query($sql);
 
 // Create a new Spreadsheet
@@ -36,19 +36,27 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 // Set column headers
-$sheet->setCellValue('A1', 'ID');
-$sheet->setCellValue('B1', 'Open Access Database');
+//$sheet->setCellValue('A1', 'ID');
+$sheet->setCellValue('A1', 'Open Access Database');
 // $sheet->setCellValue('C1', 'Image');
-$sheet->setCellValue('D1', 'URL');
+$sheet->setCellValue('B1', 'URL');
+$sheet->setCellValue('C1', 'Category');
+
+$sheet->getStyle('A1:C1')->getFont()->setBold(true);
+
+foreach (range('A', 'C') as $columnID) {
+    $sheet->getColumnDimension($columnID)->setAutoSize(true);
+}
 
 // Fill data from the database into the spreadsheet
 if ($result->num_rows > 0) {
     $row = 2; // Start from row 2 since row 1 is for headers
     while ($data = $result->fetch_assoc()) {
-        $sheet->setCellValue('A' . $row, $data['id']);
-        $sheet->setCellValue('B' . $row, $data['oadb_name']);
+        // $sheet->setCellValue('A' . $row, $data['id']);
+        $sheet->setCellValue('A' . $row, $data['oadb_name']);
         // $sheet->setCellValue('C' . $row, $data['image']);
-        $sheet->setCellValue('D' . $row, $data['oadb_url']);
+        $sheet->setCellValue('B' . $row, $data['oadb_url']);
+        $sheet->setCellValue('C' . $row, $data['category']);
         $row++;
     }
 }
@@ -56,9 +64,7 @@ if ($result->num_rows > 0) {
 // Save the spreadsheet to a file and download
 $writer = new Xlsx($spreadsheet);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="BELMAppv2.0_open_access_database.xlsx"');
+header('Content-Disposition: attachment; filename="BELMAppv2.0_Open_Access_Database.xlsx"');
 header('Cache-Control: max-age=0');
 $writer->save('php://output'); // Output to browser for download
 exit;
-
-?>

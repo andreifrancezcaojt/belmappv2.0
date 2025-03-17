@@ -18,7 +18,7 @@ if (file_exists($dbconPath)) {
                     <th>Sex</th>
                     <th>Username</th>
                     <th>Email</th>
-                    <th>Course / Faculty</th>
+                    <th>Institute</th>
                 </tr>   
             </thead>
             
@@ -85,6 +85,7 @@ if (file_exists($dbconPath)) {
                     echo '<tr><td colspan="6">No result!</td></tr>';
                 }
                 ?>
+                
             </tbody>
         </table>
     </div>

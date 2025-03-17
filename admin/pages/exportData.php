@@ -31,14 +31,14 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body">
-                <h4 class="text-success fw-bold">User</h4>
-                    <h5 class="text-center mb-1">Export User Data</h5>
+                <h4 class="text-success fw-bold">Registered Users</h4>
+                    <!-- <h5 class="text-center mb-1">Registered Users</h5> -->
                     <p class="text-center">Click the button below to export users data in Excel format.</p>
 
                     <!-- Button to trigger the export -->
                     <form action="admin/pages/export_users.php" method="post" class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success btn-md">
-                        <i class="fa fa-download"></i> Download</button>
+                        <i class="fa fa-download"></i> Export</button>
                     </form>
                 </div>
             </div>
@@ -48,13 +48,13 @@
             <div class="card shadow">
                 <div class="card-body">
                 <h4 class="text-success fw-bold">Open Access Database</h4>
-                    <h5 class="text-center mb-1">Export Open Access Database</h5>
+                    <!-- <h5 class="text-center mb-1">Open Access Database</h5> -->
                     <p class="text-center">Click the button below to export database in Excel format.</p>
 
                     <!-- Button to trigger the export -->
                     <form action="admin/pages/export_oadb.php" method="post" class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success btn-md">
-                        <i class="fa fa-download"></i> Download</button>
+                        <i class="fa fa-download"></i> Export</button>
                     </form>
                 </div>
             </div>
@@ -64,13 +64,13 @@
             <div class="card shadow">
                 <div class="card-body">
                 <h4 class="text-success fw-bold">E-resources</h4>
-                    <h5 class="text-center mb-1">Export E-resources</h5>
+                    <!-- <h5 class="text-center mb-1">E-resources</h5> -->
                     <p class="text-center">Click the button below to export e-resources data in Excel format.</p>
 
                     <!-- Button to trigger the export -->
                     <form action="admin/pages/export_e-resources.php" method="post" class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-success btn-md">
-                        <i class="fa fa-download"></i> Download</button>
+                        <i class="fa fa-download"></i>Export</button>
                     </form>
                 </div>
             </div>

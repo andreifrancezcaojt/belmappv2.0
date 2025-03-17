@@ -33,8 +33,8 @@
                         <div class="col-md-12">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="text-success fw-bold">STUDENTS</h4>
-                                    <h5 class="text-center mb-1">Import Students List</h5>
+                                    <h4 class="text-success fw-bold">Import Students</h4>
+                                    <!-- <h5 class="text-center mb-1">Import Students List</h5> -->
                                     <p class="text-center">Click the button below to import the excel file of the list of students.</p><br>
 
                                     <!-- Button to trigger the export -->
@@ -56,8 +56,8 @@
                         <div class="col-md-12">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="text-success fw-bold">INTRUCTORS</h4>
-                                    <h5 class="text-center mb-1">Import Instructors List</h5>
+                                    <h4 class="text-success fw-bold">Import Instructors</h4>
+                                    <!-- <h5 class="text-center mb-1">Import Instructors List</h5> -->
                                     <p class="text-center">Click the button below to import the excel file of the list of students .</p><br>
 
                                     <!-- Button to trigger the export -->
