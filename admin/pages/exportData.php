@@ -24,11 +24,11 @@
 
 <!-- Export Excel file -->
 
-<div class="container mt-5">
+<div class="container">
 
     <div class="row justify-content-center">
 
-        <div class="col-md-6 mt-3">
+        <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body">
                 <h4 class="text-success fw-bold">User</h4>
@@ -44,7 +44,7 @@
             </div>
         </div>
 
-        <div class="col-md-6 mt-3">
+        <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body">
                 <h4 class="text-success fw-bold">Open Access Database</h4>

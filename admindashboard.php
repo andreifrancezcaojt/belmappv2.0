@@ -1379,14 +1379,14 @@ $email = $_SESSION['email'];
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
                                     onclick="loadPage('pages/imported_data_user.php','maincontent'); setActiveLink(this);"
-                                    style="color:#fff; text-decoration: none;">
+                                    style="color:#fff; text-decoration: none;"><i class="fas fa-user-graduate me-2"></i>
                                     Students
                                 </a>
                             </li>
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
                                     onclick="loadPage('pages/imported_data_faculty.php','maincontent'); setActiveLink(this);"
-                                    style="color:#fff; text-decoration: none;">
+                                    style="color:#fff; text-decoration: none;"><i class="fas fa-chalkboard-teacher me-2"></i> 
                                     Faculty
                                 </a>
                             </li>
@@ -1416,12 +1416,13 @@ $email = $_SESSION['email'];
                     <div id="logHistoryCollapse" class="collapse">
                         <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
                             <li>
-                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">Most Frequent</a>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
+                                <i class="fas fa-chart-line me-2"></i>Most Frequent</a>
                             </li>
                             <li>
-                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">User Login</a>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
+                                <i class="fas fa-user-clock me-2"></i>User Login</a>
                             </li>
-
                         </ul>
                     </div>
                 </div>

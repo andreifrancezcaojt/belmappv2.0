@@ -165,11 +165,13 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                         <tr>
                             <th>Faculty ID</th>
                             <th>Full Name</th>
+                            <th>Sex</th>
+                            <th>Institute</th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
                         <?php
-                        $q2 = "SELECT instructor_id, fullname 
+                        $q2 = "SELECT instructor_id, fullname, sex, institute 
                                FROM instructors 
                                LIMIT $start_from2, $num_per_page";
                         $rs2 = mysqli_query($conn, $q2);
@@ -178,6 +180,8 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                             echo '<tr>
                                 <td>' . $row2['instructor_id'] . '</td>
                                 <td>' . $row2['fullname'] . '</td>
+                                <td>' . $row2['sex'] . '</td>
+                                <td>' . $row2['institute'] . '</td>
                             </tr>';
                         }
                         ?>
