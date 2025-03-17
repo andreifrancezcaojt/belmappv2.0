@@ -62,7 +62,7 @@ require_once('../../includes/dbcon.php');
     }
     table.table tr th, table.table tr td {
         border-color: #e9e9e9;
-        padding: 12px 15px;
+        padding: 6px 8px;
         vertical-align: middle;
     }
     table.table-striped tbody tr:nth-of-type(odd) {
