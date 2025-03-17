@@ -46,6 +46,12 @@ $sheet->setCellValue('B1', 'Fullname');
 $sheet->setCellValue('C1', 'Username');
 $sheet->setCellValue('D1', 'Email');
 
+$sheet->getStyle('A1:D1')->getFont()->setBold(true);
+
+foreach (range('A', 'D') as $columnID) {
+    $sheet->getColumnDimension($columnID)->setAutoSize(true);
+}
+
 // Fill data from the database into the spreadsheet
 if ($result->num_rows > 0) {
     $row = 2; // Start from row 2 since row 1 is for headers
@@ -58,10 +64,12 @@ if ($result->num_rows > 0) {
     }
 }
 
+
+
 // Save the spreadsheet to a file and download
 $writer = new Xlsx($spreadsheet);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="BELMAppv2.0_Users.xlsx"');
+header('Content-Disposition: attachment; filename="BELMAppv2.0_Registered_Users.xlsx"');
 header('Cache-Control: max-age=0');
 $writer->save('php://output'); // Output to browser for download
 exit;
