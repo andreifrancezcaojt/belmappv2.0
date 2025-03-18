@@ -15,8 +15,8 @@ if (file_exists($dbconPath)) {
 <table class="table table-striped table-hover" id="myTable">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Feedback URL</th>
+            <th>#</th>
+            <th>Feedback Form URL</th>
             <th>Action</th>
         </tr>
     </thead>

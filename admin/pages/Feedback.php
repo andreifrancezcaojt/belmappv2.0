@@ -163,6 +163,8 @@ if(isset($_GET['new_f'])){
 <?php
     $script = "loadPage('admin/pages/tempPages/tempFeedback.php?srch='+document.getElementById('srch').value,'tempo')";
 ?>
+
+
 <div class="container">
 
 <div class="table-responsive shadow-lg bg-white rounded">
@@ -170,7 +172,7 @@ if(isset($_GET['new_f'])){
         <div class="table-title">
             <div class="row">
                 <div class="col-xs-6">
-                    <h2><b>FEEDBACK FORM</b></h2>
+                    <h2><b>Feedback Form Link</b></h2>
                 </div>
                 <div class="col-xs-6">
                     <a href="javascript:void(0);" onclick="TINY.box.show({url:'feedback/addfeedback_qr.php',width:400,height:450})" class="btn btn-success"><i class="material-icons">&#xE147;</i> <span>Add New</span></a>

@@ -1386,7 +1386,7 @@ $email = $_SESSION['email'];
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
                                     onclick="loadPage('pages/imported_data_faculty.php','maincontent'); setActiveLink(this);"
-                                    style="color:#fff; text-decoration: none;"><i class="fas fa-chalkboard-teacher me-2"></i> 
+                                    style="color:#fff; text-decoration: none;"><i class="fas fa-chalkboard-teacher me-2"></i>
                                     Faculty
                                 </a>
                             </li>
@@ -1417,11 +1417,11 @@ $email = $_SESSION['email'];
                         <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
-                                <i class="fas fa-chart-line me-2"></i>Most Frequent</a>
+                                    <i class="fas fa-chart-line me-2"></i>Most Frequent</a>
                             </li>
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
-                                <i class="fas fa-user-clock me-2"></i>User Login</a>
+                                    <i class="fas fa-user-clock me-2"></i>User Login</a>
                             </li>
                         </ul>
                     </div>
@@ -1656,22 +1656,13 @@ $email = $_SESSION['email'];
 
             <div class="container" id="maincontent" style="background-color:white">
                 <div class="row">
-                    <div class="col-lg-4 mb-2">
-                        <div class="card card-margin py-2">
-                            <div class="card-header no-border">
-                                <i class="fas fa-user-alt" style="font-size:26px; color: #31a531;  margin-right: 20px;"></i>
-                                <h5 class="card-title " style="margin-right: 1rem;">Most Frequent User:</h5>
-                                <h6 class="text-success fw-bold" style="font-size: 1.3rem;"><?php echo getMostActiveUser($conn); ?></h6>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
-                                <i class="fas fa-users" style="font-size:26px; color: #31a531; margin-right: 25px;"></i>
-                                <h5 class="card-title" style="margin-right: 2rem;">Total No. Of Users:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_user; ?></h>
+                                <i class="fas fa-user-alt" style="font-size:20px; color: #31a531;  margin-right: 20px;"></i>
+                                <h5 class="card-title " style="margin-right: 1rem;">Most Frequent User:</h5>
+                                <h6 class="fw-bold" style="font-size: 20px; color:#31a531;"><?php echo getMostActiveUser($conn); ?></h6>
                             </div>
                         </div>
                     </div>
@@ -1680,8 +1671,8 @@ $email = $_SESSION['email'];
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
                                 <i class="fa fa-book" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
-                                <h5 class="card-title" style="margin-right: 1rem;">Total No. of E-Resources:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_eresources; ?></h3>
+                                <h5 class="card-title" style="margin-right: 1rem;">E-Resources:</h5>
+                                <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_eresources; ?></h3>
                             </div>
                         </div>
                     </div>
@@ -1689,19 +1680,29 @@ $email = $_SESSION['email'];
                     <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
-                                <i class="fas fa-book-open" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
-                                <h5 class="card-title" style="margin-right: 1rem; font-size:16px;">Total No. of Open Access Databases:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_open_access_db; ?></h3>
+                                <i class="fas fa-book-open" style="font-size:25px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Open Access Databases:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;"><?php echo $count_open_access_db; ?></h3>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 mb-2">
+                    <!-- <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
                                 <i class="fa fa-upload" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
                                 <h5 class="card-title" style="margin-right: 2rem;">Uploaded Feedback Form:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_feedback_qr; ?></h3>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;"><?php echo $count_feedback_qr; ?></h3>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fas fa-users" style="font-size:26px; color: #31a531; margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 2rem;">Registered Users:</h5>
+                                <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_user; ?></h3>
                             </div>
                         </div>
                     </div>
@@ -1709,16 +1710,61 @@ $email = $_SESSION['email'];
                     <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
-                                <i class="fa fa-male" style="font-size:20px; color: #31a531;  margin-right: 20px; margin-bottom: 4px;"></i>
-                                <h6 class="card-title" style="font-size:14px;">
-                                    <b>Male:<span style="margin-left: 45px; color:green; font-size:25px;"><?php echo get("SELECT COUNT(a.student_id), a.sex, b.id FROM students a, users b WHERE a.sex = 'M' AND a.student_id = b.id"); ?></span></b>
-                                </h6>
-                                <h6 class="card-title" style="font-size:14px;">
-                                    <b style="margin-left: 85px;"><i class="fa fa-female" style="color: #31a531; margin-right: 20px; font-size:20px;"></i>Female:<span style="margin-left: 45px; color:green; font-size:25px;"><?php echo get("SELECT COUNT(a.student_id), a.sex, b.id FROM students a, users b WHERE a.sex = 'F' AND a.student_id = b.id"); ?></span></b>
-                                </h6>
+                                <i class="fa fa-male" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Male Users:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;">
+                                    <?php
+                                    echo get("
+                                            SELECT COUNT(*) AS total_males 
+                                            FROM (
+                                                SELECT a.student_id AS person_id, a.sex 
+                                                FROM students a 
+                                                INNER JOIN users b ON a.student_id = b.id 
+                                                WHERE a.sex = 'M' AND b.email IS NOT NULL
+                                                
+                                                UNION ALL
+                                                
+                                                SELECT c.instructor_id AS person_id, c.sex 
+                                                FROM instructors c 
+                                                INNER JOIN users d ON c.instructor_id = d.id 
+                                                WHERE c.sex = 'M' AND d.email IS NOT NULL
+                                            ) AS combined;
+                                        ");
+                                    ?>
+                                </h3>
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fa fa-male" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Female Users:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;">
+                                    <?php
+                                    echo get("
+                                            SELECT COUNT(*) AS total_females 
+                                            FROM (
+                                                SELECT a.student_id AS person_id, a.sex 
+                                                FROM students a 
+                                                INNER JOIN users b ON a.student_id = b.id 
+                                                WHERE a.sex = 'F' AND b.email IS NOT NULL
+                                                
+                                                UNION ALL
+                                                
+                                                SELECT c.instructor_id AS person_id, c.sex 
+                                                FROM instructors c 
+                                                INNER JOIN users d ON c.instructor_id = d.id 
+                                                WHERE c.sex = 'F' AND d.email IS NOT NULL
+                                            ) AS combined;
+                                        ");
+                                    ?>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
 
                     <div class="container-fluid">
                         <div class="row justify-content-start">
@@ -1743,18 +1789,18 @@ $email = $_SESSION['email'];
                                         <thead>
                                             <tr>
                                                 <th>Rank</th>
-                                                <th>Name</th>
+                                                <th>Username</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
                                             <?php
                                             $q = "SELECT a.username, COUNT(b.user_id) AS login_count
-                                FROM users a
-                                LEFT JOIN login_history b ON a.id = b.user_id
-                                GROUP BY a.username
-                                ORDER BY login_count DESC
-                                LIMIT 4";
+                                                FROM users a
+                                                LEFT JOIN login_history b ON a.id = b.user_id
+                                                GROUP BY a.username
+                                                ORDER BY login_count DESC
+                                                LIMIT 5";
                                             $result = mysqli_query($conn, $q);
                                             $n = 1;
                                             while ($rw = mysqli_fetch_array($result)) {
