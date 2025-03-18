@@ -1407,55 +1407,11 @@ $email = $_SESSION['email'];
                     <i class="fas fa-newspaper me-3" style="color:#fff"></i>E-Resources
                 </a>
 
-                <div class="mx-3">
-                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
-                        onclick="toggleAccordion('logHistoryCollapse','logHistoryIcon')" style="color:#fff; border: none;">
-                        <i class="fas fa-clock-rotate-left me-3" style="color:#fff"></i> Log History
-                        <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
-                    </button>
-                    <div id="logHistoryCollapse" class="collapse">
-                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
-                            <li>
-                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
-                                    <i class="fas fa-chart-line me-2"></i>Most Frequent</a>
-                            </li>
-                            <li>
-                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
-                                    <i class="fas fa-user-clock me-2"></i>User Login</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/Feedback.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-comment me-3" style="color:#fff"></i>Feedback Form
-                </a>
-
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/add_new_opac.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-book me-3" style="color:#fff"></i>OPAC Link
-                </a>
-
                 <a href="javascript:void(0);"
                     onclick="loadPage('admin/pages/Forum.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
                     <i class="fas fa-comments me-3" style="color:#fff"></i>Forum
                 </a>
-
-                <!-- <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-file-import me-3" style="color:#fff"></i>Import Data
-                </a>
-
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-download me-3" style="color:#fff"></i>Export Data
-                </a> -->
 
                 <div class="mx-3">
                     <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
@@ -1483,16 +1439,51 @@ $email = $_SESSION['email'];
                     </div>
                 </div>
 
-                <!-- <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-file-import me-3" style="color:#fff"></i>Import Data</a>
+                <div class='mx-3'>
+                    <button class='btn btn-secondary bg-transparent second-text py-2 w-100 text-start' type='button'
+                        onclick="toggleAccordion('opacFeedbackCollapse', 'opacFeedbackIcon')" style='color:#fff; border: none;'>
+                        <i class='fas fa-layer-group me-3' style='color:#fff'></i> Editable Links
+                        <i class='fa-solid fa-chevron-down float-end' id='opacFeedbackIcon'></i>
+                    </button>
+                    <div id='opacFeedbackCollapse' class='collapse'>
+                        <ul class='list-group list-group-flush' style='list-style: none; padding-left: 0; margin: 0;'>
+                            <li>
+                                <a class='list-group-item bg-transparent second-text mx-3 py-2' href='javascript:void(0);'
+                                    onclick="loadPage('admin/pages/Feedback.php', 'maincontent'); setActiveLink(this);"
+                                    style='color:#fff; text-decoration: none;'>
+                                    <i class='fas fa-comment me-3' style='color:#fff'></i> Feedback Form
+                                </a>
+                            </li>
+                            <li>
+                                <a class='list-group-item bg-transparent second-text mx-3 py-2' href='javascript:void(0);'
+                                    onclick="loadPage('admin/pages/add_new_opac.php', 'maincontent'); setActiveLink(this);"
+                                    style='color:#fff; text-decoration: none;'>
+                                    <i class='fas fa-book me-3' style='color:#fff'></i> OPAC Link
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-download me-3" style="color:#fff"></i>Export Data</a> -->
-
+                <div class="mx-3">
+                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
+                        onclick="toggleAccordion('logHistoryCollapse','logHistoryIcon')" style="color:#fff; border: none;">
+                        <i class="fas fa-clock-rotate-left me-3" style="color:#fff"></i> Log History
+                        <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
+                    </button>
+                    <div id="logHistoryCollapse" class="collapse">
+                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-chart-line me-2"></i>Most Frequent</a>
+                            </li>
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-user-clock me-2"></i>User Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
 
@@ -1542,20 +1533,20 @@ $email = $_SESSION['email'];
                 function toggleAccordion(elementId, iconId) {
                     var collapseElement = document.getElementById(elementId);
                     var icon = document.getElementById(iconId);
-                    var allCollapses = document.querySelectorAll('.collapse');
-                    var allIcons = document.querySelectorAll('.fa-chevron-up, .fa-chevron-down');
 
-                    // Close all other collapses
-                    allCollapses.forEach(function(el) {
-                        if (el.id !== elementId) {
+                    // Close all collapses except the clicked one
+                    document.querySelectorAll('.collapse').forEach(function(el) {
+                        if (el.id !== elementId && el.classList.contains('show')) {
                             el.classList.remove('show');
                         }
                     });
 
-                    // Reset all icons to chevron-down
-                    allIcons.forEach(function(el) {
-                        el.classList.remove('fa-chevron-up');
-                        el.classList.add('fa-chevron-down');
+                    // Update all icons to down arrow, except the clicked one
+                    document.querySelectorAll('.fa-chevron-up, .fa-chevron-down').forEach(function(el) {
+                        if (el.id !== iconId) {
+                            el.classList.remove('fa-chevron-up');
+                            el.classList.add('fa-chevron-down');
+                        }
                     });
 
                     // Toggle the clicked accordion
@@ -1569,7 +1560,21 @@ $email = $_SESSION['email'];
                         icon.classList.add('fa-chevron-up');
                     }
                 }
+
+                // Close all collapses when any other sidebar link is clicked
+                document.querySelectorAll('.list-group-item-action').forEach(link => {
+                    link.addEventListener('click', function() {
+                        document.querySelectorAll('.collapse').forEach(collapse => {
+                            collapse.classList.remove('show');
+                        });
+                        document.querySelectorAll('.fa-chevron-up').forEach(icon => {
+                            icon.classList.remove('fa-chevron-up');
+                            icon.classList.add('fa-chevron-down');
+                        });
+                    });
+                });
             </script>
+
 
         </div>
 

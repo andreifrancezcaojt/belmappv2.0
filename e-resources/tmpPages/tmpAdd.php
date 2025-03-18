@@ -57,7 +57,7 @@ $result = mysqli_query($conn, $query);
             <th>#</th>
             <th>Call No.</th>
             <th>E-Resource Title</th>
-            <th>File Name</th>
+            <!-- <th>File Name</th> -->
             <th>Category</th>
             <th>Action</th>
         </tr>
@@ -76,7 +76,7 @@ $result = mysqli_query($conn, $query);
                     <td><?= $counter++; ?></td> <!-- Use the counter for numbering -->
                     <td><?= htmlspecialchars($row['pdf_callnumber']); ?></td>
                     <td><?= htmlspecialchars($row['pdf_name']); ?></td>
-                    <td><?= htmlspecialchars($row['pdf']); ?></td>
+                    <!-- <td><?= htmlspecialchars($row['pdf']); ?></td> -->
                     <td><?= htmlspecialchars($row['category']); ?></td>
                     <td>
                         <?php if ($row['is_archived']): ?>
