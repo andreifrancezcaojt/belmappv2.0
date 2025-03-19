@@ -32,7 +32,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
         }
 
         .table-responsive {
-            margin: 30px 0;
+            margin: 5px 0;
         }
 
         .table-wrapper {
@@ -71,24 +71,28 @@ $start_from2 = ($page2 - 1) * $num_per_page;
         table.table-striped.table-hover tbody tr:hover {
             background: #f5f5f5;
         }
+        
+        .pagination {
+            float: right;
+        }
 
         .pagination a {
-            padding: 8px 16px;
+            padding: 8px 12px;
             text-decoration: none;
-            margin: 0 4px;
+            margin-bottom: 10px;
             border: 1px solid #ddd;
-            border-radius: 3px;
-            color: #007bff;
+            color: rgb(33 37 41 / 75%);
+            background-color: #e9ecef;
         }
 
         .pagination a:hover {
             background-color: #ddd;
         }
 
-        .pagination .active a {
-            background-color: lightseagreen;
+        .pagination a.active {
+            background-color: #007bff;
             color: white;
-            border: 1px solid lightseagreen;
+            border: 1px solid #007bff;
         }
 
         /* New glow effect for clicked button */
@@ -150,19 +154,37 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                 $total_records1 = $row1['total_users'];
                 $total_pages1 = ceil($total_records1 / $num_per_page);
 
-                echo '<div class="pagination">';
-                if ($page1 > 1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/most_frequent.php?page1=' . ($page1 - 1) . '&page2=' . $page2 . '\',\'maincontent\')">Prev</a>';
-                }
+                $start_record = ($page1 - 1) * $num_per_page + 1;
+                $end_record = min($start_record + $num_per_page - 1, $total_records1);
+                echo '<div class="text-end mb-3">Showing ' . $start_record . ' to ' . $end_record . ' of the ' . $total_records1 . ' records</div>';
 
-                for ($i = 1; $i <= $total_pages1; $i++) {
+                echo '<div class="pagination">';
+
+                // Show "Prev" button, disabled on the first page
+                echo '<a href="javascript:void(0);" ' . ($page1 > 1 ? 'onclick="loadPage(\'pages/most_frequent.php?page1=' . ($page1 - 1) . '&page2=' . $page2 . '\',\'maincontent\')"' : 'style="pointer-events: none; color: gray;"') . '>Prev</a>';
+                
+                // Calculate start and end page for limiting to 3 pages
+                $start_page = max(1, $page1 - 1);
+                $end_page = min($total_pages1, $page1 + 1);
+                
+                // Adjust if near start or end of pages
+                if ($start_page == 1) {
+                    $end_page = min(3, $total_pages1);
+                } elseif ($end_page == $total_pages1) {
+                    $start_page = max(1, $total_pages1 - 2);
+                }
+                
+                // Display limited page numbers
+                for ($i = $start_page; $i <= $end_page; $i++) {
                     echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/most_frequent.php?page1=' . $i . '&page2=' . $page2 . '\',\'maincontent\')" class="' . ($i == $page1 ? 'active' : '') . '">' . $i . '</a>';
                 }
-
-                if ($page1 < $total_pages1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/most_frequent.php?page1=' . ($page1 + 1) . '&page2=' . $page2 . '\',\'maincontent\')">Next</a>';
-                }
+                
+                // Show "Next" button, disabled on the last page
+                echo '<a href="javascript:void(0);" ' . ($page1 < $total_pages1 ? 'onclick="loadPage(\'pages/most_frequent.php?page1=' . ($page1 + 1) . '&page2=' . $page2 . '\',\'maincontent\')"' : 'style="pointer-events: none; color: gray;"') . '>Next</a>';
+                
                 echo '</div>';
+
+                echo '<div class="text-start fw-bold">Page ' . $page1 . ' of ' . $total_pages1 . '</div>';
                 ?>
             </div>
         </div>
