@@ -5,7 +5,7 @@ include_once('../../includes/dbcon.php');
 if (isset($_POST['addDatabase'])) {
     $oadb_name = mysqli_real_escape_string($conn, $_POST['oadb_name']);
     $oadb_url = mysqli_real_escape_string($conn, $_POST['oadb_url']);
-    $category = mysqli_real_escape_string($conn, $_POST['category']);  
+    $category = mysqli_real_escape_string($conn, $_POST['category']);
 
     $image = $_FILES["image"]["name"];
 
@@ -44,9 +44,9 @@ if (isset($_POST['addDatabase'])) {
     <div class="row">
         <div class="col">
             <form method="POST" enctype="multipart/form-data" id="form">
-                <h2>
+                <h3 class="mb-2 mt-2">
                     <center>Add Open Access Database</center>
-                </h2>
+                </h3>
                 <hr>
                 <div class="form-group">
                     <div class="row">
@@ -72,7 +72,7 @@ if (isset($_POST['addDatabase'])) {
                     <div class="row">
                         <div class="col">
                             <input type="hidden" id="yyy">
-                            <label for="image">Image:</label>
+                            <label for="image">Upload Image:</label>
                             <input type="file" class="form-control" name="image" id="pic" required accept="image/*">
                             <span style="color: dark; font-size: 14px;">
                                 <center>Only jpg / jpeg/ png /gif format allowed.</center>
@@ -88,10 +88,10 @@ if (isset($_POST['addDatabase'])) {
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group text-center">
                     <div class="row">
                         <div class="col">
-                            <a href="javascript:void(0);" class="btn btn-info btn-sm" onclick="upload_oadb();">ADD</a>
+                            <a href="javascript:void(0);" class="btn btn-success btn-sm" onclick="upload_oadb();">Upload open access database</a>
                         </div>
                     </div>
                 </div>

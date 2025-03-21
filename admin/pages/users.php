@@ -25,12 +25,12 @@ require_once('../../includes/dbcon.php');
         background: #f5f5f5;
     }
     .table-responsive {
-        margin: 30px 0;
+        margin: 5px 0;
     }
     .table-wrapper {
         min-width: 1000px;
         background: #fff;
-        padding: 20px 25px;
+        padding: 10px 10px;
         border-radius: 3px;
         box-shadow: 0 1px 1px rgba(0,0,0,.05);
     }
@@ -62,7 +62,7 @@ require_once('../../includes/dbcon.php');
     }
     table.table tr th, table.table tr td {
         border-color: #e9e9e9;
-        padding: 12px 15px;
+        padding: 6px 8px;
         vertical-align: middle;
     }
     table.table-striped tbody tr:nth-of-type(odd) {

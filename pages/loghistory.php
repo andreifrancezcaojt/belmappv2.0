@@ -32,7 +32,7 @@ $start_from2 = ($page2 - 1) * $num_per_page;
         }
 
         .table-responsive {
-            margin: 30px 0;
+            margin: 5px 0;
         }
 
         .table-wrapper {
@@ -72,13 +72,18 @@ $start_from2 = ($page2 - 1) * $num_per_page;
             background: #f5f5f5;
         }
 
+        .pagination {
+            float: right;
+        }
+
         .pagination a {
-            padding: 8px 16px;
+            float: right;
+            padding: 8px 12px;
             text-decoration: none;
-            margin: 0 4px;
+            margin-bottom: 2 px;
             border: 1px solid #ddd;
-            border-radius: 3px;
-            color: #007bff;
+            color: rgb(33 37 41 / 75%);
+            background-color: #e9ecef;
         }
 
         .pagination a:hover {
@@ -86,11 +91,10 @@ $start_from2 = ($page2 - 1) * $num_per_page;
         }
 
         .pagination .active a {
-            background-color: lightseagreen;
+            background-color: #007bff;
             color: white;
-            border: 1px solid lightseagreen;
+            border: 1px solid #007bff;
         }
-
 
         /* New glow effect for clicked button */
         .pagination a.glow {
@@ -103,71 +107,6 @@ $start_from2 = ($page2 - 1) * $num_per_page;
 
 <body>
     <div class="container">
-        <!-- First Table: Most Frequent User -->
-        <!-- <div class="table-responsive bg-white shadow">
-            <div class="table-wrapper">
-                <div class="table-title">
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <h2><b>Most Frequent User</b></h2>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-striped table-hover" id="myTable">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Username</th>
-                            <th>Login Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $q1 = "SELECT a.id, a.username, COUNT(b.user_id) AS login_count
-                               FROM users a
-                               JOIN login_history b ON a.id = b.user_id
-                               GROUP BY a.id, a.username
-                               LIMIT $start_from1, $num_per_page";
-                        $rs1 = mysqli_query($conn, $q1);
-
-                        while ($row1 = mysqli_fetch_array($rs1)) {
-                            echo '<tr>
-                                <td>' . $row1['id'] . '</td>
-                                <td>' . $row1['username'] . '</td>
-                                <td>' . $row1['login_count'] . '</td>
-                            </tr>';
-                        }
-                        ?>
-                    </tbody>
-                </table>
-
-                <?php
-                $qr1 = "SELECT COUNT(DISTINCT a.id) AS total_users 
-                        FROM users a
-                        JOIN login_history b ON a.id = b.user_id";
-                $rs_result1 = mysqli_query($conn, $qr1);
-                $row1 = mysqli_fetch_assoc($rs_result1);
-                $total_records1 = $row1['total_users'];
-                $total_pages1 = ceil($total_records1 / $num_per_page);
-
-                echo '<div class="pagination">';
-                if ($page1 > 1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . ($page1 - 1) . '&page2=' . $page2 . '\',\'maincontent\')">Prev</a>';
-                }
-
-                for ($i = 1; $i <= $total_pages1; $i++) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $i . '&page2=' . $page2 . '\',\'maincontent\')" class="' . ($i == $page1 ? 'active' : '') . '">' . $i . '</a>';
-                }
-
-                if ($page1 < $total_pages1) {
-                    echo '<a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . ($page1 + 1) . '&page2=' . $page2 . '\',\'maincontent\')">Next</a>';
-                }
-                echo '</div>';
-                ?>
-            </div>
-        </div> -->
-
-        <!-- Second Table: Login History -->
         <div class="table-responsive bg-white shadow">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -218,22 +157,41 @@ $start_from2 = ($page2 - 1) * $num_per_page;
                 $total_records2 = $row2['total_logins'];
                 $total_pages2 = ceil($total_records2 / $num_per_page);
 
+                $start_record2 = ($page2 - 1) * $num_per_page + 1;
+                $end_record2 = min($start_record2 + $num_per_page - 1, $total_records2);
+                echo '<div class="text-end mb-3">Showing ' . $start_record2 . ' to ' . $end_record2 . ' of the ' . $total_records2 . ' records</div>';
+                
                 echo '<ul class="pagination">';
-                if ($page2 > 1) {
-                    echo '<li><a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 - 1) . '\',\'maincontent\')">Prev</a></li>';
+
+                // Show "Prev" button, disabled on the first page
+                echo '<li class="' . ($page2 == 1 ? 'disabled' : '') . '">
+                        <a href="javascript:void(0);" ' . ($page2 > 1 ? 'onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 - 1) . '\',\'maincontent\')"' : '') . '>Prev</a>
+                    </li>';
+
+                // Calculate start and end page for limiting to 3 pages
+                $start_page = max(1, $page2 - 1);
+                $end_page = min($total_pages2, $page2 + 1);
+
+                // Adjust if near start or end of pages
+                if ($start_page == 1) {
+                    $end_page = min(3, $total_pages2);
+                } elseif ($end_page == $total_pages2) {
+                    $start_page = max(1, $total_pages2 - 2);
                 }
 
-                for ($i = 1; $i <= $total_pages2; $i++) {
+                // Display page numbers
+                for ($i = $start_page; $i <= $end_page; $i++) {
                     echo '<li class="' . ($i == $page2 ? 'active' : '') . '">
-            <a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . $i . '\',\'maincontent\')">' . $i . '</a>
-          </li>';
+                            <a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . $i . '\',\'maincontent\')">' . $i . '</a>
+                        </li>';
                 }
 
-                if ($page2 < $total_pages2) {
-                    echo '<li><a href="javascript:void(0);" onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 + 1) . '\',\'maincontent\')">Next</a></li>';
-                }
+                // Show "Next" button, disabled on the last page
+                echo '<li class="' . ($page2 >= $total_pages2 ? 'disabled' : '') . '">
+                        <a href="javascript:void(0);" ' . ($page2 < $total_pages2 ? 'onclick="loadPage(\'pages/loghistory.php?page1=' . $page1 . '&page2=' . ($page2 + 1) . '\',\'maincontent\')"' : '') . '>Next</a>
+                    </li>';
                 echo '</ul>';
-
+                echo '<div class="text-start fw-bold">Page ' . $page2 . ' of ' . $total_pages2 . '</div>';
                 ?>
             </div>
         </div>

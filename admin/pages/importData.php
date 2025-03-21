@@ -33,14 +33,14 @@
                         <div class="col-md-12">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="text-success fw-bold">STUDENTS</h4>
-                                    <h5 class="text-center mb-1">Import Students List</h5>
+                                    <h4 class="text-success fw-bold">Import Students</h4>
+                                    <!-- <h5 class="text-center mb-1">Import Students List</h5> -->
                                     <p class="text-center">Click the button below to import the excel file of the list of students.</p><br>
 
                                     <!-- Button to trigger the export -->
                                     <form action="admin/pages/import_students.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center">
                                         <input type="file" name="excelFile" accept=".xls,.xlsx" required>
-                                        <button type="submit" class="btn btn-primary btn-md">
+                                        <button type="submit" class="btn btn-success btn-md">
                                             <i class="fa fa-upload"></i> Upload</button>
                                     </form>
                                 </div>
@@ -56,14 +56,14 @@
                         <div class="col-md-12">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="text-success fw-bold">INTRUCTORS</h4>
-                                    <h5 class="text-center mb-1">Import Instructors List</h5>
+                                    <h4 class="text-success fw-bold">Import Instructors</h4>
+                                    <!-- <h5 class="text-center mb-1">Import Instructors List</h5> -->
                                     <p class="text-center">Click the button below to import the excel file of the list of students .</p><br>
 
                                     <!-- Button to trigger the export -->
                                     <form action="admin/pages/import_instructors.php" method="post" enctype="multipart/form-data" class="d-flex justify-content-center">
                                         <input type="file" name="excelFile" accept=".xls,.xlsx" required>
-                                        <button type="submit" class="btn btn-primary btn-md">
+                                        <button type="submit" class="btn btn-success btn-md">
                                             <i class="fa fa-upload"></i> Upload</button>
                                     </form>
                                 </div>

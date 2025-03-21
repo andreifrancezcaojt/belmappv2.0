@@ -3,7 +3,7 @@
 $servername = "localhost:3307";
 $username = "root";
 $password = "";
-$dbname = "belmappv2.0";
+$dbname = "cap";
 
 
 // $servername = "localhost";
@@ -69,3 +69,4 @@ function getbooks() {
 
 
 ?>
+

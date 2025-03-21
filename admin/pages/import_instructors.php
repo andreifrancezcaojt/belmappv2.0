@@ -19,7 +19,7 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $file = $_FILES['excelFile']['tmp_name'];
-    
+
     $spreadsheet = IOFactory::load($file);
     $sheet = $spreadsheet->getActiveSheet();
     $rows = $sheet->toArray();
@@ -34,8 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     for ($i = 1; $i < count($rows); $i++) {
         $instructor_id = $rows[$i][0];
         $fullname = $rows[$i][1];
+        $sex = $rows[$i][2];
+        $institute = $rows[$i][3];
 
-        $sql = "INSERT INTO instructors (instructor_id, fullname) VALUES ('$instructor_id', '$fullname')";
+        $sql = "INSERT INTO instructors (instructor_id, fullname, sex, institute) VALUES ('$instructor_id', '$fullname', '$sex', '$institute')";
         if (!$conn->query($sql)) {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -47,4 +49,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 }
 
 $conn->close();
-?>

@@ -175,6 +175,7 @@ if (isset($_POST['login'])) {
             display: block;
             object-fit: cover;
             margin-bottom: 5px;
+            border-radius: 10px;
         }
     </style>
 </head>
@@ -193,7 +194,7 @@ if (isset($_POST['login'])) {
 
     <br>
 
-    <div class="container mb-1">
+    <div class="container mb-1 mt-5">
         <form action="login.php" method="POST" autocomplete="">
             <div class="row">
 
@@ -202,7 +203,7 @@ if (isset($_POST['login'])) {
                 </div>
 
                 <div class="col-12 col-lg-6 mt-3">
-                    <h2 class="text-center"><i class="fas fa-user mr-2"></i> Login</h2>
+                    <h2 class="text-center"><i class="fas fa-user mr-2"></i> User Login</h2>
                     <p class="text-center">Login with your email and password.</p>
                     <?php if (count($errors) > 0): ?>
                         <div class="alert alert-danger text-center">
@@ -223,7 +224,6 @@ if (isset($_POST['login'])) {
                     </div>
                     <div class="link login-link text-center">Don't have an account yet? <a href="signup.php" class="text-success text-center">Signup here</a></div>
                 </div>
-
 
             </div>
         </form>

@@ -13,25 +13,25 @@ if(isset($_GET['id'])){
 ?>
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-4">
         <div class="col">
             <form id="form" onsubmit="edit_qr(event);">
                 <input type="hidden" id="qr_id" value="<?= htmlspecialchars($id) ?>">
 
-                <h2><center>Change Feedback URL</center></h2>
+                <h3><center>Change Feedback URL</center></h3>
 
-                <div class="form-group">
+                <div class="form-group mt-4">
                     <div class="row">
-                        <label for="opac_link">Feedback URL</label>
+                        <label for="opac_link" class="fw-bold">Add a new url:</label>
                         <div class="col">
                             <input id="new_qr" class="form-control" name="new_qr" required value="<?= htmlspecialchars($qr_link) ?>">
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group text-center">
                     <div class="row">
                         <div class="col">
-                            <button href="javascript:void(0);" class="btn btn-info btn-sm" onclick="edit_qr();">UPDATE</button>
+                            <button href="javascript:void(0);" class="btn btn-success btn-sm" onclick="edit_qr();">UPDATE</button>
                         </div>
                     </div>
                 </div>

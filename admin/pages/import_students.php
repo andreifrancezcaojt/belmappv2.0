@@ -8,10 +8,10 @@ error_reporting(E_ALL);
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-$servername = "localhost";
-$username = "u607950924_basc_elibrary";
-$password = "B@scElibrary@2024!";
-$dbname = "u607950924_cap";
+$servername = "localhost:3307";
+$username = "root";
+$password = "";
+$dbname = "cap";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
     $file = $_FILES['excelFile']['tmp_name'];
-    
+
     try {
         $spreadsheet = IOFactory::load($file);
         $sheet = $spreadsheet->getActiveSheet();
@@ -39,9 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
         // Assuming the first row is the header
         for ($i = 1; $i < count($rows); $i++) {
             $student_id = $rows[$i][0] ?? null;
-            $fullname = $rows[$i][4] ?? '';
-            $sex = $rows[$i][8] ?? '';
-            $course = $rows[$i][5] ?? '';
+            $fullname = $rows[$i][1] ?? '';
+            $sex = $rows[$i][2] ?? '';
+            $course = $rows[$i][3] ?? '';
+            $institute = $rows[$i][4] ?? '';
+
+            // Debugging: Check if any value is missing
+            var_dump($student_id, $fullname, $sex, $course, $institute);
 
             // Skip if student_id is null or empty
             if (empty($student_id)) {
@@ -62,10 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
             }
             $stmt->close();
 
-            // Insert the data
-            $insertSQL = "INSERT INTO students (student_id, fullname, sex, course) VALUES (?, ?, ?, ?)";
+            // Insert the data (ensure column count matches table structure)
+            $insertSQL = "INSERT INTO students (student_id, fullname, sex, course, institute) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($insertSQL);
-            $stmt->bind_param("ssss", $student_id, $fullname, $sex, $course);
+            $stmt->bind_param("sssss", $student_id, $fullname, $sex, $course, $institute);
 
             if (!$stmt->execute()) {
                 echo "Error inserting record for student ID $student_id: " . $stmt->error . "<br>";
@@ -83,4 +87,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['excelFile'])) {
 }
 
 $conn->close();
-?>

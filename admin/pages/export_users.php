@@ -8,16 +8,15 @@ error_reporting(E_ALL);
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-// Database connection
-// $host = 'localhost:3307';   // Change this to your host
-// $username = 'root';     // Change this to your DB username
-// $password = '';         // Change this to your DB password
-// $database = 'cap'; // Change this to your DB name
+$servername = 'localhost:3307';   // Change this to your host
+$username = 'root';     // Change this to your DB username
+$password = '';         // Change this to your DB password
+$dbname = 'cap'; // Change this to your DB name
 
-$servername = "localhost";
-$username = "u607950924_basc_elibrary";
-$password = "B@scElibrary@2024!";
-$dbname = "u607950924_cap";
+// $servername = "localhost";
+// $username = "u607950924_basc_elibrary";
+// $password = "B@scElibrary@2024!";
+// $dbname = "u607950924_cap";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -47,6 +46,12 @@ $sheet->setCellValue('B1', 'Fullname');
 $sheet->setCellValue('C1', 'Username');
 $sheet->setCellValue('D1', 'Email');
 
+$sheet->getStyle('A1:D1')->getFont()->setBold(true);
+
+foreach (range('A', 'D') as $columnID) {
+    $sheet->getColumnDimension($columnID)->setAutoSize(true);
+}
+
 // Fill data from the database into the spreadsheet
 if ($result->num_rows > 0) {
     $row = 2; // Start from row 2 since row 1 is for headers
@@ -59,10 +64,12 @@ if ($result->num_rows > 0) {
     }
 }
 
+
+
 // Save the spreadsheet to a file and download
 $writer = new Xlsx($spreadsheet);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment; filename="BELMAppv2.0_Users.xlsx"');
+header('Content-Disposition: attachment; filename="BELMAppv2.0_Registered_Users.xlsx"');
 header('Cache-Control: max-age=0');
 $writer->save('php://output'); // Output to browser for download
 exit;

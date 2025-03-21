@@ -3,7 +3,7 @@
     <div class="col">
       <form class="needs-validation" id="form" enctype="multipart/form-data" novalidate>
         <center>
-          <h2 class="mb-4">Add E-Resources</h2>
+          <h3 class="mb-2 mt-2">Add E-Resources</h3>
         </center>
         <hr>
 
@@ -60,8 +60,8 @@
           <div class="invalid-feedback">Please choose a category.</div>
         </div><br>
 
-        <div class="form-group">
-          <button type="button" onclick="upload_pdf()" class="btn btn-info btn-sm">Upload PDF</button>
+        <div class="form-group text-center">
+          <button type="button" onclick="upload_pdf()" class="btn btn-success btn-sm">Upload PDF</button>
         </div>
       </form>
     </div>

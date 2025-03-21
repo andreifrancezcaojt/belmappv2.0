@@ -27,7 +27,7 @@ if ($conn->connect_error) {
 }
 
 // Query to get data from e_resources table
-$sql = "SELECT id, pdf_name FROM pdf_file";
+$sql = "SELECT id, pdf_callnumber, pdf_name, category  FROM pdf_file WHERE is_archived = 0";
 $result = $conn->query($sql);
 
 // Create a new Spreadsheet
@@ -35,15 +35,27 @@ $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
 
 // Set column headers
-$sheet->setCellValue('A1', 'ID');
+// $sheet->setCellValue('A1', 'ID');
+$sheet->setCellValue('A1', 'Call Number');
 $sheet->setCellValue('B1', 'E-Resources Title');
+$sheet->setCellValue('C1', 'Category');
+
+
+$sheet->getStyle('A1:C1')->getFont()->setBold(true);
+
+foreach (range('A', 'C') as $columnID) {
+    $sheet->getColumnDimension($columnID)->setAutoSize(true);
+}
+
 
 // Fill data from the database into the spreadsheet
 if ($result->num_rows > 0) {
     $row = 2; // Start from row 2 since row 1 is for headers
     while ($data = $result->fetch_assoc()) {
-        $sheet->setCellValue('A' . $row, $data['id']);
+        // $sheet->setCellValue('A' . $row, $data['id']);
+        $sheet->setCellValue('A' . $row, $data['pdf_callnumber']);
         $sheet->setCellValue('B' . $row, $data['pdf_name']);
+        $sheet->setCellValue('C' . $row, $data['category']);
         $row++;
     }
 }
@@ -55,5 +67,3 @@ header('Content-Disposition: attachment; filename="BELMAppv2.0_e_resources.xlsx"
 header('Cache-Control: max-age=0');
 $writer->save('php://output'); // Output to browser for download
 exit;
-
-?>

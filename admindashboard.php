@@ -37,6 +37,7 @@ $email = $_SESSION['email'];
     <script src="assets/js/tinybox.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
     <title>Admin Dashboard</title>
 </head>
 
@@ -175,7 +176,7 @@ $email = $_SESSION['email'];
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     function loadSubContent(url, elementId) {
         if (window.XMLHttpRequest) {
@@ -429,7 +430,6 @@ $email = $_SESSION['email'];
 
 
 
-
     function add_admin() {
         var email = object('email').value;
         var password = object('password').value;
@@ -627,98 +627,6 @@ $email = $_SESSION['email'];
     }
 
 
-    // function add_book(){
-    //     var url = object('url').value;
-
-    //     swal({
-    //         title: 'Add Book',
-    //         text: 'Add book url?',
-    //         icon: 'info',
-    //         button: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((willAdd) => {
-    //         if(willAdd){
-    //             x = 'admin/pages/new_ebook.php?url='+url;
-    //             loadPage(x, 'newAdmin');
-    //         }
-    //     });
-    // }
-
-    // function uploadFormData() {
-    //     var formData = new FormData(document.getElementById('uploadForm'));
-
-    //     $.ajax({
-    //         url: 'admin/pages/tmp_ebook.php', // URL to your server-side script
-    //         type: 'POST',
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         success: function(response) {
-    //             Handle successful response from server
-    //             console.log(response);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             Handle error
-    //             console.error(xhr.responseText);
-    //         }
-    //     });
-
-    // }
-
-    //     function upload_book() {
-    //     var url = $('#url').val(); // Corrected selector to get value using jQuery
-    //     var picInput = document.getElementById('bookImage');
-    //     var picFile = picInput.files[0];
-
-    //     // Check if both URL and image are provided
-    //     if (!url || !picFile) {
-    //         swal("Error!", "Please provide both URL and image.", "error");
-    //         return;
-    //     }
-
-    //     var formData = new FormData();
-    //     formData.append('url', url);
-    //     formData.append('bookImage', picFile);
-
-    //     swal({
-    //         title: "Upload This Book?",
-    //         text: "Are you sure to upload this picture?",
-    //         icon: "info",
-    //         buttons: true,
-    //         dangerMode: true,
-    //     })
-    //     .then((willUpload) => {
-    //         if (willUpload) {
-    //             $.ajax({
-    //                 url: 'admin/pages/e_book.php',
-    //                 type: "POST",
-    //                 data: formData,
-    //                 beforeSend: function() {
-    //                     $("#body-overlay").show();
-    //                 },
-    //                 contentType: false,
-    //                 processData: false,
-    //                 success: function(data) {
-    //                     var response = JSON.parse(data);
-    //                     $("#maincontent").html(response.html);
-    //                     $("#maincontent").css('opacity', '1');
-    //                     $("#body-overlay").hide();
-
-    //                     swal("Success!", {
-    //                         icon: 'success',
-    //                         buttons: false,
-    //                         timer: 2000,
-    //                     });
-    //                 },
-    //                 error: function() {
-    //                     swal('Error', 'Failed', 'error', 500000);
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
-
     function edit_oadb() {
         var yyy = object('yyy').value;
         var id = object('id').value;
@@ -829,6 +737,7 @@ $email = $_SESSION['email'];
             });
     }
 
+
     function edit_opac() {
         event.preventDefault(); // Prevent the default form submission
 
@@ -841,48 +750,50 @@ $email = $_SESSION['email'];
         form.append('id', id);
         form.append('new_link', opac_link);
 
-        // SweetAlert confirmation dialog
+        // SweetAlert confirmation dialog with cancel button
         Swal.fire({
-                title: "Update OPAC Link?",
-                text: "Are you sure you want to update the OPAC Link?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/add_new_opac.php', // Ensure this URL is correct
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show(); // Show loading overlay
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#maincontent").html(data);
-                            $("#maincontent").css('opacity', '1');
-                            $("#body-overlay").hide();
+            title: "Update OPAC Link?",
+            text: "Are you sure you want to update the OPAC Link?",
+            icon: "info",
+            showCancelButton: true, // Enable cancel button
+            confirmButtonText: "Yes, update it!", // Custom confirm button text
+            cancelButtonText: "Cancel", // Custom cancel button text
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) { // If user clicks "Yes, update it!"
+                $.ajax({
+                    url: 'admin/pages/add_new_opac.php', // Ensure this URL is correct
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show(); // Show loading overlay
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#maincontent").html(data);
+                        $("#maincontent").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-                            // Show success message
-                            Swal.fire("Success!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
+                        // Show success message
+                        Swal.fire({
+                            title: "Success!",
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
 
-                            TINY.box.hide();
-
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText); // Log the response for debugging
-                            Swal.fire('Error', 'Failed: ' + error, 'error');
-                        }
-                    });
-                }
-            });
+                        TINY.box.hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Log the response for debugging
+                        Swal.fire('Error', 'Failed: ' + error, 'error');
+                    }
+                });
+            } // If "Cancel" is clicked, nothing happens
+        });
     }
+
 
     function add_opac() {
         var opac_link = object('opac_link').value;
@@ -977,278 +888,253 @@ $email = $_SESSION['email'];
 
 
     function edit_qr() {
-
         event.preventDefault(); // Prevent the default form submission
 
         // Get values from the form
         var qr_id = document.getElementById('qr_id').value; // Get the ID
-        var new_qr = document.getElementById('new_qr').value; // Get the OPAC link value
-
-        //console.log(qr_id + new_feedback);
+        var new_qr = document.getElementById('new_qr').value; // Get the Feedback URL value
 
         // Create a FormData object
         let form = new FormData();
         form.append('qr_id', qr_id);
         form.append('new_qr', new_qr);
 
-        // SweetAlert confirmation dialog
+        // SweetAlert confirmation dialog with cancel button
         Swal.fire({
-                title: "Update Feedback URL?",
-                text: "Are you sure you want to update the Feedback URL?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/Feedback.php?new_f', // Ensure this URL is correct
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show(); // Show loading overlay
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#maincontent").html(data);
-                            $("#maincontent").css('opacity', '1');
-                            $("#body-overlay").hide();
+            title: "Update Feedback URL?",
+            text: "Are you sure you want to update the Feedback URL?",
+            icon: "info",
+            showCancelButton: true, // Enable cancel button
+            confirmButtonText: "Yes, update it!", // Custom confirm button text
+            cancelButtonText: "Cancel", // Custom cancel button text
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) { // If user clicks "Yes, update it!"
+                $.ajax({
+                    url: 'admin/pages/Feedback.php?new_f', // Ensure this URL is correct
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show(); // Show loading overlay
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#maincontent").html(data);
+                        $("#maincontent").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-                            // Show success message
-                            Swal.fire("Success!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
+                        // Show success message
+                        Swal.fire({
+                            title: "Success!",
+                            icon: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
 
-                            TINY.box.hide();
-
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText); // Log the response for debugging
-                            Swal.fire('Error', 'Failed: ' + error, 'error');
-                        }
-                    });
-                }
-            });
+                        TINY.box.hide();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText); // Log the response for debugging
+                        Swal.fire('Error', 'Failed: ' + error, 'error');
+                    }
+                });
+            } // If "Cancel" is clicked, nothing happens
+        });
     }
 
 
 
     function archive_pdf(Aid) {
-
         let form = new FormData();
         form.append('Aid', Aid);
 
         Swal.fire({
-                title: "Archive?",
-                text: "Are you sure to archive this e-book?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Archive?",
+            text: "Are you sure you want to archive this e-book?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Archive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'e-resources/tmpPages/tmpAdd.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'e-resources/tmpPages/tmpAdd.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Archived successfully.",
+                            icon: "success", // Corrected checkmark icon
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed', 'error');
+                    }
+                });
+            }
+        });
     }
 
     function unArchived_pdf(Uid) {
-
         let form = new FormData();
         form.append('Uid', Uid);
 
         Swal.fire({
-                title: "Unarchive?",
-                text: "Are you sure to unarchive this e-book?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Unarchive?",
+            text: "Are you sure you want to unarchive this e-book?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Unarchive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'e-resources/tmpPages/tmpAdd.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'e-resources/tmpPages/tmpAdd.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Unarchived successfully.",
+                            icon: "success", // Corrected checkmark icon
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed', 'error');
+                    }
+                });
+            }
+        });
     }
 
-    // function OnArchive_ebook(id){
-
-    //     // Swal.fire.fire({
-    //     //     title: 'Hello!',
-    //     //     text: 'This is a simple SweetAlert2 alert.',
-    //     //     icon: 'success',
-    //     //     confirmButtonText: 'OK'
-    //     // });
-
-
-
-    // }
-
-
-
     function OnArchive_ebook(Anid) {
-
         let form = new FormData();
         form.append('Anid', Anid);
 
-        // Swal.fire({
-        //         title: "Archive?",
-        //         text: "Are you sure to archive this e-books?",
-        //         icon: "info",
-        //         buttons: true,
-        //         dangerMode: true,
-        //     })
         Swal.fire({
-                // title: 'Hello!',
-                // text: 'This is a simple SweetAlert2 alert.',
-                // icon: 'success',
-                // confirmButtonText: 'OK'
-                title: "Archive?",
-                text: "Are you sure to archive this open access database?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Archive?",
+            text: "Are you sure you want to archive this open access database?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Archive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'admin/pages/tempPages/tempEbooks.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/tempPages/tempEbooks.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Archived successfully.",
+                            icon: "success", // Properly set success icon (checkmark)
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Failed to archive the e-book.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+        });
     }
 
-
     function InArchived_ebook(Unid) {
-
         let form = new FormData();
         form.append('Unid', Unid);
 
         Swal.fire({
-                title: "Unarchive?",
-                text: "Are you sure to unarchive this open access database?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
+            title: "Unarchive?",
+            text: "Are you sure you want to unarchive this open access database?",
+            icon: "info",
+            showCancelButton: true, // Added Cancel button
+            confirmButtonText: "Yes, Unarchive",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'admin/pages/tempPages/tempEbooks.php',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#tempo").html(data);
+                        $("#tempo").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/tempPages/tempEbooks.php',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#tempo").html(data);
-                            $("#tempo").css('opacity', '1');
-                            $("#body-overlay").hide();
+                        Swal.fire({
+                            title: "Done!",
+                            text: "Unarchived successfully.",
+                            icon: "success", // Properly set success icon (checkmark)
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
 
-                            Swal.fire("Done!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-
-                            TINY.box.hide();
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-
-                }
-            });
-
+                        TINY.box.hide();
+                    },
+                    error: function() {
+                        Swal.fire({
+                            title: "Error",
+                            text: "Failed to unarchive the e-book.",
+                            icon: "error",
+                        });
+                    }
+                });
+            }
+        });
     }
 
     function edit_account() {
@@ -1395,16 +1281,10 @@ $email = $_SESSION['email'];
                     <i class="fas fa-user-check me-3" style="color:#fff"></i>Registered Users
                 </a>
 
-                <!-- <a href="javascript:void(0);"
-                    onclick="loadPage('pages/imported_data.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-users me-3" style="color:#fff"></i>Imported Users
-                </a> -->
-
                 <div class="mx-3">
                     <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
                         onclick="toggleAccordion('importedUsersCollapse', 'importedUsersIcon')" style="color:#fff; border: none;">
-                        <i class="fas fa-users me-1" style="color:#fff"></i> Imported Users
+                        <i class="fas fa-users me-3" style="color:#fff"></i> Imported Users
                         <i class="fa-solid fa-chevron-down float-end" id="importedUsersIcon"></i>
                     </button>
                     <div id="importedUsersCollapse" class="collapse">
@@ -1419,7 +1299,7 @@ $email = $_SESSION['email'];
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
                                     onclick="loadPage('pages/imported_data_faculty.php','maincontent'); setActiveLink(this);"
-                                    style="color:#fff; text-decoration: none;">
+                                    style="color:#fff; text-decoration: none;"><i class="fas fa-chalkboard-teacher me-2"></i>
                                     Faculty
                                 </a>
                             </li>
@@ -1431,7 +1311,7 @@ $email = $_SESSION['email'];
                 <a href="javascript:void(0);"
                     onclick="loadPage('admin/pages/e_book.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff; font-size: 15px;">
-                    <i class="fas fa-book me-3" style="color:#fff"></i>Openaccess Database
+                    <i class="fas fa-book me-3" style="color:#fff"></i>Open Access Database
                 </a>
 
                 <a href="javascript:void(0);"
@@ -1440,64 +1320,94 @@ $email = $_SESSION['email'];
                     <i class="fas fa-newspaper me-3" style="color:#fff"></i>E-Resources
                 </a>
 
-                <div class="mx-3">
-                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button" onclick="toggleAccordion('logHistoryCollapse')" style="color:#fff; border: none;">
-                        <i class="fas fa-clock-rotate-left me-1" style="color:#fff"></i> Log History
-                        <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
-                    </button>
-                    <div id="logHistoryCollapse" class="collapse">
-                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
-                            <li>
-                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">Most Frequent</a>
-                            </li>
-                            <li>
-                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">User Login</a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/Feedback.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-comment me-3" style="color:#fff"></i>Feedback Form
-                </a>
-
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/add_new_opac.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-book me-3" style="color:#fff"></i>OPAC Link
-                </a>
-
                 <a href="javascript:void(0);"
                     onclick="loadPage('admin/pages/Forum.php','maincontent'); setActiveLink(this);"
                     class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
                     <i class="fas fa-comments me-3" style="color:#fff"></i>Forum
                 </a>
 
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-file-import me-3" style="color:#fff"></i>Import Data
-                </a>
+                <div class="mx-3">
+                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
+                        onclick="toggleAccordion('importExportCollapse','importExportIcon')" style="color:#fff; border: none;">
+                        <i class="fas fa-file-alt me-3" style="color:#fff"></i> Import/Export Data
+                        <i class="fa-solid fa-chevron-down float-end" id="importExportIcon"></i>
+                    </button>
+                    <div id="importExportCollapse" class="collapse">
+                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
+                                    onclick="loadPage('admin/pages/importData.php','maincontent'); setActiveLink(this);"
+                                    style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-file-import me-3" style="color:#fff"></i> Import Data
+                                </a>
+                            </li>
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
+                                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
+                                    style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-download me-3" style="color:#fff"></i> Export Data
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
-                <a href="javascript:void(0);"
-                    onclick="loadPage('admin/pages/exportData.php','maincontent'); setActiveLink(this);"
-                    class="list-group-item list-group-item-action bg-transparent second-text py-2" style="color:#fff">
-                    <i class="fas fa-download me-3" style="color:#fff"></i>Export Data
-                </a>
+                <div class='mx-3'>
+                    <button class='btn btn-secondary bg-transparent second-text py-2 w-100 text-start' type='button'
+                        onclick="toggleAccordion('opacFeedbackCollapse', 'opacFeedbackIcon')" style='color:#fff; border: none;'>
+                        <i class='fas fa-layer-group me-3' style='color:#fff'></i> Editable Links
+                        <i class='fa-solid fa-chevron-down float-end' id='opacFeedbackIcon'></i>
+                    </button>
+                    <div id='opacFeedbackCollapse' class='collapse'>
+                        <ul class='list-group list-group-flush' style='list-style: none; padding-left: 0; margin: 0;'>
+                            <li>
+                                <a class='list-group-item bg-transparent second-text mx-3 py-2' href='javascript:void(0);'
+                                    onclick="loadPage('admin/pages/Feedback.php', 'maincontent'); setActiveLink(this);"
+                                    style='color:#fff; text-decoration: none;'>
+                                    <i class='fas fa-comment me-3' style='color:#fff'></i> Feedback Form
+                                </a>
+                            </li>
+                            <li>
+                                <a class='list-group-item bg-transparent second-text mx-3 py-2' href='javascript:void(0);'
+                                    onclick="loadPage('admin/pages/add_new_opac.php', 'maincontent'); setActiveLink(this);"
+                                    style='color:#fff; text-decoration: none;'>
+                                    <i class='fas fa-book me-3' style='color:#fff'></i> OPAC Link
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mx-3">
+                    <button class="btn btn-secondary bg-transparent second-text py-2 w-100 text-start" type="button"
+                        onclick="toggleAccordion('logHistoryCollapse','logHistoryIcon')" style="color:#fff; border: none;">
+                        <i class="fas fa-clock-rotate-left me-3" style="color:#fff"></i> Log History
+                        <i class="fa-solid fa-chevron-down float-end" id="logHistoryIcon"></i>
+                    </button>
+                    <div id="logHistoryCollapse" class="collapse">
+                        <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/most_frequent.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-chart-line me-2"></i>Most Frequent</a>
+                            </li>
+                            <li>
+                                <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);" onclick="loadPage('pages/loghistory.php','maincontent'); setActiveLink(this);" style="color:#fff; text-decoration: none;">
+                                    <i class="fas fa-user-clock me-2"></i>User Login</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
 
             </div>
 
             <!-- JavaScript Function for Toggle -->
-            <script>
+            <!-- <script>
                 function toggleAccordion(id) {
                     var element = document.getElementById(id);
                     if (element.classList.contains('show')) {
-                        element.classList.remove('show'); // Close if already open
+                        element.classList.remove('show'); 
                     } else {
-                        element.classList.add('show'); // Open if closed
+                        element.classList.add('show'); 
                     }
                 }
 
@@ -1506,12 +1416,10 @@ $email = $_SESSION['email'];
                     var icon = document.getElementById('logHistoryIcon');
 
                     if (collapseElement.classList.contains('show')) {
-                        // If the collapse is open, remove 'show' and change icon to chevron-down
                         collapseElement.classList.remove('show');
                         icon.classList.remove('fa-chevron-up');
                         icon.classList.add('fa-chevron-down');
                     } else {
-                        // If the collapse is closed, add 'show' and change icon to chevron-up
                         collapseElement.classList.add('show');
                         icon.classList.remove('fa-chevron-down');
                         icon.classList.add('fa-chevron-up');
@@ -1522,13 +1430,11 @@ $email = $_SESSION['email'];
                     var collapseElement = document.getElementById(elementId);
                     var icon = document.getElementById('importedUsersIcon');
 
-                    if (collapseElement.classList.contains('show')) {
-                        // If the collapse is open, remove 'show' and change icon to chevron-down
+                    if (collapseElement.classList.contains('show')) {                 
                         collapseElement.classList.remove('show');
                         icon.classList.remove('fa-chevron-up');
                         icon.classList.add('fa-chevron-down');
-                    } else {
-                        // If the collapse is closed, add 'show' and change icon to chevron-up
+                    } else {                       
                         collapseElement.classList.add('show');
                         icon.classList.remove('fa-chevron-down');
                         icon.classList.add('fa-chevron-up');
@@ -1622,22 +1528,13 @@ $email = $_SESSION['email'];
 
             <div class="container" id="maincontent" style="background-color:white">
                 <div class="row">
-                    <div class="col-lg-4 mb-2">
-                        <div class="card card-margin py-2">
-                            <div class="card-header no-border">
-                                <i class="fas fa-user-alt" style="font-size:26px; color: #31a531;  margin-right: 20px;"></i>
-                                <h5 class="card-title " style="margin-right: 1rem;">Most Frequent User:</h5>
-                                <h6 class="text-success fw-bold" style="font-size: 1.3rem;"><?php echo getMostActiveUser($conn); ?></h6>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
-                                <i class="fas fa-users" style="font-size:26px; color: #31a531; margin-right: 25px;"></i>
-                                <h5 class="card-title" style="margin-right: 2rem;">Total No. Of Users:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_user; ?></h>
+                                <i class="fas fa-user-alt" style="font-size:20px; color: #31a531;  margin-right: 20px;"></i>
+                                <h5 class="card-title " style="margin-right: 1rem;">Most Frequent User:</h5>
+                                <h6 class="fw-bold" style="font-size: 20px; color:#31a531;"><?php echo getMostActiveUser($conn); ?></h6>
                             </div>
                         </div>
                     </div>
@@ -1646,8 +1543,8 @@ $email = $_SESSION['email'];
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
                                 <i class="fa fa-book" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
-                                <h5 class="card-title" style="margin-right: 1rem;">Total No. of E-Resources:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_eresources; ?></h3>
+                                <h5 class="card-title" style="margin-right: 1rem;">E-Resources:</h5>
+                                <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_eresources; ?></h3>
                             </div>
                         </div>
                     </div>
@@ -1655,19 +1552,29 @@ $email = $_SESSION['email'];
                     <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
-                                <i class="fas fa-book-open" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
-                                <h5 class="card-title" style="margin-right: 1rem; font-size:16px;">Total No. of Open Access Databases:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_open_access_db; ?></h3>
+                                <i class="fas fa-book-open" style="font-size:25px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Open Access Databases:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;"><?php echo $count_open_access_db; ?></h3>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 mb-2">
+                    <!-- <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
                                 <i class="fa fa-upload" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
                                 <h5 class="card-title" style="margin-right: 2rem;">Uploaded Feedback Form:</h5>
-                                <h3 class="fs-2 text-success" style="font-size: 1.5rem;"><?php echo $count_feedback_qr; ?></h3>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;"><?php echo $count_feedback_qr; ?></h3>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fas fa-users" style="font-size:26px; color: #31a531; margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 2rem;">Registered Users:</h5>
+                                <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_user; ?></h3>
                             </div>
                         </div>
                     </div>
@@ -1675,13 +1582,28 @@ $email = $_SESSION['email'];
                     <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
-                                <i class="fa fa-male" style="font-size:20px; color: #31a531;  margin-right: 20px; margin-bottom: 4px;"></i>
-                                <h6 class="card-title" style="font-size:14px;">
-                                    <b>Male:<span style="margin-left: 45px; color:green; font-size:25px;"><?php echo get("SELECT COUNT(a.student_id), a.sex, b.id FROM students a, users b WHERE a.sex = 'M' AND a.student_id = b.id"); ?></span></b>
-                                </h6>
-                                <h6 class="card-title" style="font-size:14px;">
-                                    <b style="margin-left: 85px;"><i class="fa fa-female" style="color: #31a531; margin-right: 20px; font-size:20px;"></i>Female:<span style="margin-left: 45px; color:green; font-size:25px;"><?php echo get("SELECT COUNT(a.student_id), a.sex, b.id FROM students a, users b WHERE a.sex = 'F' AND a.student_id = b.id"); ?></span></b>
-                                </h6>
+                                <i class="fa fa-male" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Male Users:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;">
+                                    <?php
+                                    echo get("
+                                            SELECT COUNT(*) AS total_males 
+                                            FROM (
+                                                SELECT a.student_id AS person_id, a.sex 
+                                                FROM students a 
+                                                INNER JOIN users b ON a.student_id = b.id 
+                                                WHERE a.sex = 'M' AND b.email IS NOT NULL
+                                                
+                                                UNION ALL
+                                                
+                                                SELECT c.instructor_id AS person_id, c.sex 
+                                                FROM instructors c 
+                                                INNER JOIN users d ON c.instructor_id = d.id 
+                                                WHERE c.sex = 'M' AND d.email IS NOT NULL
+                                            ) AS combined;
+                                        ");
+                                    ?>
+                                </h3>
                             </div>
                         </div>
                     </div>
@@ -1733,7 +1655,6 @@ $email = $_SESSION['email'];
         </div>
     </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     // Fetch course distribution data

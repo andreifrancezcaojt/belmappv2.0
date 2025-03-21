@@ -217,8 +217,8 @@ if (isset($_GET['delId'])) {
                 <div class="float-right p-1">
                     <select id="searchColumn" onchange="<?php echo $script; ?>">
                         <option value="pdf_callnumber">Call No.</option>
-                        <option value="pdf_name">E-Resource Title</option>
-                        <option value="pdf">Filename</option>
+                        <option value="pdf_name">Title</option>
+                        <!-- <option value="pdf">Filename</option> -->
                         <option value="category">Category</option>
                     </select>
 
