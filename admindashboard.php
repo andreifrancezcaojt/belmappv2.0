@@ -1401,48 +1401,6 @@ $email = $_SESSION['email'];
 
             </div>
 
-            <!-- JavaScript Function for Toggle -->
-            <!-- <script>
-                function toggleAccordion(id) {
-                    var element = document.getElementById(id);
-                    if (element.classList.contains('show')) {
-                        element.classList.remove('show'); 
-                    } else {
-                        element.classList.add('show'); 
-                    }
-                }
-
-                function toggleAccordion(elementId) {
-                    var collapseElement = document.getElementById(elementId);
-                    var icon = document.getElementById('logHistoryIcon');
-
-                    if (collapseElement.classList.contains('show')) {
-                        collapseElement.classList.remove('show');
-                        icon.classList.remove('fa-chevron-up');
-                        icon.classList.add('fa-chevron-down');
-                    } else {
-                        collapseElement.classList.add('show');
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-
-                function toggleAccordion(elementId) {
-                    var collapseElement = document.getElementById(elementId);
-                    var icon = document.getElementById('importedUsersIcon');
-
-                    if (collapseElement.classList.contains('show')) {                 
-                        collapseElement.classList.remove('show');
-                        icon.classList.remove('fa-chevron-up');
-                        icon.classList.add('fa-chevron-down');
-                    } else {                       
-                        collapseElement.classList.add('show');
-                        icon.classList.remove('fa-chevron-down');
-                        icon.classList.add('fa-chevron-up');
-                    }
-                }
-            </script> -->
-
             <script>
                 function toggleAccordion(elementId, iconId) {
                     var collapseElement = document.getElementById(elementId);
@@ -1493,120 +1451,120 @@ $email = $_SESSION['email'];
         </div>
 
         <!--sa page content to -->
-            <div id="page-content-wrapper" style="background-color:white">
-                <nav class="navbar navbar-expand-lg navbar-light bg-darkgreen py-4 px-4">
-                    <div class="d-flex align-items-center">
-                        <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle" style="color:#000"></i>
-                        <h2 class="fs-2 m-0">Dashboard</h2>
-                    </div>
+        <div id="page-content-wrapper" style="background-color:white">
+            <nav class="navbar navbar-expand-lg navbar-light bg-darkgreen py-4 px-4">
+                <div class="d-flex align-items-center">
+                    <i class="fas fa-align-left primary-text fs-4 me-3" id="menu-toggle" style="color:#000"></i>
+                    <h2 class="fs-2 m-0">Dashboard</h2>
+                </div>
 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-user me-2"></i><?php echo $email; ?>
-                                </a>
-                                <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
+                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-user me-2"></i><?php echo $email; ?>
+                            </a>
+                            <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadPage('admin/admin_side/table.php','maincontent');">List of Admin</a></li>
                                 <li><a class="dropdown-item" href="javascript:void(0)" onclick="loadPage('admin/admin_side/account.php','maincontent');">Change password</a></li>
                                 <li><a class="dropdown-item" href="javascript:void(0);" onclick="TINY.box.show({url:'admin/pages/newadmin.php',width:400,height:400})">Add admin Account</a></li>
                                 <li><a class="dropdown-item" href="session/logout.php">Logout</a></li>
                             </ul> -->
 
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" onclick="loadPage('admin/admin_side/table.php','maincontent');">
-                                            <i class="fas fa-list"></i> List of Admin
-                                        </a>
-                                    </li>
-                                    <!-- <li>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0)" onclick="loadPage('admin/admin_side/table.php','maincontent');">
+                                        <i class="fas fa-list"></i> List of Admin
+                                    </a>
+                                </li>
+                                <!-- <li>
                                     <a class="dropdown-item" href="javascript:void(0)" onclick="loadPage('admin/admin_side/account.php','maincontent');">
                                         <i class="fas fa-key"></i> Change password
                                     </a>
                                 </li> -->
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0);" onclick="TINY.box.show({url:'admin/pages/newadmin.php',width:400,height:400})">
-                                            <i class="fas fa-user-plus"></i> Add Admin Account
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="session/logout.php">
-                                            <i class="fas fa-sign-out-alt"></i> Logout
-                                        </a>
-                                    </li>
-                                </ul>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0);" onclick="TINY.box.show({url:'admin/pages/newadmin.php',width:400,height:400})">
+                                        <i class="fas fa-user-plus"></i> Add Admin Account
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="session/logout.php">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </a>
+                                </li>
+                            </ul>
 
-                            </li>
-                        </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <?php
+            $q = 'SELECT COUNT(*) FROM users';
+            $rs = mysqli_query($conn, $q);
+            $rw = mysqli_fetch_array($rs);
+            $count_user = $rw[0];
+            ?>
+            <?php
+            $q = 'SELECT COUNT(*) FROM pdf_file WHERE is_archived = 0';
+            $rs = mysqli_query($conn, $q);
+            $rw = mysqli_fetch_array($rs);
+            $count_eresources = $rw[0];
+            ?>
+            <?php
+            // $q = 'SELECT COUNT(*) FROM open_access_db';
+            $q = 'SELECT COUNT(*) FROM open_access_db WHERE is_archived = 0';
+            $rs = mysqli_query($conn, $q);
+            $rw = mysqli_fetch_array($rs);
+            $count_open_access_db = $rw[0];
+            ?>
+            <?php
+            $q = 'SELECT COUNT(*) FROM feedback_qr';
+            $rs = mysqli_query($conn, $q);
+            $rw = mysqli_fetch_array($rs);
+            $count_feedback_qr = $rw[0];
+            ?>
+
+            <div class="container" id="maincontent" style="background-color:white">
+                <div class="row">
+
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fas fa-user-alt" style="font-size:20px; color: #31a531;  margin-right: 20px;"></i>
+                                <h5 class="card-title " style="margin-right: 1rem;">Most Frequent User:</h5>
+                                <h6 class="fw-bold" style="font-size: 20px; color:#31a531;"><?php echo getMostActiveUser($conn); ?></h6>
+                            </div>
+                        </div>
                     </div>
-                </nav>
-                <?php
-                $q = 'SELECT COUNT(*) FROM users';
-                $rs = mysqli_query($conn, $q);
-                $rw = mysqli_fetch_array($rs);
-                $count_user = $rw[0];
-                ?>
-                <?php
-                $q = 'SELECT COUNT(*) FROM pdf_file WHERE is_archived = 0';
-                $rs = mysqli_query($conn, $q);
-                $rw = mysqli_fetch_array($rs);
-                $count_eresources = $rw[0];
-                ?>
-                <?php
-                // $q = 'SELECT COUNT(*) FROM open_access_db';
-                $q = 'SELECT COUNT(*) FROM open_access_db WHERE is_archived = 0';
-                $rs = mysqli_query($conn, $q);
-                $rw = mysqli_fetch_array($rs);
-                $count_open_access_db = $rw[0];
-                ?>
-                <?php
-                $q = 'SELECT COUNT(*) FROM feedback_qr';
-                $rs = mysqli_query($conn, $q);
-                $rw = mysqli_fetch_array($rs);
-                $count_feedback_qr = $rw[0];
-                ?>
 
-                <div class="container" id="maincontent" style="background-color:white">
-                    <div class="row">
-
-                        <div class="col-lg-4 mb-2">
-                            <div class="card card-margin py-2">
-                                <div class="card-header no-border">
-                                    <i class="fas fa-user-alt" style="font-size:20px; color: #31a531;  margin-right: 20px;"></i>
-                                    <h5 class="card-title " style="margin-right: 1rem;">Most Frequent User:</h5>
-                                    <h6 class="fw-bold" style="font-size: 20px; color:#31a531;"><?php echo getMostActiveUser($conn); ?></h6>
-                                </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fa fa-book" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">E-Resources:</h5>
+                                <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_eresources; ?></h3>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-lg-4 mb-2">
-                            <div class="card card-margin py-2">
-                                <div class="card-header no-border">
-                                    <i class="fa fa-book" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
-                                    <h5 class="card-title" style="margin-right: 1rem;">E-Resources:</h5>
-                                    <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_eresources; ?></h3>
-                                </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fas fa-book-open" style="font-size:25px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Open Access Databases:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;"><?php echo $count_open_access_db; ?></h3>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-lg-4 mb-2">
-                            <div class="card card-margin py-2">
-                                <div class="card-header no-border">
-                                    <i class="fas fa-book-open" style="font-size:25px; color: #31a531;  margin-right: 25px;"></i>
-                                    <h5 class="card-title" style="margin-right: 1rem;">Open Access Databases:</h5>
-                                    <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;"><?php echo $count_open_access_db; ?></h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- <div class="col-lg-4 mb-2">
+                    <!-- <div class="col-lg-4 mb-2">
                         <div class="card card-margin py-2">
                             <div class="card-header no-border">
                                 <i class="fa fa-upload" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
@@ -1616,24 +1574,24 @@ $email = $_SESSION['email'];
                         </div>
                     </div> -->
 
-                        <div class="col-lg-4 mb-2">
-                            <div class="card card-margin py-2">
-                                <div class="card-header no-border">
-                                    <i class="fas fa-users" style="font-size:26px; color: #31a531; margin-right: 25px;"></i>
-                                    <h5 class="card-title" style="margin-right: 2rem;">Registered Users:</h5>
-                                    <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_user; ?></h3>
-                                </div>
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fas fa-users" style="font-size:26px; color: #31a531; margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 2rem;">Registered Users:</h5>
+                                <h3 class="fs-2" style="font-size: 20px; color:#31a531;"><?php echo $count_user; ?></h3>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-lg-4 mb-2">
-                            <div class="card card-margin py-2">
-                                <div class="card-header no-border">
-                                    <i class="fa fa-male" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
-                                    <h5 class="card-title" style="margin-right: 1rem;">Male Users:</h5>
-                                    <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;">
-                                        <?php
-                                        echo get("
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fa fa-male" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Male Users:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;">
+                                    <?php
+                                    echo get("
                                             SELECT COUNT(*) AS total_males 
                                             FROM (
                                                 SELECT a.student_id AS person_id, a.sex 
@@ -1649,186 +1607,189 @@ $email = $_SESSION['email'];
                                                 WHERE c.sex = 'M' AND d.email IS NOT NULL
                                             ) AS combined;
                                         ");
-                                        ?>
-                                    </h3>
-                                </div>
+                                    ?>
+                                </h3>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="container-fluid">
-                    <div class="row justify-content-start">
-                        <div class="col-md-5">
-                            <div class="p-3 bg-white shadow rounded" id="barChartContainer" style="height: 350px;">
-                                <h3 class="fs-5 text-center">Institute</h3>
-                                <canvas id="courseBarChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="p-3 bg-white shadow rounded" id="lineChartContainer" style="height: 350px;">
-                                <h3 class="fs-5 text-center">Top Viewed E-Books</h3>
-                                <canvas id="lineChart"></canvas>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="card p-2 bg-white shadow rounded" id="mostFrequentUsersContainer" style="height: 350px; overflow-y: auto; font-size: 13px;">
-                                <h3 class="text-center" style="font-size: 17px; font-weight: bold;">Most Frequent Users</h3>
-                                <table class="table table-bordered table-sm text-center" style="border: 1px solid darkgrey;">
 
-                                    <thead>
-                                        <tr>
-                                            <th style="font-size: 12px;" class="text-uppercase">Rank</th>
-                                            <th style="font-size: 12px;" class="text-uppercase">Name</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $q = "SELECT a.username, COUNT(b.user_id) AS login_count FROM users a
+                    <div class="container-fluid">
+                <div class="row justify-content-start">
+                    <div class="col-md-5">
+                        <div class="p-3 bg-white shadow rounded" id="barChartContainer" style="height: 350px;">
+                            <h3 class="fs-5 text-center">Institute</h3>
+                            <canvas id="courseBarChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="p-3 bg-white shadow rounded" id="lineChartContainer" style="height: 350px;">
+                            <h3 class="fs-5 text-center">Top Viewed E-Books</h3>
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card p-2 bg-white shadow rounded" id="mostFrequentUsersContainer" style="height: 350px; overflow-y: auto; font-size: 13px;">
+                            <h3 class="text-center" style="font-size: 17px; font-weight: bold;">Most Frequent Users</h3>
+                            <table class="table table-bordered table-sm text-center" style="border: 1px solid darkgrey;">
+
+                                <thead>
+                                    <tr>
+                                        <th style="font-size: 12px;" class="text-uppercase">Rank</th>
+                                        <th style="font-size: 12px;" class="text-uppercase">Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $q = "SELECT a.username, COUNT(b.user_id) AS login_count FROM users a
                               LEFT JOIN login_history b ON a.id = b.user_id
                               GROUP BY a.username
                               ORDER BY login_count DESC
                               LIMIT 5";
-                                        $result = mysqli_query($conn, $q);
-                                        $n = 1;
-                                        while ($rw = mysqli_fetch_array($result)) {
-                                            echo '<tr>';
-                                            echo '<td style="font-size: 26px;">' . $n++ . '.' . '</td>';
-                                            echo '<td style="font-size: 13px;" class="text-uppercase">' . $rw['username'] . '</td>';
-                                            echo '</tr>';
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                    $result = mysqli_query($conn, $q);
+                                    $n = 1;
+                                    while ($rw = mysqli_fetch_array($result)) {
+                                        echo '<tr>';
+                                        echo '<td style="font-size: 26px;">' . $n++ . '.' . '</td>';
+                                        echo '<td style="font-size: 13px;" class="text-uppercase">' . $rw['username'] . '</td>';
+                                        echo '</tr>';
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                <script>
-                    // Fetch course distribution data
-                    const courseCounts = <?php
-                                            $query = "SELECT institute, COUNT(*) as count FROM students GROUP BY institute";
-                                            $result = $conn->query($query);
-                                            $data = ['courses' => [], 'counts' => []];
-                                            while ($row = $result->fetch_assoc()) {
-                                                $data['courses'][] = $row['institute'];
-                                                $data['counts'][] = $row['count'];
-                                            }
-                                            echo json_encode($data);
-                                            ?>;
+            </div>
+                </div>
+            </div>
 
-                    // Format labels into multiline text
-                    const formattedCourses = courseCounts.courses.map(course => course.split(' '));
 
-                    const courseData = {
-                        labels: formattedCourses,
-                        datasets: [{
-                            label: 'Number of Students',
-                            data: courseCounts.counts,
-                            backgroundColor: 'rgba(0, 123, 255, 0.8)', // Compact blue color
-                            borderWidth: 1
-                        }]
-                    };
 
-                    const barConfig = {
-                        type: 'bar',
-                        data: courseData,
-                        options: {
-                            indexAxis: 'y',
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                x: {
-                                    title: {
-                                        display: true,
-                                        text: ''
-                                    }
-                                },
-                                y: {
-                                    title: {
-                                        display: true,
-                                        text: 'Institute'
-                                    },
-                                    ticks: {
-                                        font: {
-                                            size: 12
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                // Fetch course distribution data
+                const courseCounts = <?php
+                                        $query = "SELECT institute, COUNT(*) as count FROM students GROUP BY institute";
+                                        $result = $conn->query($query);
+                                        $data = ['courses' => [], 'counts' => []];
+                                        while ($row = $result->fetch_assoc()) {
+                                            $data['courses'][] = $row['institute'];
+                                            $data['counts'][] = $row['count'];
                                         }
-                                    }
-                                }
-                            },
-                            plugins: {
-                                legend: {
-                                    display: false
-                                },
+                                        echo json_encode($data);
+                                        ?>;
+
+                // Format labels into multiline text
+                const formattedCourses = courseCounts.courses.map(course => course.split(' '));
+
+                const courseData = {
+                    labels: formattedCourses,
+                    datasets: [{
+                        label: 'Number of Students',
+                        data: courseCounts.counts,
+                        backgroundColor: 'rgba(0, 123, 255, 0.8)', // Compact blue color
+                        borderWidth: 1
+                    }]
+                };
+
+                const barConfig = {
+                    type: 'bar',
+                    data: courseData,
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
                                 title: {
                                     display: true,
-                                    text: 'Number of Students'
+                                    text: ''
                                 }
                             },
-                            barThickness: 40, // Adjusts the bar thickness
-                            maxBarThickness: 50 // Ensures bars don't get too thick
-                        }
-                    };
-
-                    new Chart(document.getElementById('courseBarChart'), barConfig);
-
-                    // Fetch book views data
-                    const bookData = <?php echo json_encode(getbooks()); ?>;
-                    const bookLabels = bookData.names.map(name => name.length > 20 ? name.substring(0, 20) + '...' : name);
-                    const bookViews = bookData.views;
-
-                    const ctx = document.getElementById('lineChart').getContext('2d');
-
-                    const lineChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                            labels: bookLabels,
-                            datasets: [{
-                                label: 'Views',
-                                data: bookViews,
-                                borderColor: 'rgba(54, 162, 235, 1)',
-                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                borderWidth: 2,
-                                fill: true,
-                                tension: 0.4
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            scales: {
-                                x: {
-                                    title: {
-                                        display: true,
-                                        text: ''
-                                    },
-                                    ticks: {
-                                        autoSkip: false,
-                                        maxRotation: 45,
-                                        minRotation: 45
-                                    }
-                                },
-                                y: {
-                                    beginAtZero: true,
-                                    title: {
-                                        display: true,
-                                        text: 'Views'
-                                    }
-                                }
-                            },
-                            plugins: {
-                                legend: {
+                            y: {
+                                title: {
                                     display: true,
-                                    position: 'top'
+                                    text: 'Institute'
+                                },
+                                ticks: {
+                                    font: {
+                                        size: 12
+                                    }
                                 }
                             }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Number of Students'
+                            }
+                        },
+                        barThickness: 40, // Adjusts the bar thickness
+                        maxBarThickness: 50 // Ensures bars don't get too thick
+                    }
+                };
+
+                new Chart(document.getElementById('courseBarChart'), barConfig);
+
+                // Fetch book views data
+                const bookData = <?php echo json_encode(getbooks()); ?>;
+                const bookLabels = bookData.names.map(name => name.length > 20 ? name.substring(0, 20) + '...' : name);
+                const bookViews = bookData.views;
+
+                const ctx = document.getElementById('lineChart').getContext('2d');
+
+                const lineChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: bookLabels,
+                        datasets: [{
+                            label: 'Views',
+                            data: bookViews,
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: ''
+                                },
+                                ticks: {
+                                    autoSkip: false,
+                                    maxRotation: 45,
+                                    minRotation: 45
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Views'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            }
                         }
-                    });
-                </script>
-            </div>
+                    }
+                });
+            </script>
         </div>
     </div>
-    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
@@ -1838,6 +1799,7 @@ $email = $_SESSION['email'];
             el.classList.toggle("toggled");
         };
     </script>
+
     <script>
         function setActiveSidebarLink() {
             const links = document.querySelectorAll('.list-group-item'); // Get all sidebar links
@@ -1855,6 +1817,7 @@ $email = $_SESSION['email'];
             });
         }
     </script>
+
     <script>
         function setActiveLink(element) {
             // Remove active class from all links
@@ -1906,7 +1869,6 @@ $email = $_SESSION['email'];
         // Call this function to test it
         testFileCheck();
     </script>
-
 
     <script src="js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
