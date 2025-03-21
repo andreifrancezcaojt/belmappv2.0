@@ -91,8 +91,8 @@ if (isset($_GET['delId'])) {
         .table-wrapper {
             min-width: 1000px;
             background: #fff;
-            padding: 20px 25px;
-            border-radius: 3px;
+            padding: 15px 10px;
+            border-radius: 1px;
             box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
         }
 
@@ -200,7 +200,7 @@ if (isset($_GET['delId'])) {
             +'&col='+document.getElementById('searchColumn').value,'tempo')";
     ?>
 
-    <div class="container">
+    <div class="container" id="pdfTableContainer">
         <div class="table-responsive shadow">
             <div class="table-wrapper">
                 <div class="table-title" style="background-color: #33c430cf;">

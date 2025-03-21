@@ -118,6 +118,21 @@
     </style>
 </head>
 
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/67dbb244b85872190f4479f9/1imp30n70';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow bg-success">
@@ -146,7 +161,7 @@
             <hr class="my-1">
             <p>Share your thoughts with us so we can improve our services. Click the link or scan the QR code to open the feedback form.</p>
         </div>
-        
+
     </div>
 
     <?php
@@ -160,13 +175,13 @@
             <center>
                 <div class="">
                     <div class="card">
-                        <div id="qrcode" style="margin-top: 50px;"></div>
+                        <div id="qrcode" style="margin-top: 20px;"></div>
                         <div class="card-body text-center">
                             <h5 class="card-title">
-                                <a href="<?php echo $row['feedback_url']; ?>" target="_blank">
-                                    <?php echo $row['feedback_url']; ?>
+                                <a style="font-size: 20px;" href="<?php echo $row['feedback_url']; ?>" target="_blank">
+                                    Scan or Click here
                                 </a>
-                                <input type="hidden" id="url" value="<?php echo $row['feedback_url'] ?>">
+                                <input type="hidden" id="url" value="<?php echo $row['feedback_url']; ?>">
                             </h5>
                         </div>
                     </div>

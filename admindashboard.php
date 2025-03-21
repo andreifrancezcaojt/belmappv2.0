@@ -27,14 +27,14 @@ $email = $_SESSION['email'];
     <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css" rel="stylesheet"> -->
     <!-- Option 1: Include in HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!-- Load jQuery from a reliable source -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <!-- <script src="assets/js/sweetalert.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script src="assets/js/tinybox.js"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
     <title>Admin Dashboard</title>
@@ -194,14 +194,13 @@ $email = $_SESSION['email'];
     }
 
     function loadPage(loc, eid) {
-        document.getElementById(eid).innerHTML = "<div align='center'><img src='assets/image/loader.gif' width='35px' /></div>";
+        document.getElementById(eid).innerHTML = "<div align='center'><img src='assets/images/preload.gif' width='35px' /></div>";
         loadSubContent(loc, eid);
     }
 
     function object(id) {
         return document.getElementById(id);
     }
-
 
     function upload_oadb() {
         var yyy = object('yyy').value;
@@ -260,131 +259,174 @@ $email = $_SESSION['email'];
             });
     }
 
-    function upload_pdf() {
-        var pdf = document.getElementById('pdf');
-        var pdf_callnumber = document.getElementById('pdf_callnumber').value;
-        var pdf_name = document.getElementById('pdf_name').value;
-        var category = document.getElementById('category').value; // Get the category value
-        var pdfFile = pdf.files[0];
 
-        // Check if file is selected and valid PDF type
-        if (!pdfFile) {
-            Swal.fire('Error', 'Please select a PDF file to upload.', 'error');
+
+    $(document).ready(function() {
+        console.log("jQuery Loaded?", typeof jQuery);
+        console.log("Dollar Sign ($) Available?", typeof $);
+        console.log("jQuery AJAX Type:", typeof $.ajax);
+
+        if (typeof $ === "undefined" || typeof $.ajax !== "function") {
+            Swal.fire("Error", "jQuery is not loaded properly!", "error");
             return;
         }
 
-        var fileExtension = pdfFile.name.split('.').pop().toLowerCase();
-        if (fileExtension !== 'pdf') {
-            Swal.fire('Error', 'Only PDF files are allowed.', 'error');
-            return;
-        }
+        // Assign function globally
+        window.upload_pdf = function() {
+            console.log("Inside upload_pdf() function");
 
-        // Check if PDF name and category are provided
-        if (!pdf_name) {
-            Swal.fire('Error', 'Please enter a PDF name.', 'error');
-            return;
-        }
+            var pdf = document.getElementById('pdf');
+            var pdf_callnumber = document.getElementById('pdf_callnumber').value;
+            var pdf_name = document.getElementById('pdf_name').value;
+            var category = document.getElementById('category').value;
+            var pdfFile = pdf.files[0];
 
-        if (!category) {
-            Swal.fire('Error', 'Please select a PDF category.', 'error');
-            return;
-        }
-
-        let form = new FormData();
-        form.append('pdf', pdfFile);
-        form.append('pdf_callnumber', pdf_callnumber);
-        form.append('pdf_name', pdf_name);
-        form.append('category', category); // Add category to FormData
-
-        // Confirm upload with SweetAlert2
-        Swal.fire({
-            title: "Upload PDF?",
-            text: "Are you sure you want to upload this PDF?",
-            icon: "info",
-            showCancelButton: true, // Corrected
-            confirmButtonText: "Yes, upload it!", // Corrected
-            cancelButtonText: "Cancel"
-        }).then((result) => {
-            if (result.isConfirmed) { // Corrected
-
-                // Check if a PDF with the same name already exists in the database
-                $.ajax({
-                    url: 'e-resources/check_pdf_duplicate_name.php',
-                    type: 'POST',
-                    data: {
-                        pdf_name: pdf_name
-                    },
-                    success: function(response) {
-                        if (response.exists) {
-                            Swal.fire('Error', 'A PDF with this name already exists.', 'error');
-                        } else {
-                            // Check if the same file already exists on the server
-                            $.ajax({
-                                url: 'e-resources/check_pdf_duplicate_file.php',
-                                type: 'POST',
-                                data: form,
-                                contentType: false,
-                                processData: false,
-                                success: function(response) {
-                                    if (response.exists) {
-                                        Swal.fire('Error', 'This file has already been uploaded.', 'error');
-                                    } else {
-                                        // If no duplicates, upload the file
-                                        $.ajax({
-                                            url: 'e-resources/upload_pdf.php', // Ensure correct path to PHP handler
-                                            type: "POST",
-                                            data: form,
-                                            beforeSend: function() {
-                                                $("#body-overlay").show();
-                                            },
-                                            contentType: false,
-                                            processData: false,
-                                            success: function(data) {
-                                                let jsonResponse = JSON.parse(data); // Parse the JSON response
-
-                                                // Check the response status
-                                                if (jsonResponse.status === 'success') {
-
-                                                    $("#body-overlay").hide(); // Hide overlay
-                                                    Swal.fire({
-                                                        title: "Success!",
-                                                        icon: "success",
-                                                        timer: 2000,
-                                                        showConfirmButton: false // Corrected
-                                                    });
-
-                                                    TINY.box.hide();
-
-                                                    // Reload the page after success
-                                                    setTimeout(function() {
-                                                        location.href = "e-resources/tmpPages/tmpAdd"; // Add hash to the URL before reload
-                                                        location.reload(); // Reload the page
-                                                    }, 2000);
-
-
-                                                } else {
-                                                    Swal.fire('Error', jsonResponse.message, 'error');
-                                                }
-                                            },
-                                            error: function() {
-                                                Swal.fire('Error', 'Failed to upload the file.', 'error');
-                                            }
-                                        });
-                                    }
-                                },
-                                error: function() {
-                                    Swal.fire('Error', 'Failed to check if file exists.', 'error');
-                                }
-                            });
-                        }
-                    },
-                    error: function() {
-                        Swal.fire('Error', 'Failed to check if file name exists.', 'error');
-                    }
-                });
+            if (!pdfFile) {
+                Swal.fire('Error', 'Please select a PDF file to upload.', 'error');
+                return;
             }
-        });
-    }
+
+            var fileExtension = pdfFile.name.split('.').pop().toLowerCase();
+            if (fileExtension !== 'pdf') {
+                Swal.fire('Error', 'Only PDF files are allowed.', 'error');
+                return;
+            }
+
+            if (!pdf_name) {
+                Swal.fire('Error', 'Please enter a PDF name.', 'error');
+                return;
+            }
+
+            if (!category) {
+                Swal.fire('Error', 'Please select a PDF category.', 'error');
+                return;
+            }
+
+            let form = new FormData();
+            form.append('pdf', pdfFile);
+            form.append('pdf_callnumber', pdf_callnumber);
+            form.append('pdf_name', pdf_name);
+            form.append('category', category);
+
+            Swal.fire({
+                title: "Upload PDF?",
+                text: "Are you sure you want to upload this PDF?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Yes, upload it!",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log("Before first AJAX call:");
+                    console.log("jQuery Type:", typeof $);
+                    console.log("jQuery AJAX Type:", typeof $.ajax);
+
+                    if (typeof $ === "undefined" || typeof $.ajax !== "function") {
+                        Swal.fire("Error", "jQuery is not loaded properly!", "error");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: 'e-resources/check_pdf_duplicate_file.php',
+                        type: 'POST',
+                        data: form,
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json',
+                        async: true, // Ensuring async behavior
+                        success: function(response) {
+                            console.log("File Check Response:", response);
+
+                            if (response.error) {
+                                Swal.fire('Error', response.error, 'error');
+                                return;
+                            }
+
+                            if (response.exists) {
+                                Swal.fire('Error', 'This file has already been uploaded.', 'error');
+                            } else {
+                                console.log("No duplicate file found. Uploading...");
+
+                                $.ajax({
+                                    url: 'e-resources/upload_pdf.php',
+                                    type: "POST",
+                                    data: form,
+                                    beforeSend: function() {
+                                        $("#body-overlay").show();
+                                    },
+                                    contentType: false,
+                                    processData: false,
+                                    dataType: 'json',
+                                    async: true, // Ensuring async behavior
+                                    success: function(data) {
+                                        console.log("Upload Response:", data);
+
+                                        $("#body-overlay").hide();
+
+                                        if (data.error) {
+                                            Swal.fire('Error', data.error, 'error');
+                                            return;
+                                        }
+
+                                        if (data.status === 'success') {
+                                            Swal.fire({
+                                                title: "Success!",
+                                                icon: "success",
+                                                timer: 2000,
+                                                showConfirmButton: false
+                                            });
+
+                                            TINY.box.hide();
+
+                                            console.log("After successful upload:");
+                                            console.log("jQuery Type:", typeof $);
+                                            console.log("jQuery AJAX Type:", typeof $.ajax);
+
+                                            // Reload only the table instead of refreshing the whole page
+                                            setTimeout(function() {
+                                                console.log("Before table reload AJAX call:");
+                                                console.log("jQuery Type:", typeof $);
+                                                console.log("jQuery AJAX Type:", typeof $.ajax);
+
+                                                $.ajax({
+                                                    url: 'e-resources/add.php', // Your table data source
+                                                    type: 'GET',
+                                                    async: true, // Ensuring async behavior
+                                                    success: function(response) {
+                                                        console.log("Table Reload Response:", response);
+                                                        $('#pdfTableContainer').html(response); // Update table content
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        console.error("Table Reload Error:", status, error, xhr.responseText);
+                                                    }
+                                                });
+                                            }, 2000);
+                                        } else {
+                                            Swal.fire('Error', data.message, 'error');
+                                        }
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error("Upload AJAX Error:", status, error, xhr.responseText);
+                                        Swal.fire('Error', 'Failed to upload the file.', 'error');
+                                    }
+                                });
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("File Check AJAX Error:", status, error, xhr.responseText);
+                            Swal.fire('Error', 'Failed to check if file exists.', 'error');
+                        }
+                    });
+                }
+            });
+        };
+    });
+
+
+
+
+
+
 
 
 
@@ -1262,7 +1304,6 @@ $email = $_SESSION['email'];
 
     }
 </script>
-
 <body>
     <div class="d-flex" id="wrapper" style="color:#000;">
         <!-- sidebar to ha -->
@@ -1370,7 +1411,7 @@ $email = $_SESSION['email'];
                         <ul class="list-group list-group-flush" style="list-style: none; padding-left: 0; margin: 0;">
                             <li>
                                 <a class="list-group-item bg-transparent second-text mx-3 py-2" href="javascript:void(0);"
-                                    onclick="loadPage('admin/pages/imported_student_data.php','maincontent'); setActiveLink(this);"
+                                    onclick="loadPage('pages/imported_data_user.php','maincontent'); setActiveLink(this);"
                                     style="color:#fff; text-decoration: none;">
                                     Students
                                 </a>
@@ -1493,8 +1534,6 @@ $email = $_SESSION['email'];
                         icon.classList.add('fa-chevron-up');
                     }
                 }
-                    
-
             </script>
 
 
@@ -1647,241 +1686,148 @@ $email = $_SESSION['email'];
                         </div>
                     </div>
 
-                    <div class="container-fluid">
-                        <div class="row justify-content-start">
-                            <div class="col-md-4">
-                                <div class="p-3 bg-white shadow rounded" id="pieChartContainer">
-                                    <h3 class="fs-4 text-center">Course Distribution</h3>
-                                    <canvas id="coursePieChart"></canvas>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-white shadow rounded" id="barChartContainer">
-                                    <div class="chart-container p-3">
-                                        <h2 class="text-center" style="font-size: 24px;">Top Viewed E-Resources</h2>
-                                        <canvas id="barChart"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card p-3 bg-white shadow rounded" id="barChartContainer">
-                                    <table class="table table-sm" style="height: 330px;">
-                                        <h1 style="text-align:center; font-size: 25px;">Most Frequent Users</h1>
-                                        <thead>
-                                            <tr>
-                                                <th>Rank</th>
-                                                <th>Name</th>
-                                            </tr>
-                                        </thead>
+<div class="container-fluid">
+    <div class="row justify-content-start">
+        <div class="col-md-5">
+            <div class="p-3 bg-white shadow rounded" id="barChartContainer" style="height: 350px;">
+                <h3 class="fs-5 text-center">Institute</h3>
+                <canvas id="courseBarChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="p-3 bg-white shadow rounded" id="lineChartContainer" style="height: 350px;">
+                <h3 class="fs-5 text-center">Top Viewed E-Books</h3>
+                <canvas id="lineChart"></canvas>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card p-2 bg-white shadow rounded" id="mostFrequentUsersContainer" style="height: 350px; overflow-y: auto; font-size: 13px;">
+            <h3 class="text-center" style="font-size: 17px; font-weight: bold;">Most Frequent Users</h3>
+            <table class="table table-bordered table-sm text-center" style="border: 1px solid darkgrey;">
 
-                                        <tbody>
-                                            <?php
-                                            $q = "SELECT a.username, COUNT(b.user_id) AS login_count
-                                FROM users a
-                                LEFT JOIN login_history b ON a.id = b.user_id
-                                GROUP BY a.username
-                                ORDER BY login_count DESC
-                                LIMIT 4";
-                                            $result = mysqli_query($conn, $q);
-                                            $n = 1;
-                                            while ($rw = mysqli_fetch_array($result)) {
-                                                echo '<tr>';
-                                                echo '<td>' . $n++ . '.' . '</td>';
-                                                echo '<td>' . $rw['username'] . '</td>';
-                                                echo '</tr>';
-                                            }
+                    <thead>
+                        <tr>
+                            <th style="font-size: 12px;" class="text-uppercase">Rank</th>
+                            <th style="font-size: 12px;" class="text-uppercase">Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $q = "SELECT a.username, COUNT(b.user_id) AS login_count FROM users a
+                              LEFT JOIN login_history b ON a.id = b.user_id
+                              GROUP BY a.username
+                              ORDER BY login_count DESC
+                              LIMIT 5";
+                        $result = mysqli_query($conn, $q);
+                        $n = 1;
+                        while ($rw = mysqli_fetch_array($result)) {
+                            echo '<tr>';
+                            echo '<td style="font-size: 26px;">' . $n++ . '.' . '</td>';
+                            echo '<td style="font-size: 13px;" class="text-uppercase">' . $rw['username'] . '</td>';
+                            echo '</tr>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
-                                            ?>
-                                        </tbody>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Fetch course distribution data
+    const courseCounts = <?php
+        $query = "SELECT institute, COUNT(*) as count FROM students GROUP BY institute";
+        $result = $conn->query($query);
+        $data = ['courses' => [], 'counts' => []];
+        while ($row = $result->fetch_assoc()) {
+            $data['courses'][] = $row['institute'];
+            $data['counts'][] = $row['count'];
+        }
+        echo json_encode($data);
+    ?>;
 
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    // Format labels into multiline text
+    const formattedCourses = courseCounts.courses.map(course => course.split(' '));
 
+    const courseData = {
+        labels: formattedCourses,
+        datasets: [{
+            label: 'Number of Students',
+            data: courseCounts.counts,
+            backgroundColor: 'rgba(0, 123, 255, 0.8)', // Compact blue color
+            borderWidth: 1
+        }]
+    };
 
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  const barConfig = {
+    type: 'bar',
+    data: courseData,
+    options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: { title: { display: true, text: '' } },
+            y: { 
+                title: { display: true, text: 'Institute' }, 
+                ticks: { font: { size: 12 } } 
+            }
+        },
+        plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Number of Students' }
+        },
+        barThickness: 40, // Adjusts the bar thickness
+        maxBarThickness: 50 // Ensures bars don't get too thick
+    }
+};
 
-                    <script>
-                        // PHP to fetch course counts
-                        const courseCounts = <?php
-                                                // Fetch course counts from the database
-                                                $query = "SELECT course, COUNT(*) as count FROM students GROUP BY course";
-                                                $result = $conn->query($query);
-                                                $courses = [];
-                                                $counts = [];
+    new Chart(document.getElementById('courseBarChart'), barConfig);
 
-                                                while ($row = $result->fetch_assoc()) {
-                                                    $courses[] = $row['course'];
-                                                    $counts[] = $row['count'];
-                                                }
+    // Fetch book views data
+    const bookData = <?php echo json_encode(getbooks()); ?>;
+    const bookLabels = bookData.names.map(name => name.length > 20 ? name.substring(0, 20) + '...' : name);
+    const bookViews = bookData.views;
 
-                                                // Convert PHP arrays to JSON for JavaScript
-                                                echo json_encode(['courses' => $courses, 'counts' => $counts]);
-                                                ?>;
+    const ctx = document.getElementById('lineChart').getContext('2d');
 
-                        // Prepare data for the pie chart
-                        const courseData = {
-                            labels: courseCounts.courses,
-                            datasets: [{
-                                label: 'Courses',
-                                data: courseCounts.counts,
-                                backgroundColor: [
-                                    'rgba(255, 99, 132, 0.5)',
-                                    'rgba(54, 162, 235, 0.2)',
-                                    'rgba(255, 206, 86, 0.3)',
-                                    'rgba(75, 192, 192, 0.8)',
-                                    'rgba(153, 102, 255, 0.9)',
-                                    'rgba(255, 159, 64, 0.7)'
-                                ],
-                                borderColor: 'rgba(255, 255, 255, 1)',
-                                borderWidth: 1
-                            }]
-                        };
-
-                        const pieConfig = {
-                            type: 'pie',
-                            data: courseData,
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'bottom',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: 'Distribution of Courses'
-                                    }
-                                },
-                                // Adding options to make sure the totals are visible on the pie chart
-                                animations: {
-                                    tension: {
-                                        duration: 1000,
-                                        easing: 'easeInOutQuad',
-                                        from: 1,
-                                        to: 0,
-                                        loop: true
-                                    }
-                                }
-                            },
-                            // Adding a callback to show data labels directly on the pie chart slices
-                            plugins: [{
-                                afterDatasetsDraw: function(chart) {
-                                    const ctx = chart.ctx;
-                                    chart.data.datasets.forEach((dataset, i) => {
-                                        const meta = chart.getDatasetMeta(i);
-                                        if (!meta.hidden) {
-                                            meta.data.forEach((element, index) => {
-                                                const fontSize = 14;
-                                                const fontStyle = 'bold';
-                                                const fontFamily = 'Arial';
-                                                const fontColor = '#black'; // White color for visibility
-                                                ctx.fillStyle = fontColor;
-
-                                                const value = dataset.data[index];
-                                                const text = value;
-
-                                                // Calculate text positioning
-                                                const position = element.tooltipPosition();
-                                                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-                                                ctx.fillText(text, position.x - 10, position.y);
-                                            });
-                                        }
-                                    });
-                                }
-                            }]
-                        };
-
-                        const coursePieChart = new Chart(
-                            document.getElementById('coursePieChart'),
-                            pieConfig
-                        );
-
-
-                        // Fetch the book data
-                        const bookData = <?php echo json_encode(getbooks()); ?>;
-                        const bookLabels = bookData.names; // Extract book names
-                        const bookViews = bookData.views; // Extract views for each book
-
-                        const ctx = document.getElementById('barChart').getContext('2d');
-
-                        // Bar chart
-                        const barChart = new Chart(ctx, {
-                            type: 'bar',
-                            data: {
-                                labels: bookLabels,
-                                datasets: [{
-                                    label: 'Views',
-                                    data: bookViews, // Use the views from the database
-                                    backgroundColor: [
-                                        'rgba(255, 99, 132, 0.2)',
-                                        'rgba(54, 162, 235, 0.2)',
-                                        'rgba(255, 206, 86, 0.2)',
-                                        'rgba(75, 192, 192, 0.2)',
-                                        'rgba(153, 102, 255, 0.2)'
-                                    ],
-                                    borderColor: [
-                                        'rgba(255, 99, 132, 1)',
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 206, 86, 1)',
-                                        'rgba(75, 192, 192, 1)',
-                                        'rgba(153, 102, 255, 1)'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                },
-                                // Adding options to show the totals directly on the bars
-                                plugins: {
-                                    legend: {
-                                        position: 'top',
-                                    }
-                                }
-                            },
-                            // Adding a callback to show data labels directly on the bars
-                            plugins: [{
-                                afterDatasetsDraw: function(chart) {
-                                    const ctx = chart.ctx;
-                                    chart.data.datasets.forEach((dataset, i) => {
-                                        const meta = chart.getDatasetMeta(i);
-                                        if (!meta.hidden) {
-                                            meta.data.forEach((element, index) => {
-                                                const fontSize = 14;
-                                                const fontStyle = 'bold';
-                                                const fontFamily = 'Arial';
-                                                const fontColor = '#000000'; // Black color for visibility
-                                                ctx.fillStyle = fontColor;
-
-                                                const value = dataset.data[index];
-                                                const text = value;
-
-                                                // Calculate text positioning
-                                                const position = element.tooltipPosition();
-                                                ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-                                                ctx.fillText(text, position.x - 10, position.y - 5); // Adjust text placement
-                                            });
-                                        }
-                                    });
-                                }
-                            }]
-                        });
-                    </script>
-
-
-
-
+    const lineChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: bookLabels,
+            datasets: [{
+                label: 'Views',
+                data: bookViews,
+                borderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderWidth: 2,
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: { 
+                    title: { display: true, text: '' }, 
+                    ticks: { autoSkip: false, maxRotation: 45, minRotation: 45 } 
+                },
+                y: { 
+                    beginAtZero: true, 
+                    title: { display: true, text: 'Views' } 
+                }
+            },
+            plugins: { legend: { display: true, position: 'top' } }
+        }
+    });
+</script>
                 </div>
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         var el = document.getElementById("wrapper");
@@ -1935,6 +1881,29 @@ $email = $_SESSION['email'];
             pieChartContainer.style.height = maxHeight + "px";
             barChartContainer.style.height = maxHeight + "px";
         });
+
+
+        function testFileCheck() {
+            let formData = new FormData();
+            formData.append('pdf', new Blob(), 'test.pdf'); // Simulate a file upload
+
+            $.ajax({
+                url: 'e-resources/check_pdf_duplicate_file.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    console.log("Server Response:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX Error:", status, error, xhr.responseText);
+                }
+            });
+        }
+
+        // Call this function to test it
+        testFileCheck();
     </script>
 
 

@@ -85,6 +85,8 @@ require_once("../includes/dbcon.php");
   </style>
 </head>
 
+
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow bg-success">
     <img class="logo" src="../assets/icon/library_logo_nbg.png" alt="Library Logo" style="width: 40px; height: 40px;">
