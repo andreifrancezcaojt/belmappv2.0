@@ -262,173 +262,126 @@ $email = $_SESSION['email'];
 
 
 
-    $(document).ready(function() {
-        console.log("jQuery Loaded?", typeof jQuery);
-        console.log("Dollar Sign ($) Available?", typeof $);
-        console.log("jQuery AJAX Type:", typeof $.ajax);
+    function upload_pdf() {
+        var pdf = document.getElementById('pdf');
+        var pdf_callnumber = document.getElementById('pdf_callnumber').value;
+        var pdf_name = document.getElementById('pdf_name').value;
+        var category = document.getElementById('category').value;
+        var pdfFile = pdf.files[0];
 
-        if (typeof $ === "undefined" || typeof $.ajax !== "function") {
-            Swal.fire("Error", "jQuery is not loaded properly!", "error");
+        if (!pdfFile) {
+            Swal.fire('Error', 'Please select a PDF file to upload.', 'error');
             return;
         }
 
-        // Assign function globally
-        window.upload_pdf = function() {
-            console.log("Inside upload_pdf() function");
+        var fileExtension = pdfFile.name.split('.').pop().toLowerCase();
+        if (fileExtension !== 'pdf') {
+            Swal.fire('Error', 'Only PDF files are allowed.', 'error');
+            return;
+        }
 
-            var pdf = document.getElementById('pdf');
-            var pdf_callnumber = document.getElementById('pdf_callnumber').value;
-            var pdf_name = document.getElementById('pdf_name').value;
-            var category = document.getElementById('category').value;
-            var pdfFile = pdf.files[0];
+        if (!pdf_name) {
+            Swal.fire('Error', 'Please enter a PDF name.', 'error');
+            return;
+        }
 
-            if (!pdfFile) {
-                Swal.fire('Error', 'Please select a PDF file to upload.', 'error');
-                return;
-            }
+        if (!category) {
+            Swal.fire('Error', 'Please select a PDF category.', 'error');
+            return;
+        }
 
-            var fileExtension = pdfFile.name.split('.').pop().toLowerCase();
-            if (fileExtension !== 'pdf') {
-                Swal.fire('Error', 'Only PDF files are allowed.', 'error');
-                return;
-            }
+        let form = new FormData();
+        form.append('pdf', pdfFile);
+        form.append('pdf_callnumber', pdf_callnumber);
+        form.append('pdf_name', pdf_name);
+        form.append('category', category);
 
-            if (!pdf_name) {
-                Swal.fire('Error', 'Please enter a PDF name.', 'error');
-                return;
-            }
+        Swal.fire({
+            title: "Upload PDF?",
+            text: "Are you sure you want to upload this PDF?",
+            icon: "info",
+            showCancelButton: true,
+            confirmButtonText: "Yes, upload it!",
+            cancelButtonText: "Cancel"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("No duplicate name found. Checking file...");
 
-            if (!category) {
-                Swal.fire('Error', 'Please select a PDF category.', 'error');
-                return;
-            }
+                $.ajax({
+                    url: 'e-resources/check_pdf_duplicate_file.php',
+                    type: 'POST',
+                    data: form,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log("File Check Response:", response);
 
-            let form = new FormData();
-            form.append('pdf', pdfFile);
-            form.append('pdf_callnumber', pdf_callnumber);
-            form.append('pdf_name', pdf_name);
-            form.append('category', category);
-
-            Swal.fire({
-                title: "Upload PDF?",
-                text: "Are you sure you want to upload this PDF?",
-                icon: "info",
-                showCancelButton: true,
-                confirmButtonText: "Yes, upload it!",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log("Before first AJAX call:");
-                    console.log("jQuery Type:", typeof $);
-                    console.log("jQuery AJAX Type:", typeof $.ajax);
-
-                    if (typeof $ === "undefined" || typeof $.ajax !== "function") {
-                        Swal.fire("Error", "jQuery is not loaded properly!", "error");
-                        return;
-                    }
-
-                    $.ajax({
-                        url: 'e-resources/check_pdf_duplicate_file.php',
-                        type: 'POST',
-                        data: form,
-                        contentType: false,
-                        processData: false,
-                        dataType: 'json',
-                        async: true, // Ensuring async behavior
-                        success: function(response) {
-                            console.log("File Check Response:", response);
-
-                            if (response.error) {
-                                Swal.fire('Error', response.error, 'error');
-                                return;
-                            }
-
-                            if (response.exists) {
-                                Swal.fire('Error', 'This file has already been uploaded.', 'error');
-                            } else {
-                                console.log("No duplicate file found. Uploading...");
-
-                                $.ajax({
-                                    url: 'e-resources/upload_pdf.php',
-                                    type: "POST",
-                                    data: form,
-                                    beforeSend: function() {
-                                        $("#body-overlay").show();
-                                    },
-                                    contentType: false,
-                                    processData: false,
-                                    dataType: 'json',
-                                    async: true, // Ensuring async behavior
-                                    success: function(data) {
-                                        console.log("Upload Response:", data);
-
-                                        $("#body-overlay").hide();
-
-                                        if (data.error) {
-                                            Swal.fire('Error', data.error, 'error');
-                                            return;
-                                        }
-
-                                        if (data.status === 'success') {
-                                            Swal.fire({
-                                                title: "Success!",
-                                                icon: "success",
-                                                timer: 2000,
-                                                showConfirmButton: false
-                                            });
-
-                                            TINY.box.hide();
-
-                                            console.log("After successful upload:");
-                                            console.log("jQuery Type:", typeof $);
-                                            console.log("jQuery AJAX Type:", typeof $.ajax);
-
-                                            // Reload only the table instead of refreshing the whole page
-                                            setTimeout(function() {
-                                                console.log("Before table reload AJAX call:");
-                                                console.log("jQuery Type:", typeof $);
-                                                console.log("jQuery AJAX Type:", typeof $.ajax);
-
-                                                $.ajax({
-                                                    url: 'e-resources/add.php', // Your table data source
-                                                    type: 'GET',
-                                                    async: true, // Ensuring async behavior
-                                                    success: function(response) {
-                                                        console.log("Table Reload Response:", response);
-                                                        $('#pdfTableContainer').html(response); // Update table content
-                                                    },
-                                                    error: function(xhr, status, error) {
-                                                        console.error("Table Reload Error:", status, error, xhr.responseText);
-                                                    }
-                                                });
-                                            }, 2000);
-                                        } else {
-                                            Swal.fire('Error', data.message, 'error');
-                                        }
-                                    },
-                                    error: function(xhr, status, error) {
-                                        console.error("Upload AJAX Error:", status, error, xhr.responseText);
-                                        Swal.fire('Error', 'Failed to upload the file.', 'error');
-                                    }
-                                });
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("File Check AJAX Error:", status, error, xhr.responseText);
-                            Swal.fire('Error', 'Failed to check if file exists.', 'error');
+                        if (response.error) {
+                            Swal.fire('Error', response.error, 'error');
+                            return;
                         }
-                    });
-                }
-            });
-        };
-    });
 
+                        if (response.exists) {
+                            Swal.fire('Error', 'This file has already been uploaded.', 'error');
+                        } else {
+                            console.log("No duplicate file found. Uploading...");
 
+                            $.ajax({
+                                url: 'e-resources/upload_pdf.php',
+                                type: "POST",
+                                data: form,
+                                beforeSend: function() {
+                                    $("#body-overlay").show();
+                                },
+                                contentType: false,
+                                processData: false,
+                                dataType: 'json',
+                                success: function(data) {
+                                    console.log("Upload Response:", data);
+                                    $("#body-overlay").hide();
 
+                                    if (data.error) {
+                                        Swal.fire('Error', data.error, 'error');
+                                        return;
+                                    }
 
+                                    if (data.status === 'success') {
+                                        Swal.fire({
+                                            title: "Success!",
+                                            icon: "success",
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
 
+                                        TINY.box.hide();
 
+                                        // Reload only the table instead of refreshing the whole page
+                                        $('#pdfTableContainer').load('e-resources/add.php #pdfTableContainer', function(response, status, xhr) {
+                                            if (status === "error") {
+                                                console.error("Table Reload Error:", xhr.status, xhr.statusText);
+                                            }
+                                        });
 
+                                    } else {
+                                        Swal.fire('Error', data.message, 'error');
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error("Upload AJAX Error:", status, error, xhr.responseText);
+                                    Swal.fire('Error', 'Failed to upload the file.', 'error');
+                                }
+                            });
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("File Check AJAX Error:", status, error, xhr.responseText);
+                        Swal.fire('Error', 'Failed to check if file exists.', 'error');
+                    }
+                });
+            }
+        });
+    }
 
     function add_admin() {
         var email = object('email').value;
@@ -1613,53 +1566,82 @@ $email = $_SESSION['email'];
                         </div>
                     </div>
 
-                    <div class="container-fluid">
-                <div class="row justify-content-start">
-                    <div class="col-md-5">
-                        <div class="p-3 bg-white shadow rounded" id="barChartContainer" style="height: 350px;">
-                            <h3 class="fs-5 text-center">Institute</h3>
-                            <canvas id="courseBarChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-                        <div class="p-3 bg-white shadow rounded" id="lineChartContainer" style="height: 350px;">
-                            <h3 class="fs-5 text-center">Top Viewed E-Books</h3>
-                            <canvas id="lineChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="card p-2 bg-white shadow rounded" id="mostFrequentUsersContainer" style="height: 350px; overflow-y: auto; font-size: 13px;">
-                            <h3 class="text-center" style="font-size: 17px; font-weight: bold;">Most Frequent Users</h3>
-                            <table class="table table-bordered table-sm text-center" style="border: 1px solid darkgrey;">
-
-                                <thead>
-                                    <tr>
-                                        <th style="font-size: 12px;" class="text-uppercase">Rank</th>
-                                        <th style="font-size: 12px;" class="text-uppercase">Name</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                    <div class="col-lg-4 mb-2">
+                        <div class="card card-margin py-2">
+                            <div class="card-header no-border">
+                                <i class="fa fa-male" style="font-size:26px; color: #31a531;  margin-right: 25px;"></i>
+                                <h5 class="card-title" style="margin-right: 1rem;">Female Users:</h5>
+                                <h3 class="fs-2" style="font-size: 1.5rem; color:#31a531;">
                                     <?php
-                                    $q = "SELECT a.username, COUNT(b.user_id) AS login_count FROM users a
+                                    echo get("
+                                            SELECT COUNT(*) AS total_females 
+                                            FROM (
+                                                SELECT a.student_id AS person_id, a.sex 
+                                                FROM students a 
+                                                INNER JOIN users b ON a.student_id = b.id 
+                                                WHERE a.sex = 'F' AND b.email IS NOT NULL
+                                                
+                                                UNION ALL
+                                                
+                                                SELECT c.instructor_id AS person_id, c.sex 
+                                                FROM instructors c 
+                                                INNER JOIN users d ON c.instructor_id = d.id 
+                                                WHERE c.sex = 'F' AND d.email IS NOT NULL
+                                            ) AS combined;
+                                        ");
+                                    ?>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container-fluid">
+                        <div class="row justify-content-start">
+                            <div class="col-md-5">
+                                <div class="p-3 bg-white shadow rounded" id="barChartContainer" style="height: 350px;">
+                                    <h3 class="fs-5 text-center">Institute</h3>
+                                    <canvas id="courseBarChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="p-3 bg-white shadow rounded" id="lineChartContainer" style="height: 350px;">
+                                    <h3 class="fs-5 text-center">Top Viewed E-Books</h3>
+                                    <canvas id="lineChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="card p-2 bg-white shadow rounded" id="mostFrequentUsersContainer" style="height: 350px; overflow-y: auto; font-size: 13px;">
+                                    <h3 class="text-center" style="font-size: 17px; font-weight: bold;">Most Frequent Users</h3>
+                                    <table class="table table-bordered table-sm text-center" style="border: 1px solid darkgrey;">
+
+                                        <thead>
+                                            <tr>
+                                                <th style="font-size: 12px;" class="text-uppercase">Rank</th>
+                                                <th style="font-size: 12px;" class="text-uppercase">Name</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $q = "SELECT a.username, COUNT(b.user_id) AS login_count FROM users a
                               LEFT JOIN login_history b ON a.id = b.user_id
                               GROUP BY a.username
                               ORDER BY login_count DESC
                               LIMIT 5";
-                                    $result = mysqli_query($conn, $q);
-                                    $n = 1;
-                                    while ($rw = mysqli_fetch_array($result)) {
-                                        echo '<tr>';
-                                        echo '<td style="font-size: 26px;">' . $n++ . '.' . '</td>';
-                                        echo '<td style="font-size: 13px;" class="text-uppercase">' . $rw['username'] . '</td>';
-                                        echo '</tr>';
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                                            $result = mysqli_query($conn, $q);
+                                            $n = 1;
+                                            while ($rw = mysqli_fetch_array($result)) {
+                                                echo '<tr>';
+                                                echo '<td style="font-size: 26px;">' . $n++ . '.' . '</td>';
+                                                echo '<td style="font-size: 13px;" class="text-uppercase">' . $rw['username'] . '</td>';
+                                                echo '</tr>';
+                                            }
+                                            ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
                 </div>
             </div>
 
