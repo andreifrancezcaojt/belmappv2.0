@@ -1,24 +1,26 @@
 <?php require_once "controllerUserData.php"; ?>
-<?php 
+<?php
 $email = $_SESSION['email'];
-if($email == false){
-  header('Location: login.php');
+if ($email == false) {
+    header('Location: login.php');
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
-    <title>Create a New Password</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="../assets/icon/library_logo_nbg.png">
+    <title>New Password | BELMAppv2.0</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-
         body {
-            margin-top: 0; 
+            margin-top: 0;
             background-color: #f8f9fa;
         }
+
         .navbar-brand {
             color: #fff;
             text-decoration: none;
@@ -30,9 +32,10 @@ if($email == false){
             color: #fff;
         }
 
-        .navbar{
-            margin-top: 0; 
+        .navbar {
+            margin-top: 0;
         }
+
         .container {
             margin-top: 70px;
             padding: 10px;
@@ -53,16 +56,19 @@ if($email == false){
             border-radius: 15px;
         }
 
-        .container .row .alert{
+        .container .row .alert {
             font-size: 14px;
         }
-        .container .form form .link{
+
+        .container .form form .link {
             padding: 5px 0;
         }
-        .a{
+
+        .a {
             color: #007bff;
         }
-        .container .login-form form p{
+
+        .container .login-form form p {
             font-size: 14px;
         }
 
@@ -77,7 +83,7 @@ if($email == false){
         .btn-smaller {
             width: auto;
             padding-left: 40px;
-            padding-right: 40px; 
+            padding-right: 40px;
             border-radius: 10px;
         }
 
@@ -85,15 +91,15 @@ if($email == false){
             transform: scale(1.05);
             box-shadow: 0 0px 10px rgba(0, 0, 0, 0.3);
             background-color: #1bc041;
-            border-color:#1bc041 ;
+            border-color: #1bc041;
         }
-
     </style>
 </head>
+
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow bg-success">
-    <img class="logo" src="../assets/icon/library_logo_nbg.png" alt="Library Logo" style="width: 40px; height: 40px;">
+        <img class="logo" src="../assets/icon/library_logo_nbg.png" alt="Library Logo" style="width: 40px; height: 40px;">
         <a class="navbar-brand" href="#">BASC E-Library</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -112,43 +118,44 @@ if($email == false){
             <div class="col mx-5 my-1">
                 <form action="new-password.php" method="POST" autocomplete="off">
                     <h2 class="text-center">New Password</h2>
-                    <?php 
-                    if(isset($_SESSION['info'])){
-                        ?>
+                    <?php
+                    if (isset($_SESSION['info'])) {
+                    ?>
                         <div class="alert alert-success text-center">
                             <?php echo $_SESSION['info']; ?>
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
                     <?php
-                    if(count($errors) > 0){
-                        ?>
+                    if (count($errors) > 0) {
+                    ?>
                         <div class="alert alert-danger text-center">
                             <?php
-                            foreach($errors as $showerror){
+                            foreach ($errors as $showerror) {
                                 echo $showerror;
                             }
                             ?>
                         </div>
-                        <?php
+                    <?php
                     }
                     ?>
                     <center>
-                    <div class="form-group">
-                        <input class="form-control" type="password" name="password" placeholder="Create new password" required>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="password" name="cpassword" placeholder="Confirm your password" required>
-                    </div>
-                    <div class="form-group">
-                        <input class="btn btn-success btn-smaller" type="submit" name="change-password" value="Change">
-                    </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="password" placeholder="Create new password" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="password" name="cpassword" placeholder="Confirm your password" required>
+                        </div>
+                        <div class="form-group">
+                            <input class="btn btn-success btn-smaller" type="submit" name="change-password" value="Change">
+                        </div>
                     </center>
                 </form>
             </div>
         </div>
     </div>
-    
+
 </body>
+
 </html>

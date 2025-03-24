@@ -95,6 +95,7 @@ if ($stmt) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" type="image/png" href="../assets/icon/library_logo_nbg.png">
     <title><?php echo $fullname; ?> | Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -222,7 +223,7 @@ s0.parentNode.insertBefore(s1,s0);
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a class="dropdown-item text-light" href="../about_developer/aboutdeveloper.php"><i class="fas fa-user me-2 mr-2"></i>About Developers</a></li>
                 <li class="nav-item"><a class="dropdown-item text-light" href="../feedback/viewfeedback_qr.php"><i class="fas fa-comment-dots me-2 mr-2"></i>Feedback</a></li>
-                <li class="nav-item"><a class="dropdown-item text-light" href="manage_account.php"><i class="fas fa-cogs me-2 mr-2"></i>Manage Account</a></li>
+                <li class="nav-item"><a class="dropdown-item text-light" href="manage_account.php"><i class="fas fa-cogs me-2 mr-2"></i>Account Information</a></li>
                 <li class="nav-item"><a class="dropdown-item text-light" href="logout-user.php"><i class="fas fa-sign-out-alt me-2 mr-2"></i>Logout</a></li>
             </ul>
         </div>

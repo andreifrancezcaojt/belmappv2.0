@@ -67,7 +67,8 @@ if (isset($_POST['submit'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password</title>
+    <link rel="icon" type="image/png" href="../assets/icon/library_logo_nbg.png">
+    <title>Change Password | BELMAppv2.0</title>
 
     <!-- Load SweetAlert2 Script -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
@@ -144,7 +145,7 @@ if (isset($_POST['submit'])) {
             </a>
         </div>
 
-        <h2 class="text-center">Change Your Password</h2>
+        <h2 class="text-center">Change Account Password</h2>
 
         <div class="jumbotron mt-4 p-4">
             <form action="change_password.php" method="post">
@@ -164,7 +165,7 @@ if (isset($_POST['submit'])) {
                     <input type="password" name="confirm_password" id="confirm_password" class="form-control" required>
                     <i class="eye-icon" id="toggleConfirmPassword"><i class="fas fa-eye-slash"></i></i>
                 </div>
-                <button type="submit" name="submit" class="btn btn-custom text-light btn-block">Change Password</button>
+                <button type="submit" name="submit" class="btn btn-custom text-light btn-block">Submit</button>
             </form>
         </div>
     </div>

@@ -8,7 +8,8 @@ require_once "controllerUserData.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up Form</title>
+    <link rel="icon" type="image/png" href="../assets/icon/library_logo_nbg.png">
+    <title>Register | BELMAppv2.0</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -140,7 +141,7 @@ require_once "controllerUserData.php";
                 </div>
 
                 <div class="col-12 col-lg-6 mt-1">
-                    <h2 class="text-center"><i class="fas fa-user mr-2"></i>Sign up</h2>
+                    <h2 class="text-center"><i class="fas fa-user mr-2"></i>Register</h2>
                     <p class="text-center">Provide the needed information to sign up.</p>
                     <?php if (count($errors) > 0): ?>
                         <div class="alert alert-danger text-center">
@@ -190,7 +191,7 @@ require_once "controllerUserData.php";
                         <input type="checkbox" id="termsCheckbox" required> I agree to the <a href="#" data-toggle="modal" data-target="#termsModal">Terms and Conditions</a>.
                     </div>
                     <div class="form-group text-center">
-                        <input class="btn btn-success btn-smaller" type="submit" name="signup" value="Sign up">
+                        <input class="btn btn-success btn-smaller" type="submit" name="signup" value="Register">
                     </div>
                     <div class="link login-link text-center">Already have an account? <a href="login.php" class="text-success">Login here</a></div>
                 </div>

@@ -21,6 +21,7 @@ $email = $_SESSION['email'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="assets/icon/library_logo_nbg.png">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" /> -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -38,7 +39,7 @@ $email = $_SESSION['email'];
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
 
-    <title>Admin Dashboard</title>
+    <title>Dashboard | BELMAppv2.0 </title>
 </head>
 
 <style>
@@ -585,7 +586,7 @@ $email = $_SESSION['email'];
         var id = object('id').value;
         var oadb = object('oadb').value;
         var url = object('url').value;
-        var category = document.getElementById('category').value; // Get the selected category value
+        var category = document.getElementById('category').value;
         var picInput = document.getElementById('pic');
         var picFile = picInput.files[0];
 
@@ -595,45 +596,50 @@ $email = $_SESSION['email'];
         form.append('oadb', oadb);
         form.append('pic', picFile);
         form.append('url', url);
-        form.append('category', category); // Append category to FormData
+        form.append('category', category);
 
         Swal.fire({
-                title: "Update OADB",
-                text: "Are you sure to update OADB?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willAdd) => {
-                if (willAdd) {
-                    $.ajax({
-                        url: 'admin/pages/e_book.php?edit_oadb',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#maincontent").html(data);
-                            $("#maincontent").css('opacity', '1');
-                            $("#body-overlay").hide();
+            title: "Update OADB",
+            text: "Are you sure you want to update OADB?",
+            icon: "info",
+            showCancelButton: true, // Adds a cancel button
+            confirmButtonText: "Yes, update it!",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) { // If user confirms update
+                $.ajax({
+                    url: 'admin/pages/e_book.php?edit_oadb',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#maincontent").html(data);
+                        $("#maincontent").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-                            Swal.fire("Success!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-                        },
-                        error: function() {
-                            Swal.fire('Error', 'Failed', 'error');
-                        }
-                    });
-                }
-            });
+                        Swal.fire("Success!", {
+                            icon: 'success',
+                            buttons: false,
+                            timer: 2000,
+                        });
+                    },
+                    error: function() {
+                        Swal.fire('Error', 'Failed', 'error');
+                    }
+                });
+            } else {
+                Swal.fire("Cancelled", "Your update was canceled.", "info"); // Show a cancel message
+            }
+        });
+
         TINY.box.hide();
     }
+
 
 
     function edit_pdf() {
@@ -653,41 +659,44 @@ $email = $_SESSION['email'];
         form.append('pdf_name', pdf_name);
 
         Swal.fire({
-                title: "Edit PDF?",
-                text: "Are you sure you want to edit the PDF?",
-                icon: "info",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willEdit) => {
-                if (willEdit) {
-                    $.ajax({
-                        url: 'e-resources/add.php?edit_pdf',
-                        type: "POST",
-                        data: form,
-                        beforeSend: function() {
-                            $("#body-overlay").show();
-                        },
-                        contentType: false,
-                        processData: false,
-                        success: function(data) {
-                            $("#maincontent").html(data);
-                            $("#maincontent").css('opacity', '1');
-                            $("#body-overlay").hide();
+            title: "Edit PDF?",
+            text: "Are you sure you want to edit the PDF?",
+            icon: "info",
+            showCancelButton: true, // Adds Cancel button
+            confirmButtonText: "Yes, edit it!",
+            cancelButtonText: "Cancel",
+            dangerMode: true,
+        }).then((result) => {
+            if (result.isConfirmed) { // Proceed if user confirms
+                $.ajax({
+                    url: 'e-resources/add.php?edit_pdf',
+                    type: "POST",
+                    data: form,
+                    beforeSend: function() {
+                        $("#body-overlay").show();
+                    },
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $("#maincontent").html(data);
+                        $("#maincontent").css('opacity', '1');
+                        $("#body-overlay").hide();
 
-                            Swal.fire("Success!", {
-                                icon: 'success',
-                                buttons: false,
-                                timer: 2000,
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error(xhr.responseText);
-                            Swal.fire('Error', 'Failed to edit PDF. Please try again.', 'error');
-                        }
-                    });
-                }
-            });
+                        Swal.fire("Success!", {
+                            icon: 'success',
+                            buttons: false,
+                            timer: 2000,
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                        Swal.fire('Error', 'Failed to edit PDF. Please try again.', 'error');
+                    }
+                });
+            } else {
+                Swal.fire("Cancelled", "Your PDF edit was canceled.", "info"); // Cancel message
+            }
+        });
     }
 
 

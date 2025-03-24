@@ -26,7 +26,8 @@ if(isset($_GET['adminlogin'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BELLMAPPv2.0</title>
+    <link rel="icon" type="image/png" href="assets/icon/library_logo_nbg.png">
+    <title>BELLMAppv2.0 </title>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
@@ -191,7 +192,7 @@ if(isset($_GET['adminlogin'])){
                     <p>Create an account and login to start browsing for your topic of interest.</p>
                     <div class="d-flex justify-content-center justify-content-lg-start">
                         <a href="credentials/login.php" class="btn mr-3 custom-btn1">Login</a>
-                        <a href="credentials/signup.php" class="btn custom-btn2">Signup</a>
+                        <a href="credentials/signup.php" class="btn custom-btn2">Register</a>
                     </div>
                 </div>
 
