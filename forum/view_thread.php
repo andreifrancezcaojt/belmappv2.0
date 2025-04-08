@@ -168,13 +168,13 @@ s0.parentNode.insertBefore(s1,s0);
 <?php } ?>
 
         <h5 class="mt-4">Leave a Comment</h5>
-        <form action="process_reply.php" method="POST">
+        <form action="process_reply.php" id="commentForm" method="POST">
             <input type="hidden" name="thread_id" value="<?php echo $thread_id; ?>">
             <div class="form-group">
                 <textarea class="form-control" name="reply_content" rows="3" placeholder="Write your comment here..."></textarea>
             </div>
             <button type="submit" class="btn btn-success">Comment</button>
-            <button type="button" class="btn btn-danger" onclick="window.location.href='view_thread.php?id=<?php echo $thread_id; ?>'">Back</button>
+            <a href="view_thread.php" class="btn btn-danger text-white">Back</a>
         </form>
     </div>
 
@@ -271,6 +271,17 @@ function confirmEdit(replyId, threadId) {
             window.parent.navigateToThreads();
         }
 
+    document.getElementById('commentForm').addEventListener('submit', function (e) {
+    const textarea = document.querySelector('textarea[name="reply_content"]');
+    if (!textarea.value.trim()) {
+        e.preventDefault();
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops!',
+            text: 'Please write something before submitting your comment.',
+        });
+    }
+});
     </script>
 
 </body>

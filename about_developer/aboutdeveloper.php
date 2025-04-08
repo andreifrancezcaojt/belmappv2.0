@@ -16,51 +16,100 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
   <style>
-    body {
-      background-color: #f8f9fa;
-      padding-top: 15px;
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-    }
+.card-container {
+  width: 100%;
+  perspective: 2000px; /* Mas malalim na 3D */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    .card-img-top {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      margin: auto;
-      margin-bottom: 5px;
-    }
+.card {
+  width: 420px;
+  height: 330px;
+  transform-style: preserve-3d;
+  transition: transform 0.9s ease-in-out;
+  position: relative;
+  transform: rotateY(0deg);
+}
 
-    .card {
-      margin-bottom: 20px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+.card:hover {
+  transform: rotateY(180deg) scale(1.1) rotateX(10deg); /* 3D FLIP + ZOOM + ANGLE */
+  box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.2); /* Soft shadow */
+}
 
-    .navbar-dark .navbar-toggler {
-      border-color: #ffffff00;
-    }
+.card-front, 
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  background: white; /* WHITE DESIGN */
+  border-radius: 15px;
+  box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.1);
+  transform: rotateY(0deg);
+  color: black;
+}
 
-    .footer {
-      background-color: #f8f9fa;
-      padding: 10px 0;
-    }
+.card-front img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+}
 
-    @media (max-width: 768px) {
-      .navbar-brand {
-        font-size: 14px;
-        /* Adjust the font size as needed */
-      }
+.card-back {
+  transform: rotateY(180deg);
+}
 
-      .logo {
-        max-width: 50px;
-        /* Adjust the max-width of the logo */
-        height: auto;
-        /* Maintain aspect ratio */
-      }
-    }
-  </style>
+.card-container:hover .card-front {
+  filter: blur(3px) brightness(0.9); /* Fade effect */
+}
+
+.card-back p, 
+.card-back a {
+  font-size: 1.1em;
+  transition: transform 0.3s ease-in-out;
+  color: black;
+  word-wrap: break-word;
+  max-width: 110%;
+}
+
+.card-back:hover p, 
+.card-back:hover a {
+  transform: scale(1.1); /* Lumalaki konti pag hover sa likod */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .card-container {
+    perspective: 1500px; /* Less depth on mobile */
+  }
+
+  .card {
+    width: 90%;  /* Adjust card width for smaller screens */
+    height: auto; /* Make height adjust automatically */
+  }
+
+  .card-front img {
+    width: 120px; /* Smaller image on mobile */
+    height: 120px;
+  }
+
+  .card-back p, 
+  .card-back a {
+    font-size: 1em; /* Adjust text size */
+  }
+}
+</style>
 </head>
 
 <!--Start of Tawk.to Script-->
@@ -103,67 +152,89 @@ s0.parentNode.insertBefore(s1,s0);
 
     <h4 class="text-center mb-4 mt-1">BELMAppv2.0 Developers</h4>
 
-    <div class="row g-4">
-      <!-- Developer 1 -->
-      <div class="col-sm-12 col-md-6 mb-3">
-        <div class="card h-100 shadow-sm" style="background-color: #fff;">
-          <div class="d-flex flex-column flex-md-row align-items-center p-3">
-            <img src="../assets/developer/andrei.png" alt="Developer 1" class="img-fluid rounded-circle mb-3 mb-md-0 me-md-3" style="width: 150px; height: 150px; object-fit: cover;">
-            <div class="text-wrap text-start ml-3">
-              <h5 class="card-title mb-0">Andrei Francezca Gonzales</h5>
-              <p class="card-title text-success"><strong>Programmer /Data Analyst</strong></p>
-              <p class="mb-1"><strong><i class="fas fa-envelope mr-1"></i> </strong> andreifrancezcagonzales.basc@gmail.com</p>
-              <p class="mb-1"><strong><i class="fab fa-facebook mr-1"></i> </strong> <a href="https://web.facebook.com/Francezca.Gonzales16" target="_blank" class="text-dark text-decoration-none">Andrei Francezca Gonzales</a></p>
-            </div>
-          </div>
+    <div class="row g-4 justify-content-center">
+  <!-- Developer 1 -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card-container">
+      <div class="card">
+        <!-- Front Side -->
+        <div class="card-front">
+          <img src="../assets/developer/andrei.png" alt="Andrei Francezca Gonzales">
+          <h5>Andrei Francezca Gonzales</h5>
+          <p class="text-success fw-bold">Programmer / Data Analyst</p>
         </div>
-      </div>
-
-      <!-- Developer 2 -->
-      <div class="col-sm-12 col-md-6 mb-3">
-        <div class="card h-100 shadow-sm" style="background-color: #fff;">
-          <div class="d-flex flex-column flex-md-row align-items-center p-3">
-            <img src="../assets/developer/kier.jpg" alt="Developer 2" class="img-fluid rounded-circle mb-3 mb-md-0 me-md-3" style="width: 150px; height: 150px; object-fit: cover;">
-            <div class="text-wrap text-start ml-3">
-              <h5 class="card-title mb-0">Kier Quizon</h5>
-              <p class="card-title text-success"><strong> Programmer /Graphic Designer</strong></p>
-              <p class="mb-1"><strong><i class="fas fa-envelope mr-1"></i></strong> kierquizon.basc@gmail.com</p>
-              <p class="mb-1"><strong><i class="fab fa-facebook mr-1"></i></strong> <a href="https://www.facebook.com/Quizonkier" target="_blank" class="text-dark text-decoration-none">Kier Quizon</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Developer 3 -->
-      <div class="col-sm-12 col-md-6 mb-3">
-        <div class="card h-100 shadow-sm" style="background-color: #fff;">
-          <div class="d-flex flex-column flex-md-row align-items-center p-3">
-            <img src="../assets/developer/paula.png" alt="Developer 3" class="img-fluid rounded-circle mb-3 mb-md-0 me-md-3" style="width: 150px; height: 150px; object-fit: cover;">
-            <div class="text-wrap text-start ml-3">
-              <h5 class="card-title mb-0">Paula Mae Samaniego</h5>
-              <p class="card-title text-success"><strong> Project Manager /Data Analyst</strong></p>
-              <p class="mb-1"><strong><i class="fas fa-envelope mr-1"></i></strong> paulamaesamaniego.basc@gmail.com</p>
-              <p class="mb-1"><strong><i class="fab fa-facebook mr-1"></i></strong> <a href="https://web.facebook.com/paulamae.samaniego.9" target="_blank" class="text-dark text-decoration-none">Paula Mae Samaniego</a></p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Developer 4 -->
-      <div class="col-sm-12 col-md-6 mb-3">
-        <div class="card h-100 shadow-sm" style="background-color: #fff;">
-          <div class="d-flex flex-column flex-md-row align-items-center p-3">
-            <img src="../assets/developer/demitri.jpg" alt="Developer 4" class="img-fluid rounded-circle mb-3 mb-md-0 me-md-3" style="width: 150px; height: 150px; object-fit: cover;">
-            <div class="text-wrap text-start ml-3">
-              <h5 class="card-title mb-0">Demitri Ivan Peralta</h5>
-              <p class="card-title text-success"><strong>Programmer /Graphic Designer</strong></p>
-              <p class="mb-1"><strong><i class="fas fa-envelope mr-1"></i></strong> demitriivanperalta.basc@gmail.com</p>
-              <p class="mb-1"><strong><i class="fab fa-facebook mr-1"></i></strong> <a href="https://web.facebook.com/demitri.inovero" target="_blank" class="text-dark text-decoration-none">Demitri Peralta</a></p>
-            </div>
-          </div>
+        <!-- Back Side -->
+        <div class="card-back">
+          <p><i class="fas fa-envelope"></i> andreifrancezcagonzales.basc@gmail.com</p>
+          <p><i class="fab fa-facebook"></i> 
+            <a href="https://web.facebook.com/Francezca.Gonzales16" target="_blank">Andrei Francezca Gonzales</a>
+          </p>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Developer 2 -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="../assets/developer/kier.jpg" alt="Kier Quizon">
+          <h5>Kier Quizon</h5>
+          <p class="text-success fw-bold">Programmer / Graphic Designer</p>
+        </div>
+        <div class="card-back">
+          <p><i class="fas fa-envelope"></i> kierquizon.basc@gmail.com</p>
+          <p><i class="fab fa-facebook"></i> 
+            <a href="https://www.facebook.com/Quizonkier" target="_blank">Kier Quizon</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer 3 -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="../assets/developer/paula.png" alt="Paula Mae Samaniego">
+          <h5>Paula Mae Samaniego</h5>
+          <p class="text-success fw-bold">Project Manager / Data Analyst</p>
+        </div>
+        <div class="card-back">
+          <p><i class="fas fa-envelope"></i> paulamaesamaniego.basc@gmail.com</p>
+          <p><i class="fab fa-facebook"></i> 
+            <a href="https://web.facebook.com/paulamae.samaniego.9" target="_blank">Paula Mae Samaniego</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Developer 4 -->
+  <div class="col-12 col-md-6 col-lg-3">
+    <div class="card-container">
+      <div class="card">
+        <div class="card-front">
+          <img src="../assets/developer/demitri.jpg" alt="Demitri Ivan Peralta">
+          <h5>Demitri Ivan Peralta</h5>
+          <p class="text-success fw-bold">Programmer / Graphic Designer</p>
+        </div>
+        <div class="card-back">
+          <p><i class="fas fa-envelope"></i> demitriivanperalta.basc@gmail.com</p>
+          <p><i class="fab fa-facebook"></i> 
+            <a href="https://web.facebook.com/demitri.inovero" target="_blank">Demitri Peralta</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   </main>
 
   <footer class="footer mt-auto text-center py-2">

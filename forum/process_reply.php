@@ -36,4 +36,5 @@ session_start();
 
   $stmt->close();
   $conn->close();
+  
 ?>
